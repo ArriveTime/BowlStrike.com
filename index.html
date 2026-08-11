@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BowlStrike.com - The Ultimate Neon Bowling Community & Resource Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BowlStrike.com - National Bowling Hub</title>
 
   <!-- Leaflet CSS for Map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -16,8 +16,9 @@
       --primary-dark: #b20710;
       --accent: #ffb300;
       --neon-red: #ff3c3c;
-      --dark-bg: #0f0f0f;
-      --card-bg: #1c1c1c;
+      --neon-blue: #00e5ff;
+      --dark-bg: #0a0a0c;
+      --card-bg: #18181c;
       --text: #ffffff;
       --text-muted: #b0bec5;
       --danger: #d32f2f;
@@ -25,108 +26,123 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; }
+    body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
     /* Header & Navigation */
     header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-    .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,60,60,0.5); }
+    .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,60,60,0.8); }
     .logo span { color: var(--primary); }
-    nav a { color: var(--text-muted); text-decoration: none; margin-left: 1.2rem; font-weight: 600; transition: color 0.3s; }
+    nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+    nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
     nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
 
     /* ==========================================================================
-       HERO BANNER - DYNAMIC NEON / FIRE BOWL GRAPHIC OVERLAY
+       HERO BANNER - FULLY RESPONSIVE NEON BOWL IMAGE CONTAINER
        ========================================================================== */
     .hero-banner {
       position: relative;
-      background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(20,0,10,0.7), rgba(0,0,0,0.9)), 
-                  url('https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-      padding: 6rem 1rem;
+      background: #000;
       text-align: center;
       border-bottom: 4px solid var(--primary);
-      box-shadow: 0 0 35px rgba(229,9,20,0.6);
-      overflow: hidden;
+      box-shadow: 0 0 30px rgba(229,9,20,0.5);
     }
 
-    /* Glow Overlay Effects for Neon Lanes & Fire Effect */
-    .hero-banner::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 50% 80%, rgba(255, 60, 0, 0.35), rgba(229, 9, 20, 0.2), transparent 70%);
-      pointer-events: none;
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 380px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(10,10,12,0.95) 100%),
+                  url('https://www.neon-entertainment.com/wp-content/uploads/2022/11/Website-Page-Images-7.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem;
     }
 
-    .hero-content { position: relative; z-index: 2; }
-    .hero-banner h1 { font-size: 4.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1), 0 0 10px rgba(255,179,0,0.8); margin-bottom: 0.5rem; }
+    .hero-content { position: relative; z-index: 10; max-width: 800px; }
+    .hero-banner h1 { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 20px rgba(229,9,20,1), 0 0 10px rgba(255,179,0,0.8); margin-bottom: 0.5rem; }
     .hero-banner h1 span { color: #ff5252; text-shadow: 0 0 30px rgba(255,82,82,1); }
-    .hero-banner p { font-size: 1.35rem; color: #fff; max-width: 800px; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 10px rgba(0,0,0,1); font-weight: 600; }
+    .hero-banner p { font-size: 1.2rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 8px rgba(0,0,0,1); font-weight: 600; }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+    /* MOBILE SPECIFIC MEDIA QUERY (Fixes Cell Phone Clipping) */
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 0.8rem; text-align: center; }
+      nav { justify-content: center; }
+      .hero-image-wrapper {
+        min-height: 260px;
+        background-size: contain;
+        background-position: top center;
+        padding: 2rem 0.8rem;
+      }
+      .hero-banner h1 { font-size: 2.2rem; }
+      .hero-banner p { font-size: 0.95rem; }
+      .btn { width: 100%; text-align: center; }
+    }
+
     /* Utility Classes */
-    .container { max-width: 1200px; margin: 2.5rem auto; padding: 0 1rem; }
-    .section-title { font-size: 2rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; text-shadow: 0 0 5px rgba(255,60,60,0.3); }
-    .card { background: var(--card-bg); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: background 0.3s, box-shadow 0.3s; box-shadow: 0 0 8px rgba(229,9,20,0.5); }
-    .btn:hover { background: var(--primary-dark); box-shadow: 0 0 18px rgba(229,9,20,0.8); }
-    .btn-secondary { background: #333; color: #fff; box-shadow: 0 0 5px rgba(255,255,255,0.1); }
-    .btn-secondary:hover { background: #444; box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; text-shadow: 0 0 5px rgba(255,60,60,0.3); }
+    .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: background 0.3s; box-shadow: 0 0 8px rgba(229,9,20,0.5); }
+    .btn:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #333; color: #fff; }
+    .btn-secondary:hover { background: #444; }
     .btn-danger { background: var(--danger); }
     .btn-danger:hover { background: #9a0007; }
 
-    /* News Grid & Live Links */
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem; }
-    .news-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-    .news-card h3 a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
-    .news-card h3 a:hover { text-decoration: underline; color: #fff; text-shadow: 0 0 5px var(--accent); }
-    .news-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
-    .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.78rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
+    /* News Grid */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+    .news-card { border: 1px solid #282830; }
+    .news-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .news-card h3 a { color: var(--accent); text-decoration: none; display: block; }
+    .news-card h3 a:hover { text-decoration: underline; color: #fff; }
+    .news-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
 
-    /* Zip Code Search & Map Container */
+    /* Search & Map */
     .search-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .search-box input { flex: 1; min-width: 250px; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
-    #map { height: 420px; width: 100%; border-radius: 8px; margin-bottom: 1rem; z-index: 1; box-shadow: 0 0 15px rgba(255,60,60,0.2); background: #222; }
-    .map-fallback { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 3.5rem; text-align: right; }
+    .search-box input { flex: 1; min-width: 200px; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
+    #map { height: 350px; width: 100%; border-radius: 8px; margin-bottom: 1rem; z-index: 1; background: #222; }
+    .map-fallback { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 3rem; text-align: right; }
     .map-fallback a { color: var(--accent); text-decoration: underline; }
 
-    /* Video Upload & Community Feed */
-    .video-form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; border: 1px solid #333; }
+    /* Video Community */
+    .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; border: 1px solid #333; }
     .video-form input, .video-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
-    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem; }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
     .video-card video { width: 100%; border-radius: 6px; background: #000; margin-bottom: 0.5rem; }
     .video-actions { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
-    .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; }
+    .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
     .action-btn i { color: var(--primary); }
-    .comments-list { margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid #333; padding-top: 0.5rem; }
+    .comments-list { margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid #333; padding-top: 0.5rem; }
 
-    /* Contact Form */
-    .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 650px; margin-bottom: 3.5rem; border: 1px solid #333; }
+    /* Contact */
+    .contact-form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 650px; margin-bottom: 3rem; border: 1px solid #333; }
     .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
 
-    /* Footer & Legal Disclaimer */
-    footer { background: #000; padding: 2.5rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); }
-    .legal-disclaimer { max-width: 950px; margin: 0 auto 1.5rem auto; padding: 1.2rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.5; text-align: justify; }
-    .admin-link { color: #555; text-decoration: none; font-size: 0.78rem; margin-top: 1rem; display: inline-block; }
-    .admin-link:hover { color: var(--text-muted); }
+    /* Footer */
+    footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.82rem; color: var(--text-muted); }
+    .legal-disclaimer { max-width: 950px; margin: 0 auto 1.2rem auto; padding: 1rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.4; text-align: justify; }
+    .admin-link { color: #555; text-decoration: none; font-size: 0.75rem; margin-top: 0.8rem; display: inline-block; }
 
-    /* Modal Styling */
+    /* Modal */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-    .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 8px; width: 92%; max-width: 1000px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 0.8rem; }
-    .close-btn { font-size: 1.8rem; cursor: pointer; color: var(--text-muted); }
-    .admin-tabs { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .admin-tab { padding: 0.5rem 1rem; background: #2a2a2a; color: #fff; border: none; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
-    .admin-tab:hover { background: #3a3a3a; }
+    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+    .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+    .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .admin-tab { padding: 0.4rem 0.8rem; background: #2a2a2a; color: #fff; border: none; cursor: pointer; border-radius: 4px; font-size: 0.85rem; }
     .admin-tab.active { background: var(--primary); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { border: 1px solid #333; padding: 0.6rem; text-align: left; font-size: 0.85rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; word-break: break-word; }
+    th, td { border: 1px solid #333; padding: 0.5rem; text-align: left; font-size: 0.8rem; }
     th { background: #111; color: var(--accent); }
-    .badge-blocked { background: var(--danger); color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.75rem; }
-    .badge-active { background: var(--success); color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.75rem; }
   </style>
 
   <!-- EmailJS SDK -->
@@ -147,14 +163,16 @@
     </div>
   </header>
 
-  <!-- MAIN LANDING HERO BANNER WITH NEON BOWL GRAPHICS -->
+  <!-- MAIN LANDING HERO BANNER WITH RESPONSIVE NEON GRAPHIC -->
   <section class="hero-banner">
-    <div class="hero-content">
-      <h1>Bowl<span>Strike</span>.com</h1>
-      <p>Your Live National Hub — National News, Zip Search for Local Lanes, Player Profiles & Fire Highlight Feeds</p>
-      <div class="hero-buttons">
-        <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Bowling Center</a>
-        <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read National News</a>
+    <div class="hero-image-wrapper">
+      <div class="hero-content">
+        <h1>Bowl<span>Strike</span>.com</h1>
+        <p>National Tenpin Hub — Live Tournament News, Zip Alley Search, Player Profiles & Highlight Feeds</p>
+        <div class="hero-buttons">
+          <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Center</a>
+          <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
+        </div>
       </div>
     </div>
   </section>
@@ -165,7 +183,23 @@
     <section id="news">
       <h2 class="section-title">National Bowling News Feed</h2>
       <div class="news-grid" id="news-container">
-        <!-- Dynamically injected headlines -->
+        <div class="card news-card">
+          <h3><a href="https://www.pba.com/news" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> PBA Tour Official Championship Results & Scores</a></h3>
+          <p>Direct match play scores, oil pattern notes, and bracket updates straight from the PBA Tour newsroom.</p>
+          <div class="news-meta"><span>PBA.com Official</span><span>Live Link</span></div>
+        </div>
+
+        <div class="card news-card">
+          <h3><a href="https://bowl.com/news" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> USBC National Event Regulations & Standings</a></h3>
+          <p>Official announcements on national event schedules, sanctioned lane patterns, and ball specification updates.</p>
+          <div class="news-meta"><span>USBC bowl.com</span><span>Live Link</span></div>
+        </div>
+
+        <div class="card news-card">
+          <h3><a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Bowling Digital International Championship Headlines</a></h3>
+          <p>Global tenpin tournament updates, core & coverstock tech updates, and world rankings across all series.</p>
+          <div class="news-meta"><span>BowlingDigital</span><span>Live Link</span></div>
+        </div>
       </div>
     </section>
 
@@ -173,7 +207,7 @@
     <section id="locator">
       <h2 class="section-title">Find Bowling Centers Near You</h2>
       <div class="search-box">
-        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210, Orlando, Chicago)..." />
+        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210, Orlando)..." />
         <button class="btn" onclick="searchBowlingCenters()"><i class="fa-solid fa-magnifying-glass"></i> Search Centers</button>
       </div>
       <div id="map"></div>
@@ -185,18 +219,15 @@
     <!-- Section 3: Video Upload & Community Profiles -->
     <section id="community">
       <h2 class="section-title">Player Profiles & Video Feed</h2>
-      
       <div class="card video-form">
         <h3>Post Your Highlight Video</h3>
         <input type="text" id="player-name" placeholder="Your Player Name / Handle" required />
-        <input type="text" id="video-title" placeholder="Video Title (e.g., Bowlero 300 Game Fire Frame)" required />
+        <input type="text" id="video-title" placeholder="Video Title (e.g., Bowlero 300 Game High Frame)" required />
         <input type="file" id="video-file" accept="video/*" required />
         <button class="btn" onclick="uploadVideo()">Upload Video & Update Profile</button>
       </div>
 
-      <div class="video-grid" id="video-feed">
-        <!-- Dynamically injected video posts -->
-      </div>
+      <div class="video-grid" id="video-feed"></div>
     </section>
 
     <!-- Section 4: Contact Form -->
@@ -205,7 +236,7 @@
       <form class="card contact-form" id="contact-form" onsubmit="sendEmail(event)">
         <input type="text" id="contact-name" name="from_name" placeholder="Your Full Name" required />
         <input type="email" id="contact-email" name="reply_to" placeholder="Your Email Address" required />
-        <textarea id="contact-message" name="message" rows="5" placeholder="Your Message..." required></textarea>
+        <textarea id="contact-message" name="message" rows="4" placeholder="Your Message..." required></textarea>
         <button type="submit" class="btn">Send Email</button>
       </form>
     </section>
@@ -221,7 +252,7 @@
     <a href="#" class="admin-link" onclick="openAdminModal(event)">admin</a>
   </footer>
 
-  <!-- Admin Modal: Visitor Logs & Account Moderation -->
+  <!-- Admin Modal -->
   <div class="modal" id="admin-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -230,125 +261,58 @@
       </div>
 
       <div class="admin-tabs">
-        <button class="admin-tab active" onclick="switchTab('visitors')"><i class="fa-solid fa-users"></i> Visitor Traffic</button>
-        <button class="admin-tab" onclick="switchTab('accounts')"><i class="fa-solid fa-user-gear"></i> Account Management</button>
-        <button class="admin-tab" onclick="switchTab('content')"><i class="fa-solid fa-shield-halved"></i> Content Moderation</button>
+        <button class="admin-tab active" onclick="switchTab('visitors')">Visitor Traffic</button>
+        <button class="admin-tab" onclick="switchTab('accounts')">Account Management</button>
+        <button class="admin-tab" onclick="switchTab('content')">Content Moderation</button>
       </div>
 
-      <!-- Tab 1: Real-time Visitor Logs -->
       <div id="tab-visitors" class="tab-content active">
         <h4>Real-Time Visitor Log (Descending Order)</h4>
         <table>
           <thead>
-            <tr>
-              <th>Date & Time</th>
-              <th>City</th>
-              <th>State</th>
-              <th>IP Address</th>
-            </tr>
+            <tr><th>Date & Time</th><th>City</th><th>State</th><th>IP Address</th></tr>
           </thead>
           <tbody id="visitor-log-body"></tbody>
         </table>
       </div>
 
-      <!-- Tab 2: Account Management (Add, Delete, Block) -->
       <div id="tab-accounts" class="tab-content">
         <h4>Registered Player Accounts</h4>
-        <div style="display:flex; gap:0.5rem; margin:1rem 0; flex-wrap:wrap;">
-          <input type="text" id="new-user-input" placeholder="New Player Name..." style="padding:0.5rem; background:#222; color:#fff; border:1px solid #444; border-radius:4px; flex:1;" />
-          <button class="btn" onclick="adminAddUser()">Add Account</button>
+        <div style="display:flex; gap:0.5rem; margin:0.8rem 0; flex-wrap:wrap;">
+          <input type="text" id="new-user-input" placeholder="New Player Name..." style="padding:0.4rem; background:#222; color:#fff; border:1px solid #444; border-radius:4px; flex:1;" />
+          <button class="btn" style="padding:0.4rem 0.8rem;" onclick="adminAddUser()">Add Account</button>
         </div>
         <table>
           <thead>
-            <tr>
-              <th>Username</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
+            <tr><th>Username</th><th>Status</th><th>Actions</th></tr>
           </thead>
           <tbody id="user-accounts-body"></tbody>
         </table>
       </div>
 
-      <!-- Tab 3: Content Moderation -->
       <div id="tab-content" class="tab-content">
         <h4>Live Community Video Posts</h4>
         <table>
           <thead>
-            <tr>
-              <th>Player</th>
-              <th>Video Title</th>
-              <th>Actions</th>
-            </tr>
+            <tr><th>Player</th><th>Video Title</th><th>Actions</th></tr>
           </thead>
           <tbody id="content-moderation-body"></tbody>
         </table>
       </div>
-
     </div>
   </div>
 
   <!-- Leaflet Map Script -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
   <script>
-    /* ==========================================================================
-       1. INITIALIZATION & EMAILJS
-       ========================================================================== */
     (function() {
-      // Configure EmailJS Public Key
       emailjs.init("YOUR_PUBLIC_KEY");
       trackVisitor();
       initAccounts();
-      fetchLiveNews();
       initMap();
     })();
 
-    /* ==========================================================================
-       2. LIVE NATIONAL BOWLING NEWS ENGINE (DIRECT AUTO-LOAD GUARANTEED)
-       ========================================================================== */
-    function fetchLiveNews() {
-      const newsContainer = document.getElementById('news-container');
-      
-      const liveStories = [
-        {
-          title: "PBA Tour Coverage & Official Match Play Scores",
-          link: "https://www.pba.com/news",
-          snippet: "Catch up on live tournament standings, oil pattern breakdown notes, and national championship results.",
-          source: "PBA Tour",
-          date: new Date().toLocaleDateString()
-        },
-        {
-          title: "USBC National Tournament Standings & Equipment Guidelines",
-          link: "https://bowl.com/news",
-          snippet: "Official announcements on national event schedules, sanctioned lane patterns, and ball specification updates.",
-          source: "USBC",
-          date: new Date().toLocaleDateString()
-        },
-        {
-          title: "Bowling Digital International Championship Headlines",
-          link: "https://www.bowlingdigital.com/",
-          snippet: "Global tenpin results, core & coverstock tech updates, and world rankings across all major series.",
-          source: "Bowling Digital",
-          date: new Date().toLocaleDateString()
-        }
-      ];
-
-      newsContainer.innerHTML = liveStories.map(item => `
-        <div class="card news-card">
-          <h3><a href="${item.link}" target="_blank" rel="noopener">${item.title}</a></h3>
-          <p>${item.snippet}</p>
-          <div class="news-meta">
-            <span><i class="fa-solid fa-newspaper"></i> ${item.source}</span>
-            <span><i class="fa-regular fa-clock"></i> ${item.date}</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    /* ==========================================================================
-       3. ZIP CODE BOWLING LOCATOR ENGINE (LEAFLET + OVERPASS API)
-       ========================================================================== */
     let map;
     let markers = [];
 
@@ -364,7 +328,6 @@
       const zip = document.getElementById('zip-input').value.trim();
       if(!zip) { alert('Please enter a Zip Code or City.'); return; }
 
-      // Update Fallback Google Link
       document.getElementById('google-maps-link').href = `https://www.google.com/maps/search/bowling+alley+near+${encodeURIComponent(zip)}`;
 
       try {
@@ -377,7 +340,6 @@
         const lon = parseFloat(geoData[0].lon);
         map.setView([lat, lon], 11);
 
-        // Fetch Nearby Bowling Alleys
         const overpassQuery = `
           [out:json][timeout:25];
           (
@@ -391,13 +353,9 @@
           out center;
         `;
 
-        const alleyRes = await fetch('https://overpass-api.de/api/interpreter', {
-          method: 'POST',
-          body: overpassQuery
-        });
+        const alleyRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery });
         const alleyData = await alleyRes.json();
 
-        // Clear existing markers
         markers.forEach(m => map.removeLayer(m));
         markers = [];
 
@@ -417,25 +375,14 @@
             markers.push(marker);
           }
         });
-
       } catch (err) {
         console.error(err);
         alert('Error retrieving locations. Click the Google Maps link below for direct search results.');
       }
     }
 
-    /* ==========================================================================
-       4. COMMUNITY VIDEO FEED & ACCOUNTS / BLOCKING
-       ========================================================================== */
     let communityPosts = [
-      {
-        id: 1,
-        player: "NeonRanger",
-        title: "Neon 10th Frame Fire Strike at Bowlero",
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-        likes: 22,
-        comments: ["Amazing action!", "The ball looked invisible!"]
-      }
+      { id: 1, player: "NeonRanger", title: "Neon 10th Frame Strike at Bowlero", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", likes: 22, comments: ["Amazing action!"] }
     ];
 
     function initAccounts() {
@@ -459,12 +406,7 @@
         const isBlocked = userObj && userObj.status === 'blocked';
 
         if(isBlocked) {
-          return `
-            <div class="card video-card" style="opacity:0.5;">
-              <h4>[Content Hidden]</h4>
-              <p style="font-size:0.85rem; color:var(--danger);">This user (@${post.player}) has been blocked by administrators.</p>
-            </div>
-          `;
+          return `<div class="card video-card" style="opacity:0.5;"><h4>[Content Hidden]</h4><p style="font-size:0.8rem; color:var(--danger);">User blocked by admin.</p></div>`;
         }
 
         return `
@@ -479,7 +421,7 @@
               <strong>Comments (${post.comments.length}):</strong>
               ${post.comments.map(c => `<div style="margin-top:2px;">• ${c}</div>`).join('')}
               <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
-                <input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="padding:0.3rem; flex:1; border-radius:3px; border:1px solid #444; background:#111; color:#fff; font-size:0.8rem;" />
+                <input type="text" id="comment-input-${post.id}" placeholder="Add comment..." style="padding:0.3rem; flex:1; border-radius:3px; border:1px solid #444; background:#111; color:#fff; font-size:0.8rem;" />
                 <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="addComment(${post.id})">Post</button>
               </div>
             </div>
@@ -496,15 +438,8 @@
       const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
       const userObj = users.find(u => u.username.toLowerCase() === name.toLowerCase());
 
-      if(userObj && userObj.status === 'blocked') {
-        alert("Account blocked. You are not allowed to post content.");
-        return;
-      }
-
-      if (!name || !title || fileInput.files.length === 0) {
-        alert("Please fill out all fields and select a video file.");
-        return;
-      }
+      if(userObj && userObj.status === 'blocked') { alert("Account blocked."); return; }
+      if (!name || !title || fileInput.files.length === 0) { alert("Please fill out all fields."); return; }
 
       const file = fileInput.files[0];
       const videoBlobUrl = URL.createObjectURL(file);
@@ -514,15 +449,7 @@
         localStorage.setItem('bowlstrike_users', JSON.stringify(users));
       }
 
-      communityPosts.unshift({
-        id: Date.now(),
-        player: name,
-        title: title,
-        videoUrl: videoBlobUrl,
-        likes: 0,
-        comments: []
-      });
-
+      communityPosts.unshift({ id: Date.now(), player: name, title: title, videoUrl: videoBlobUrl, likes: 0, comments: [] });
       renderFeed();
       document.getElementById('player-name').value = '';
       document.getElementById('video-title').value = '';
@@ -544,123 +471,64 @@
       }
     }
 
-    /* ==========================================================================
-       5. CONTACT FORM
-       ========================================================================== */
     function sendEmail(e) {
       e.preventDefault();
       emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target)
-        .then(() => {
-          alert("Thank you! Your email was sent. An auto-reply will confirm receipt.");
-          document.getElementById('contact-form').reset();
-        }, (err) => {
-          alert("Email process completed! For external delivery, enter your EmailJS credentials in script.");
-          document.getElementById('contact-form').reset();
-        });
+        .then(() => { alert("Thank you! Your email was sent."); document.getElementById('contact-form').reset(); },
+              () => { alert("Email processed! Add EmailJS credentials to enable real inbox delivery."); document.getElementById('contact-form').reset(); });
     }
 
-    /* ==========================================================================
-       6. ADMIN CONTROL CENTER (VISITOR LOGS, ACCOUNTS, MODERATION)
-       ========================================================================== */
     async function trackVisitor() {
       let logs = JSON.parse(localStorage.getItem('bowlstrike_visitor_logs') || '[]');
       try {
         const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
-        logs.push({
-          timestamp: new Date().toLocaleString(),
-          city: data.city || 'Unknown',
-          state: data.region || 'Unknown',
-          ip: data.ip || '127.0.0.1',
-          rawTime: Date.now()
-        });
+        logs.push({ timestamp: new Date().toLocaleString(), city: data.city || 'Unknown', state: data.region || 'Unknown', ip: data.ip || '127.0.0.1', rawTime: Date.now() });
       } catch (e) {
-        logs.push({
-          timestamp: new Date().toLocaleString(),
-          city: 'Local Session',
-          state: 'Client',
-          ip: '127.0.0.1',
-          rawTime: Date.now()
-        });
+        logs.push({ timestamp: new Date().toLocaleString(), city: 'Local Session', state: 'Client', ip: '127.0.0.1', rawTime: Date.now() });
       }
       localStorage.setItem('bowlstrike_visitor_logs', JSON.stringify(logs));
     }
 
-    function openAdminModal(e) {
-      e.preventDefault();
-      renderAdminData();
-      document.getElementById('admin-modal').style.display = 'flex';
-    }
-
-    function closeAdminModal() {
-      document.getElementById('admin-modal').style.display = 'none';
-    }
+    function openAdminModal(e) { e.preventDefault(); renderAdminData(); document.getElementById('admin-modal').style.display = 'flex'; }
+    function closeAdminModal() { document.getElementById('admin-modal').style.display = 'none'; }
 
     function switchTab(tabName) {
       document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-      if(tabName === 'visitors') {
-        document.querySelectorAll('.admin-tab')[0].classList.add('active');
-        document.getElementById('tab-visitors').classList.add('active');
-      } else if(tabName === 'accounts') {
-        document.querySelectorAll('.admin-tab')[1].classList.add('active');
-        document.getElementById('tab-accounts').classList.add('active');
-      } else {
-        document.querySelectorAll('.admin-tab')[2].classList.add('active');
-        document.getElementById('tab-content').classList.add('active');
-      }
+      if(tabName === 'visitors') { document.querySelectorAll('.admin-tab')[0].classList.add('active'); document.getElementById('tab-visitors').classList.add('active'); }
+      else if(tabName === 'accounts') { document.querySelectorAll('.admin-tab')[1].classList.add('active'); document.getElementById('tab-accounts').classList.add('active'); }
+      else { document.querySelectorAll('.admin-tab')[2].classList.add('active'); document.getElementById('tab-content').classList.add('active'); }
     }
 
     function renderAdminData() {
-      // Render Visitors
       const logs = JSON.parse(localStorage.getItem('bowlstrike_visitor_logs') || '[]');
       logs.sort((a, b) => b.rawTime - a.rawTime);
-      document.getElementById('visitor-log-body').innerHTML = logs.map(l => `
-        <tr><td>${l.timestamp}</td><td>${l.city}</td><td>${l.state}</td><td>${l.ip}</td></tr>
-      `).join('');
+      document.getElementById('visitor-log-body').innerHTML = logs.map(l => `<tr><td>${l.timestamp}</td><td>${l.city}</td><td>${l.state}</td><td>${l.ip}</td></tr>`).join('');
 
-      // Render Accounts
       const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
       document.getElementById('user-accounts-body').innerHTML = users.map((u, idx) => `
-        <tr>
-          <td>@${u.username}</td>
-          <td><span class="${u.status === 'blocked' ? 'badge-blocked' : 'badge-active'}">${u.status.toUpperCase()}</span></td>
-          <td>
-            <button class="btn ${u.status === 'blocked' ? '' : 'btn-danger'}" style="padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="toggleBlockUser(${idx})">
-              ${u.status === 'blocked' ? 'Unblock' : 'Block'}
-            </button>
-            <button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="adminDeleteUser(${idx})">Delete</button>
-          </td>
-        </tr>
-      `).join('');
+        <tr><td>@${u.username}</td><td>${u.status.toUpperCase()}</td><td>
+          <button class="btn" style="padding:0.2rem 0.4rem; font-size:0.7rem;" onclick="toggleBlockUser(${idx})">${u.status === 'blocked' ? 'Unblock' : 'Block'}</button>
+          <button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.7rem;" onclick="adminDeleteUser(${idx})">Delete</button>
+        </td></tr>`).join('');
 
-      // Render Content Moderation
       document.getElementById('content-moderation-body').innerHTML = communityPosts.map(p => `
-        <tr>
-          <td>@${p.player}</td>
-          <td>${p.title}</td>
-          <td>
-            <button class="btn btn-danger" style="padding:0.2rem 0.5rem; font-size:0.75rem;" onclick="adminDeletePost(${p.id})">Delete Post</button>
-          </td>
-        </tr>
-      `).join('');
+        <tr><td>@${p.player}</td><td>${p.title}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.7rem;" onclick="adminDeletePost(${p.id})">Delete</button></td></tr>`).join('');
     }
 
     function toggleBlockUser(idx) {
       const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
       users[idx].status = users[idx].status === 'blocked' ? 'active' : 'blocked';
       localStorage.setItem('bowlstrike_users', JSON.stringify(users));
-      renderAdminData();
-      renderFeed();
+      renderAdminData(); renderFeed();
     }
 
     function adminDeleteUser(idx) {
       let users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
       users.splice(idx, 1);
       localStorage.setItem('bowlstrike_users', JSON.stringify(users));
-      renderAdminData();
-      renderFeed();
+      renderAdminData(); renderFeed();
     }
 
     function adminAddUser() {
@@ -677,8 +545,7 @@
 
     function adminDeletePost(postId) {
       communityPosts = communityPosts.filter(p => p.id !== postId);
-      renderAdminData();
-      renderFeed();
+      renderAdminData(); renderFeed();
     }
   </script>
 </body>
