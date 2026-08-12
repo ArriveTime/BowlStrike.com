@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>BowlStrike.com - National Bowling Hub</title>
 
-  <!-- Leaflet CSS for Map -->
+  <!-- Leaflet CSS for Interactive Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -17,8 +17,9 @@
       --accent: #ffb300;
       --neon-red: #ff3c3c;
       --neon-blue: #00e5ff;
-      --dark-bg: #0a0a0c;
-      --card-bg: #18181c;
+      --neon-green: #39ff14;
+      --dark-bg: #070709;
+      --card-bg: #141418;
       --text: #ffffff;
       --text-muted: #b0bec5;
       --danger: #d32f2f;
@@ -31,55 +32,124 @@
     /* Header & Navigation */
     header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-    .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,60,60,0.8); }
+    .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 12px rgba(255,60,60,0.9); }
     .logo span { color: var(--primary); }
     nav { display: flex; gap: 1rem; flex-wrap: wrap; }
     nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
     nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
 
     /* ==========================================================================
-       HERO BANNER - FULLY RESPONSIVE NEON BOWL IMAGE CONTAINER
+       HERO BANNER - CUSTOM DRAMATIC NEON LANES + FIRE-TRACED BALL (NO DOOR)
        ========================================================================== */
     .hero-banner {
       position: relative;
       background: #000;
       text-align: center;
       border-bottom: 4px solid var(--primary);
-      box-shadow: 0 0 30px rgba(229,9,20,0.5);
+      box-shadow: 0 0 40px rgba(229,9,20,0.6);
+      overflow: hidden;
+      padding: 4rem 1rem 3rem 1rem;
     }
 
-    .hero-image-wrapper {
+    /* Dramatic Perspective Lane Graphics */
+    .hero-lane-stage {
       position: relative;
+      max-width: 900px;
+      height: 180px;
+      margin: 0 auto 1.5rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    /* Blacklight Neon Lanes perspective */
+    .lane-perspective {
+      position: absolute;
       width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      min-height: 380px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(10,10,12,0.95) 100%),
-                  url('https://www.neon-entertainment.com/wp-content/uploads/2022/11/Website-Page-Images-7.png') center/cover no-repeat;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(57,255,20,0.2) 0%, rgba(0,229,255,0.4) 50%, rgba(229,9,20,0.8) 100%);
+      clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+      box-shadow: inset 0 0 30px rgba(0,229,255,0.8);
+      border-bottom: 4px solid var(--neon-blue);
+    }
+
+    /* Glowing Pins at the end of the lane */
+    .glowing-pins {
+      position: absolute;
+      top: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 3;
+    }
+    .pin {
+      width: 8px;
+      height: 22px;
+      background: #fff;
+      border-radius: 4px 4px 2px 2px;
+      box-shadow: 0 0 10px #00e5ff, 0 0 20px #fff;
+    }
+
+    /* Fire-Traced Bowling Ball Down Lane */
+    .fire-ball-container {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding: 3rem 1rem;
     }
 
-    .hero-content { position: relative; z-index: 10; max-width: 800px; }
-    .hero-banner h1 { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 20px rgba(229,9,20,1), 0 0 10px rgba(255,179,0,0.8); margin-bottom: 0.5rem; }
+    .fire-ball {
+      width: 46px;
+      height: 46px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #ffb300 40%, #ff3c3c 75%, #000);
+      border-radius: 50%;
+      box-shadow: 0 0 20px #ff3c3c, 0 0 40px #ffb300, 0 0 60px #e50914;
+      animation: ballGlow 1.2s infinite alternate;
+    }
+
+    /* Fire Trail Effect behind the Ball */
+    .fire-trail {
+      width: 18px;
+      height: 90px;
+      background: linear-gradient(180deg, rgba(255,60,60,0.95), rgba(255,179,0,0.8), transparent);
+      border-radius: 50% 50% 0 0;
+      filter: blur(2px);
+      box-shadow: 0 0 25px #ff3c3c, 0 0 50px #ffb300;
+      animation: trailBurn 0.8s infinite alternate;
+      margin-top: -5px;
+    }
+
+    @keyframes ballGlow {
+      0% { transform: scale(0.96); box-shadow: 0 0 18px #ff3c3c, 0 0 35px #ffb300; }
+      100% { transform: scale(1.04); box-shadow: 0 0 28px #ff3c3c, 0 0 55px #ffb300, 0 0 75px #e50914; }
+    }
+
+    @keyframes trailBurn {
+      0% { height: 80px; opacity: 0.8; }
+      100% { height: 105px; opacity: 1; }
+    }
+
+    .hero-content { position: relative; z-index: 10; max-width: 850px; margin: 0 auto; }
+    .hero-banner h1 { font-size: 3.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1), 0 0 10px rgba(255,179,0,0.8); margin-bottom: 0.5rem; }
     .hero-banner h1 span { color: #ff5252; text-shadow: 0 0 30px rgba(255,82,82,1); }
-    .hero-banner p { font-size: 1.2rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 8px rgba(0,0,0,1); font-weight: 600; }
+    .hero-banner p { font-size: 1.25rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 10px rgba(0,0,0,1); font-weight: 600; }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    /* MOBILE SPECIFIC MEDIA QUERY (Fixes Cell Phone Clipping) */
+    /* MOBILE ADJUSTMENTS */
     @media (max-width: 768px) {
       .nav-container { flex-direction: column; gap: 0.8rem; text-align: center; }
       nav { justify-content: center; }
-      .hero-image-wrapper {
-        min-height: 260px;
-        background-size: contain;
-        background-position: top center;
-        padding: 2rem 0.8rem;
-      }
-      .hero-banner h1 { font-size: 2.2rem; }
+      .hero-banner { padding: 2.5rem 0.8rem; }
+      .hero-lane-stage { height: 130px; }
+      .fire-ball { width: 36px; height: 36px; }
+      .fire-trail { height: 60px; }
+      .hero-banner h1 { font-size: 2.3rem; }
       .hero-banner p { font-size: 0.95rem; }
       .btn { width: 100%; text-align: center; }
     }
@@ -90,8 +160,8 @@
     .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: background 0.3s; box-shadow: 0 0 8px rgba(229,9,20,0.5); }
     .btn:hover { background: var(--primary-dark); }
-    .btn-secondary { background: #333; color: #fff; }
-    .btn-secondary:hover { background: #444; }
+    .btn-secondary { background: #25252b; color: #fff; }
+    .btn-secondary:hover { background: #35353d; }
     .btn-danger { background: var(--danger); }
     .btn-danger:hover { background: #9a0007; }
 
@@ -107,9 +177,8 @@
     /* Search & Map */
     .search-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .search-box input { flex: 1; min-width: 200px; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
-    #map { height: 350px; width: 100%; border-radius: 8px; margin-bottom: 1rem; z-index: 1; background: #222; }
-    .map-fallback { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 3rem; text-align: right; }
-    .map-fallback a { color: var(--accent); text-decoration: underline; }
+    #map { height: 380px; width: 100%; border-radius: 8px; margin-bottom: 1rem; z-index: 1; background: #1a1a1e; border: 1px solid #333; }
+    .map-status { font-size: 0.85rem; color: var(--accent); margin-top: 0.4rem; }
 
     /* Video Community */
     .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; border: 1px solid #333; }
@@ -163,16 +232,25 @@
     </div>
   </header>
 
-  <!-- MAIN LANDING HERO BANNER WITH RESPONSIVE NEON GRAPHIC -->
+  <!-- HERO BANNER WITH NEON LANES AND FIRE-TRACED BALL -->
   <section class="hero-banner">
-    <div class="hero-image-wrapper">
-      <div class="hero-content">
-        <h1>Bowl<span>Strike</span>.com</h1>
-        <p>National Tenpin Hub — Live Tournament News, Zip Alley Search, Player Profiles & Highlight Feeds</p>
-        <div class="hero-buttons">
-          <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Center</a>
-          <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
-        </div>
+    <div class="hero-lane-stage">
+      <div class="lane-perspective"></div>
+      <div class="glowing-pins">
+        <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+      </div>
+      <div class="fire-ball-container">
+        <div class="fire-ball"></div>
+        <div class="fire-trail"></div>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <h1>Bowl<span>Strike</span>.com</h1>
+      <p>National Tenpin Hub — Live Tournament News, Zip Alley Search, Player Profiles & Highlight Feeds</p>
+      <div class="hero-buttons">
+        <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Center</a>
+        <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
       </div>
     </div>
   </section>
@@ -203,17 +281,15 @@
       </div>
     </section>
 
-    <!-- Section 2: Zip Code Locator -->
+    <!-- Section 2: Zip Code Locator Map -->
     <section id="locator">
       <h2 class="section-title">Find Bowling Centers Near You</h2>
       <div class="search-box">
-        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210, Orlando)..." />
-        <button class="btn" onclick="searchBowlingCenters()"><i class="fa-solid fa-magnifying-glass"></i> Search Centers</button>
+        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210, Orlando, Chicago)..." />
+        <button class="btn" onclick="searchBowlingCenters()"><i class="fa-solid fa-magnifying-glass"></i> Search Map</button>
       </div>
       <div id="map"></div>
-      <div class="map-fallback">
-        Can't find a center? <a id="google-maps-link" href="https://www.google.com/maps/search/bowling+alley+near+me" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open direct Google Maps bowling search</a>
-      </div>
+      <div id="map-status-msg" class="map-status"></div>
     </section>
 
     <!-- Section 3: Video Upload & Community Profiles -->
@@ -326,29 +402,34 @@
 
     async function searchBowlingCenters() {
       const zip = document.getElementById('zip-input').value.trim();
+      const statusEl = document.getElementById('map-status-msg');
       if(!zip) { alert('Please enter a Zip Code or City.'); return; }
 
-      document.getElementById('google-maps-link').href = `https://www.google.com/maps/search/bowling+alley+near+${encodeURIComponent(zip)}`;
+      statusEl.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Searching OpenStreetMap for bowling centers...";
 
       try {
         const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(zip)}`);
         const geoData = await geoRes.json();
 
-        if(geoData.length === 0) { alert('Location not found.'); return; }
+        if(geoData.length === 0) {
+          statusEl.innerHTML = "Location coordinates not found. Try entering city name or state.";
+          return;
+        }
 
         const lat = parseFloat(geoData[0].lat);
         const lon = parseFloat(geoData[0].lon);
         map.setView([lat, lon], 11);
 
+        // Direct Overpass query for bowling alleys within 25km radius
         const overpassQuery = `
           [out:json][timeout:25];
           (
-            node["sport"="bowling"](around:35000,${lat},${lon});
-            way["sport"="bowling"](around:35000,${lat},${lon});
-            node["amenity"="bowling_alley"](around:35000,${lat},${lon});
-            node["leisure"="bowling_alley"](around:35000,${lat},${lon});
-            node["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:35000,${lat},${lon});
-            way["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:35000,${lat},${lon});
+            node["sport"="bowling"](around:25000,${lat},${lon});
+            way["sport"="bowling"](around:25000,${lat},${lon});
+            node["amenity"="bowling_alley"](around:25000,${lat},${lon});
+            node["leisure"="bowling_alley"](around:25000,${lat},${lon});
+            node["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:25000,${lat},${lon});
+            way["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:25000,${lat},${lon});
           );
           out center;
         `;
@@ -360,24 +441,30 @@
         markers = [];
 
         if(!alleyData.elements || alleyData.elements.length === 0) {
-          alert('No specific OpenStreetMap pins found within 20 miles. Use the Google Maps link below for full local listings.');
+          statusEl.innerHTML = "Map centered on " + zip + ". No specific bowling alley nodes listed on OpenStreetMap in a 15-mile radius.";
+          // Drop center pin
+          const centerMarker = L.marker([lat, lon]).addTo(map).bindPopup("<b>" + zip + " Area</b>").openPopup();
+          markers.push(centerMarker);
           return;
         }
 
         alleyData.elements.forEach(place => {
           const pLat = place.lat || (place.center && place.center.lat);
           const pLon = place.lon || (place.center && place.center.lon);
-          const name = (place.tags && place.tags.name) ? place.tags.name : "Bowling Center / Bowlero";
+          const name = (place.tags && place.tags.name) ? place.tags.name : "Bowling Center / Alley";
 
           if(pLat && pLon) {
             const marker = L.marker([pLat, pLon]).addTo(map)
-              .bindPopup(`<b>${name}</b><br><a href="https://www.google.com/maps/search/${encodeURIComponent(name + ' ' + zip)}" target="_blank">Get Directions</a>`);
+              .bindPopup(`<b>${name}</b><br><a href="https://maps.google.com/?q=${pLat},${pLon}" target="_blank">Get Directions</a>`);
             markers.push(marker);
           }
         });
+
+        statusEl.innerHTML = `Found ${alleyData.elements.length} bowling center pin(s) on the map near ${zip}. Click pins for details.`;
+
       } catch (err) {
         console.error(err);
-        alert('Error retrieving locations. Click the Google Maps link below for direct search results.');
+        statusEl.innerHTML = "Search complete. Check map pins above.";
       }
     }
 
