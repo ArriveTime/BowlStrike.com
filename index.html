@@ -31,8 +31,34 @@
   /* Header */
   header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-  .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 10px rgba(229,9,20,0.8); }
-  .logo span { color: var(--primary); }
+  
+  /* BOWLSTRIKE LOGO WITH WHITE ROUNDED BORDER AND RED 'STRIKE' */
+  .logo-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+    padding: 0.3rem 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    transition: border-color 0.3s;
+  }
+  .logo-wrapper:hover {
+    border-color: var(--primary);
+  }
+  .logo { 
+    font-size: 1.6rem; 
+    font-weight: 900; 
+    color: #ffffff; 
+    letter-spacing: 1px; 
+    line-height: 1;
+  }
+  .logo span { 
+    color: var(--primary); 
+    text-shadow: 0 0 8px rgba(229, 9, 20, 0.8);
+  }
+
   nav { display: flex; gap: 1rem; flex-wrap: wrap; }
   nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
   nav a:hover { color: var(--primary); }
@@ -41,11 +67,11 @@
   .hero-banner {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(8, 8, 10, 0.92) 100%),
                 radial-gradient(circle at 50% 50%, #1a0002 0%, #070709 85%);
-    padding: 4rem 1rem;
+    padding: 3.5rem 1rem;
     text-align: center;
     border-bottom: 4px solid var(--primary);
   }
-  .hero-banner h1 { font-size: 3.2rem; font-weight: 900; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1); }
+  .hero-banner h1 { font-size: 3rem; font-weight: 900; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1); }
   .hero-banner p { font-size: 1.1rem; color: #fff; margin-bottom: 1.5rem; }
 
   /* Utility */
@@ -93,8 +119,10 @@
   /* MEDIA & FEED */
   .community-feed { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
   .feed-post-card { padding: 0; overflow: hidden; }
-  .post-header { padding: 0.8rem 1rem; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #222; }
   
+  .post-header { padding: 0.8rem 1rem; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #222; background: #0b0b0d; }
+  .feed-author-thumb { width: 42px; height: 54px; border-radius: 4px; border: 1px solid var(--primary); object-fit: cover; flex-shrink: 0; }
+
   .post-media-container { width: 100%; background: #000; text-align: center; }
   .post-media-container img, .post-media-container video {
     max-width: 100%;
@@ -131,10 +159,12 @@
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Header Navigation -->
   <header>
     <div class="nav-container">
-      <a href="#" class="logo">Bowl<span>Strike</span>.com</a>
+      <a href="#" class="logo-wrapper">
+        <span class="logo">Bowl<span>Strike</span>.com</span>
+      </a>
       <nav>
         <a href="#news">News</a>
         <a href="#locator">Live GPS Radar</a>
@@ -144,7 +174,7 @@
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero Banner -->
   <section class="hero-banner">
     <h1>Bowl<span>Strike</span>.com</h1>
     <p>National Tenpin Social Network — SBA News, Bowler Profiles & Highlights</p>
@@ -170,13 +200,13 @@
       <h2 class="section-title">Network Profiles & Your Team</h2>
       <div class="network-layout">
         
-        <!-- MAIN PROFILES COLUMN (EXPANDED) -->
+        <!-- MAIN PROFILES COLUMN -->
         <div class="main-profiles-container">
           
-          <!-- Profile 1 -->
+          <!-- Profile 1: PinSmasher99 -->
           <div class="card profile-card">
             <div class="profile-photo-container">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profile Photo" />
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="PinSmasher99 Profile" />
             </div>
             <div class="profile-details">
               <div class="profile-name">PinSmasher99</div>
@@ -186,10 +216,10 @@
             </div>
           </div>
 
-          <!-- Profile 2 -->
+          <!-- Profile 2: ApexSpinner -->
           <div class="card profile-card">
             <div class="profile-photo-container">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Profile Photo" />
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="ApexSpinner Profile" />
             </div>
             <div class="profile-details">
               <div class="profile-name">ApexSpinner</div>
@@ -199,10 +229,10 @@
             </div>
           </div>
 
-          <!-- Profile 3 -->
+          <!-- Profile 3: StrikeQueen_FL -->
           <div class="card profile-card">
             <div class="profile-photo-container">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="Profile Photo" />
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="StrikeQueen_FL Profile" />
             </div>
             <div class="profile-details">
               <div class="profile-name">StrikeQueen_FL</div>
@@ -214,7 +244,7 @@
 
         </div>
 
-        <!-- YOUR TEAM COLUMN (EXPANDED ROSTER) -->
+        <!-- YOUR TEAM COLUMN -->
         <div class="card team-directory">
           <h3 style="font-size:1.1rem; margin-bottom:0.8rem;"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Your Team</h3>
           
@@ -268,17 +298,19 @@
       </div>
     </section>
 
-    <!-- Community Feed -->
+    <!-- Community Feed: 3 Example Posts Matching Network Profiles -->
     <section id="community" style="margin-top:2rem;">
       <h2 class="section-title">Highlight Community Feed</h2>
       
       <div class="community-feed">
+        
+        <!-- POST 1: Posted by PinSmasher99 -->
         <div class="card feed-post-card">
           <div class="post-header">
-            <img src="https://i.pravatar.cc/150?u=strikeking" class="profile-thumb" alt="User">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="PinSmasher99">
             <div>
-              <strong style="font-size:0.95rem;">@StrikeKing</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted);">Bowlero Orlando Clutch Double</div>
+              <strong style="font-size:0.95rem; color:#fff;">@PinSmasher99</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Bowlero Orlando — 10th Frame Clutch Double</div>
             </div>
           </div>
           
@@ -290,7 +322,7 @@
           </div>
 
           <div class="post-actions-panel">
-            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">24</span> Likes</button>
+            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">34</span> Likes</button>
             <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
           </div>
 
@@ -300,6 +332,59 @@
           </div>
           <div id="comments-container-1" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
         </div>
+
+        <!-- POST 2: Posted by ApexSpinner -->
+        <div class="card feed-post-card">
+          <div class="post-header">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="ApexSpinner">
+            <div>
+              <strong style="font-size:0.95rem; color:#fff;">@ApexSpinner</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Perfect Roto Grip Hook Motion on Heavy Oil</div>
+            </div>
+          </div>
+          
+          <div class="post-media-container">
+            <img src="https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=800&q=80" alt="Hook Motion Photo">
+          </div>
+
+          <div class="post-actions-panel">
+            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">48</span> Likes</button>
+            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
+          </div>
+
+          <div class="comment-input-section">
+            <input type="text" class="comment-input" id="comment-input-2" placeholder="Write a comment..." />
+            <button class="btn" onclick="addComment(2)"><i class="fa-solid fa-paper-plane"></i> Post</button>
+          </div>
+          <div id="comments-container-2" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
+        </div>
+
+        <!-- POST 3: Posted by StrikeQueen_FL -->
+        <div class="card feed-post-card">
+          <div class="post-header">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="StrikeQueen_FL">
+            <div>
+              <strong style="font-size:0.95rem; color:#fff;">@StrikeQueen_FL</strong>
+              <div style="font-size:0.75rem; color:var(--text-muted);">7-10 Split Conversion Attempt (Thursday Scratch League)</div>
+            </div>
+          </div>
+          
+          <div class="post-media-container">
+            <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=800&q=80" alt="Bowling Alley Action">
+          </div>
+
+          <div class="post-actions-panel">
+            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">62</span> Likes</button>
+            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
+          </div>
+
+          <div class="comment-input-section">
+            <input type="text" class="comment-input" id="comment-input-3" placeholder="Write a comment..." />
+            <button class="btn" onclick="addComment(3)"><i class="fa-solid fa-paper-plane"></i> Post</button>
+          </div>
+          <div id="comments-container-3" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
+        </div>
+
       </div>
     </section>
 
@@ -338,9 +423,7 @@
       initVisitorTracking();
     });
 
-    /* ==========================================================================
-       HARDWARE GPS ENGINE
-       ========================================================================== */
+    /* HARDWARE GPS ENGINE */
     let map, myMarker;
 
     function initHardwareGPS() {
@@ -397,14 +480,11 @@
         });
     }
 
-    /* ==========================================================================
-       REAL-TIME WEB VISITOR COUNTER & DURATION LOG (DESCENDING ORDER)
-       ========================================================================== */
+    /* REAL-TIME VISITOR COUNTER LOG (DESCENDING ORDER) */
     let visitorStartTime = Date.now();
     let currentIP = "Detecting...";
     let currentCity = "Detecting...";
 
-    // Mock recent visitors table for demo presentation
     let visitorLogs = [
       { timestamp: new Date().toLocaleString(), ip: "Current Visitor (You)", city: "Local Session", seconds: 0, isCurrent: true },
       { timestamp: new Date(Date.now() - 180000).toLocaleString(), ip: "172.56.21.84", city: "Orlando, FL", seconds: 245, isCurrent: false },
@@ -428,7 +508,6 @@
           renderVisitorLogs();
         });
 
-      // Update current visitor stay time every second
       setInterval(() => {
         visitorLogs[0].seconds = Math.floor((Date.now() - visitorStartTime) / 1000);
         renderVisitorLogs();
