@@ -59,6 +59,30 @@
     text-shadow: 0 0 8px rgba(229, 9, 20, 0.8);
   }
 
+  /* Hero Banner Logo Variation */
+  .hero-logo-wrapper {
+    display: inline-flex;
+    align-items: center;
+    border: 3px solid #ffffff;
+    border-radius: 35px;
+    padding: 0.5rem 1.8rem;
+    background: rgba(0, 0, 0, 0.85);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    margin-bottom: 1.2rem;
+  }
+  .hero-logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1.5px;
+    line-height: 1;
+  }
+  .hero-logo span {
+    color: var(--primary);
+    text-shadow: 0 0 12px rgba(229, 9, 20, 0.9);
+  }
+
   nav { display: flex; gap: 1rem; flex-wrap: wrap; }
   nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
   nav a:hover { color: var(--primary); }
@@ -71,8 +95,7 @@
     text-align: center;
     border-bottom: 4px solid var(--primary);
   }
-  .hero-banner h1 { font-size: 3rem; font-weight: 900; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1); }
-  .hero-banner p { font-size: 1.1rem; color: #fff; margin-bottom: 1.5rem; }
+  .hero-banner p { font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem; }
 
   /* Utility */
   .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
@@ -176,7 +199,11 @@
 
   <!-- Hero Banner -->
   <section class="hero-banner">
-    <h1>Bowl<span>Strike</span>.com</h1>
+    <div>
+      <div class="hero-logo-wrapper">
+        <span class="hero-logo">Bowl<span>Strike</span>.com</span>
+      </div>
+    </div>
     <p>National Tenpin Social Network — SBA News, Bowler Profiles & Highlights</p>
   </section>
 
@@ -315,10 +342,7 @@
           </div>
           
           <div class="post-media-container">
-            <video controls preload="metadata" poster="hero-bowling.jpg">
-              <source src="demo-video.mp4" type="video/mp4">
-              Video highlight preview unavailable.
-            </video>
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Bowling Alley Lanes Highlight">
           </div>
 
           <div class="post-actions-panel">
@@ -339,12 +363,12 @@
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="ApexSpinner">
             <div>
               <strong style="font-size:0.95rem; color:#fff;">@ApexSpinner</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted);">Perfect Roto Grip Hook Motion on Heavy Oil</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Perfect Roto Grip Hook Motion on Heavy Oil Pattern</div>
             </div>
           </div>
           
           <div class="post-media-container">
-            <img src="https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=800&q=80" alt="Hook Motion Photo">
+            <img src="https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=800&q=80" alt="Bowling Ball Hook Motion">
           </div>
 
           <div class="post-actions-panel">
@@ -365,12 +389,12 @@
             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="StrikeQueen_FL">
             <div>
               <strong style="font-size:0.95rem; color:#fff;">@StrikeQueen_FL</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted);">7-10 Split Conversion Attempt (Thursday Scratch League)</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Clutch Pin Action & 10-Pin Carry (Thursday Scratch League)</div>
             </div>
           </div>
           
           <div class="post-media-container">
-            <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=800&q=80" alt="Bowling Alley Action">
+            <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=800&q=80" alt="Bowling Pins Strike Action">
           </div>
 
           <div class="post-actions-panel">
