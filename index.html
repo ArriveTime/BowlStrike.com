@@ -2,147 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BowlStrike.com - National Tenpin Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BowlStrike.com - The Ultimate Bowling Community & Resource Hub</title>
 
-  <!-- Leaflet CSS for Interactive Map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <!-- OpenStreetMap Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
-      --primary: #e50914;
-      --primary-dark: #b20710;
-      --accent: #ffb300;
-      --neon-red: #ff3c3c;
-      --dark-bg: #08080a;
-      --card-bg: #141418;
+      --primary: #d32f2f;
+      --primary-dark: #9a0007;
+      --dark-bg: #121212;
+      --card-bg: #1e1e1e;
       --text: #ffffff;
       --text-muted: #b0bec5;
-      --danger: #d32f2f;
-      --success: #388e3c;
+      --accent: #ffb300;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; }
 
     /* Header & Navigation */
     header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
-    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-    .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 12px rgba(255,60,60,0.9); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
+    .logo { font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; }
     .logo span { color: var(--primary); }
-    nav { display: flex; gap: 1rem; flex-wrap: wrap; }
-    nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
-    nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
+    nav a { color: var(--text-muted); text-decoration: none; margin-left: 1.5rem; font-weight: 600; transition: color 0.3s; }
+    nav a:hover { color: var(--primary); }
 
-    /* ==========================================================================
-       HERO BANNER - Pointing directly to your uploaded images
-       ========================================================================== */
-    .hero-banner {
-      position: relative;
-      /* If hero-bowling.jpg takes time to load, it will use a dark gradient fallback.
-         It will NOT blend trees over a red background anymore. */
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(8, 8, 10, 0.92) 100%),
-                  url('hero-bowling.jpg') center/cover no-repeat,
-                  linear-gradient(135deg, #0a0a0c, #141418);
-      padding: 4rem 1rem 3.5rem 1rem;
-      text-align: center;
-      border-bottom: 4px solid var(--primary);
-      box-shadow: 0 10px 40px rgba(229, 9, 20, 0.5);
-    }
-
-    .hero-content { position: relative; z-index: 10; max-width: 850px; margin: 0 auto; }
-
-    /* Centered Emblem Logo (bowlstrike-logo.png) */
-    .emblem-logo {
-      max-width: 280px;
-      width: 100%;
-      height: auto;
-      margin: 0 auto 1.2rem auto;
-      display: block;
-      filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.8));
-    }
-
-    .hero-banner p {
-      font-size: 1.25rem;
-      color: #fff;
-      margin: 0 auto 1.8rem auto;
-      text-shadow: 0 2px 10px rgba(0,0,0,1);
-      font-weight: 600;
-      max-width: 750px;
-    }
-
-    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    /* MOBILE RESPONSIVE FIXES */
-    @media (max-width: 768px) {
-      .nav-container { flex-direction: column; gap: 0.8rem; text-align: center; }
-      nav { justify-content: center; }
-      .hero-banner { padding: 2.5rem 0.8rem; }
-      .emblem-logo { max-width: 200px; }
-      .hero-banner p { font-size: 0.95rem; }
-      .btn { width: 100%; text-align: center; }
-    }
-
-    /* Utility Classes */
+    /* Main Container */
     .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-    .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; text-shadow: 0 0 5px rgba(255,60,60,0.3); }
-    .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: background 0.3s; box-shadow: 0 0 8px rgba(229,9,20,0.5); }
-    .btn:hover { background: var(--primary-dark); }
-    .btn-secondary { background: #25252b; color: #fff; }
-    .btn-secondary:hover { background: #35353d; }
-    .btn-danger { background: var(--danger); }
-    .btn-danger:hover { background: #9a0007; }
+    .section-title { font-size: 1.8rem; margin-bottom: 1rem; border-left: 4px solid var(--primary); padding-left: 0.5rem; }
 
-    /* News Grid */
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
-    .news-card { border: 1px solid #282830; }
-    .news-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .news-card h3 a { color: var(--accent); text-decoration: none; display: block; }
-    .news-card h3 a:hover { text-decoration: underline; color: #fff; }
-    .news-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
-    .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
+    /* News Feed Section */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .card { background: var(--card-bg); border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    .news-card h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .news-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .news-card .date { font-size: 0.75rem; color: #757575; }
 
-    /* Search & Map */
-    .search-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .search-box input { flex: 1; min-width: 200px; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
-    #map { height: 380px; width: 100%; border-radius: 8px; margin-bottom: 1rem; z-index: 1; background: #1a1a1e; border: 1px solid #333; }
-    .map-status { font-size: 0.85rem; color: var(--accent); margin-top: 0.4rem; }
+    /* Zip Code Search */
+    .search-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .search-box input { flex: 1; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
+    .search-box button, .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background 0.3s; }
+    .search-box button:hover, .btn:hover { background: var(--primary-dark); }
+    #map { height: 400px; width: 100%; border-radius: 8px; margin-bottom: 3rem; z-index: 1; }
 
-    /* Video Community */
-    .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; border: 1px solid #333; }
+    /* Video Upload & Feed */
+    .video-form { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
     .video-form input, .video-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
-    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
     .video-card video { width: 100%; border-radius: 6px; background: #000; margin-bottom: 0.5rem; }
     .video-actions { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
-    .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
+    .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; }
     .action-btn i { color: var(--primary); }
-    .comments-list { margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid #333; padding-top: 0.5rem; }
+    .comments-list { margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid #333; padding-top: 0.5rem; }
 
-    /* Contact */
-    .contact-form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 650px; margin-bottom: 3rem; border: 1px solid #333; }
+    /* Contact Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin-bottom: 3rem; }
     .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
 
-    /* Footer */
-    footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.82rem; color: var(--text-muted); }
-    .legal-disclaimer { max-width: 950px; margin: 0 auto 1.2rem auto; padding: 1rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.4; text-align: justify; }
-    .admin-link { color: #555; text-decoration: none; font-size: 0.75rem; margin-top: 0.8rem; display: inline-block; }
+    /* Footer & Disclaimer */
+    footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); }
+    .legal-disclaimer { max-width: 900px; margin: 0 auto 1.5rem auto; padding: 1rem; background: #181818; border-radius: 6px; border: 1px solid #333; line-height: 1.4; }
+    .admin-link { color: #444; text-decoration: none; font-size: 0.75rem; margin-top: 1rem; display: inline-block; }
+    .admin-link:hover { color: var(--text-muted); }
 
-    /* Modal */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+    /* Modal Styling */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
+    .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 8px; width: 90%; max-width: 900px; max-height: 80vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
     .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
-    .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .admin-tab { padding: 0.4rem 0.8rem; background: #2a2a2a; color: #fff; border: none; cursor: pointer; border-radius: 4px; font-size: 0.85rem; }
-    .admin-tab.active { background: var(--primary); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; word-break: break-word; }
-    th, td { border: 1px solid #333; padding: 0.5rem; text-align: left; font-size: 0.8rem; }
-    th { background: #111; color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #333; padding: 0.6rem; text-align: left; font-size: 0.85rem; }
+    th { background: #111; }
   </style>
 
   <!-- EmailJS SDK -->
@@ -150,82 +85,54 @@
 </head>
 <body>
 
-  <!-- Header Navigation -->
+  <!-- Navigation -->
   <header>
     <div class="nav-container">
       <a href="#" class="logo">Bowl<span>Strike</span>.com</a>
       <nav>
         <a href="#news">News Feed</a>
         <a href="#locator">Find Lanes</a>
-        <a href="#community">Community</a>
-        <a href="#contact">Contact</a>
+        <a href="#community">Community Videos</a>
+        <a href="#contact">Contact Us</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO BANNER -->
-  <section class="hero-banner">
-    <div class="hero-content">
-      <!-- Explicitly points to bowlstrike-logo.png in the same directory -->
-      <img src="bowlstrike-logo.png" alt="BowlStrike.com" class="emblem-logo" />
-      
-      <p>Your National Tenpin Hub — Live PBA & USBC News, Zip Code Center Locator, Player Profiles & Video Feeds</p>
-      <div class="hero-buttons">
-        <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Center</a>
-        <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
-      </div>
-    </div>
-  </section>
-
   <div class="container">
 
-    <!-- Section 1: Live National News Feed -->
+    <!-- Section 1: National News Feed -->
     <section id="news">
-      <h2 class="section-title">National Bowling News Feed</h2>
+      <h2 class="section-title">National Bowling News</h2>
       <div class="news-grid" id="news-container">
-        <div class="card news-card">
-          <h3><a href="https://www.pba.com/news" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> PBA Tour Official Championship Results & Scores</a></h3>
-          <p>Direct match play scores, oil pattern notes, and bracket updates straight from the PBA Tour newsroom.</p>
-          <div class="news-meta"><span>PBA.com Official</span><span>Live Link</span></div>
-        </div>
-
-        <div class="card news-card">
-          <h3><a href="https://bowl.com/news" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> USBC National Event Regulations & Standings</a></h3>
-          <p>Official announcements on national event schedules, sanctioned lane patterns, and ball specification updates.</p>
-          <div class="news-meta"><span>USBC bowl.com</span><span>Live Link</span></div>
-        </div>
-
-        <div class="card news-card">
-          <h3><a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Bowling Digital International Championship Headlines</a></h3>
-          <p>Global tenpin tournament updates, core & coverstock tech updates, and world rankings across all series.</p>
-          <div class="news-meta"><span>BowlingDigital</span><span>Live Link</span></div>
-        </div>
+        <!-- JS injected feeds -->
       </div>
     </section>
 
-    <!-- Section 2: Zip Code Locator Map -->
+    <!-- Section 2: Zip Code Locator -->
     <section id="locator">
       <h2 class="section-title">Find Bowling Centers Near You</h2>
       <div class="search-box">
-        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210, Orlando, Chicago)..." />
-        <button class="btn" onclick="searchBowlingCenters()"><i class="fa-solid fa-magnifying-glass"></i> Search Map</button>
+        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210 or Chicago)..." />
+        <button onclick="searchBowlingCenters()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
       </div>
       <div id="map"></div>
-      <div id="map-status-msg" class="map-status"></div>
     </section>
 
-    <!-- Section 3: Video Upload & Community Profiles -->
+    <!-- Section 3: Profile Video Upload & Community Feed -->
     <section id="community">
       <h2 class="section-title">Player Profiles & Video Feed</h2>
+      
       <div class="card video-form">
-        <h3>Post Your Highlight Video</h3>
-        <input type="text" id="player-name" placeholder="Your Player Name / Handle" required />
-        <input type="text" id="video-title" placeholder="Video Title (e.g., Bowlero 300 Game High Frame)" required />
+        <h3>Post Your Bowling Highlights</h3>
+        <input type="text" id="player-name" placeholder="Your Name / Player Handle" required />
+        <input type="text" id="video-title" placeholder="Video Title (e.g., New PBA Layout 300 Game)" required />
         <input type="file" id="video-file" accept="video/*" required />
         <button class="btn" onclick="uploadVideo()">Upload Video & Update Profile</button>
       </div>
 
-      <div class="video-grid" id="video-feed"></div>
+      <div class="video-grid" id="video-feed">
+        <!-- Dynamically injected video posts -->
+      </div>
     </section>
 
     <!-- Section 4: Contact Form -->
@@ -234,7 +141,7 @@
       <form class="card contact-form" id="contact-form" onsubmit="sendEmail(event)">
         <input type="text" id="contact-name" name="from_name" placeholder="Your Full Name" required />
         <input type="email" id="contact-email" name="reply_to" placeholder="Your Email Address" required />
-        <textarea id="contact-message" name="message" rows="4" placeholder="Your Message..." required></textarea>
+        <textarea id="contact-message" name="message" rows="5" placeholder="Your Message..." required></textarea>
         <button type="submit" class="btn">Send Email</button>
       </form>
     </section>
@@ -244,221 +151,187 @@
   <!-- Footer & Legal Disclaimer -->
   <footer>
     <div class="legal-disclaimer">
-      <strong>LEGAL DISCLAIMER:</strong> BowlStrike.com is an independent community portal for bowling news and community discussion. We are not affiliated, associated, authorized, endorsed by, or in any official way connected with the Professional Bowlers Association (PBA), the Professional Golfers' Association (PGA), the United States Bowling Congress (USBC), Bowlero Corporation, or any of their subsidiaries or affiliates. All product names, trademarks, and registered trademarks are property of their respective owners.
+      <strong>LEGAL DISCLAIMER:</strong> BowlStrike.com is an independent community portal for bowling enthusiasts. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Professional Bowlers Association (PBA), the Professional Golfers' Association (PGA), the United States Bowling Congress (USBC), or any of their subsidiaries or affiliates. All product and company names are trademarks™ or registered® trademarks of their respective holders.
     </div>
     <p>&copy; 2026 BowlStrike.com - All Rights Reserved.</p>
     <a href="#" class="admin-link" onclick="openAdminModal(event)">admin</a>
   </footer>
 
-  <!-- Admin Modal -->
+  <!-- Admin Visitor Analytics Modal -->
   <div class="modal" id="admin-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>BowlStrike.com Admin Control Center</h3>
+        <h3>Admin Real-Time Visitor Logs (Descending Order)</h3>
         <span class="close-btn" onclick="closeAdminModal()">&times;</span>
       </div>
-
-      <div class="admin-tabs">
-        <button class="admin-tab active" onclick="switchTab('visitors')">Visitor Traffic</button>
-        <button class="admin-tab" onclick="switchTab('accounts')">Account Management</button>
-        <button class="admin-tab" onclick="switchTab('content')">Content Moderation</button>
-      </div>
-
-      <div id="tab-visitors" class="tab-content active">
-        <h4>Real-Time Visitor Log (Descending Order)</h4>
-        <table>
-          <thead>
-            <tr><th>Date & Time</th><th>City</th><th>State</th><th>IP Address</th></tr>
-          </thead>
-          <tbody id="visitor-log-body"></tbody>
-        </table>
-      </div>
-
-      <div id="tab-accounts" class="tab-content">
-        <h4>Registered Player Accounts</h4>
-        <div style="display:flex; gap:0.5rem; margin:0.8rem 0; flex-wrap:wrap;">
-          <input type="text" id="new-user-input" placeholder="New Player Name..." style="padding:0.4rem; background:#222; color:#fff; border:1px solid #444; border-radius:4px; flex:1;" />
-          <button class="btn" style="padding:0.4rem 0.8rem;" onclick="adminAddUser()">Add Account</button>
-        </div>
-        <table>
-          <thead>
-            <tr><th>Username</th><th>Status</th><th>Actions</th></tr>
-          </thead>
-          <tbody id="user-accounts-body"></tbody>
-        </table>
-      </div>
-
-      <div id="tab-content" class="tab-content">
-        <h4>Live Community Video Posts</h4>
-        <table>
-          <thead>
-            <tr><th>Player</th><th>Video Title</th><th>Actions</th></tr>
-          </thead>
-          <tbody id="content-moderation-body"></tbody>
-        </table>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>City</th>
+            <th>State</th>
+            <th>IP Address</th>
+          </tr>
+        </thead>
+        <tbody id="visitor-log-body">
+          <!-- Dynamically populated visitor logs -->
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Leaflet Map Script -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <!-- Leaflet OpenStreetMap JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
+    /* ==========================================================================
+       1. INITIALIZATION & EMAILJS CONFIG
+       ========================================================================== */
     (function() {
-      // Corrected EmailJS template initialization
+      // REPLACE WITH YOUR EMAILJS PUBLIC KEY
       emailjs.init("YOUR_PUBLIC_KEY");
       trackVisitor();
-      initAccounts();
-      initMap();
     })();
 
-    let map;
-    let markers = [];
+    /* ==========================================================================
+       2. NATIONAL BOWLING NEWS FEED ENGINE
+       ========================================================================== */
+    const mockNewsFeeds = [
+      { title: "USBC Masters Finals Lineup Locked in Nevada", snippet: "Top seeds battle through tough dual-pattern conditions as double-elimination brackets finalize...", date: "Aug 11, 2026" },
+      { title: "PBA Tour Announces Next Season's Oil Pattern Standards", snippet: "The PBA competition committee releases updated length and volume ratios for upcoming major titles...", date: "Aug 10, 2026" },
+      { title: "Technology Breakthrough: Next-Gen Urethane & Reactive Shells", snippet: "New core coverstock manufacturing standards approved for USBC sanctioned national tournament competition...", date: "Aug 08, 2026" }
+    ];
 
-    function initMap() {
-      map = L.map('map').setView([39.8283, -98.5795], 4);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+    function loadNews() {
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = mockNewsFeeds.map(item => `
+        <div class="card news-card">
+          <h3>${item.title}</h3>
+          <p>${item.snippet}</p>
+          <span class="date"><i class="fa-regular fa-clock"></i> ${item.date}</span>
+        </div>
+      `).join('');
     }
+    loadNews();
+
+    /* ==========================================================================
+       3. ZIP CODE BOWLING CENTER LOCATOR ENGINE (OpenStreetMap + Nominatim)
+       ========================================================================== */
+    let map = L.map('map').setView([39.8283, -98.5795], 4); // Default US view
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let markers = [];
 
     async function searchBowlingCenters() {
       const zip = document.getElementById('zip-input').value.trim();
-      const statusEl = document.getElementById('map-status-msg');
       if(!zip) { alert('Please enter a Zip Code or City.'); return; }
 
-      statusEl.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Searching OpenStreetMap for bowling centers...";
-
+      // Geocode Zip Code
       try {
         const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(zip)}`);
         const geoData = await geoRes.json();
 
-        if(geoData.length === 0) {
-          statusEl.innerHTML = "Location coordinates not found. Try entering city name or state.";
-          return;
-        }
+        if(geoData.length === 0) { alert('Location not found.'); return; }
 
         const lat = parseFloat(geoData[0].lat);
         const lon = parseFloat(geoData[0].lon);
-        map.setView([lat, lon], 11);
 
-        const overpassQuery = `
-          [out:json][timeout:25];
-          (
-            node["sport"="bowling"](around:25000,${lat},${lon});
-            way["sport"="bowling"](around:25000,${lat},${lon});
-            node["amenity"="bowling_alley"](around:25000,${lat},${lon});
-            node["leisure"="bowling_alley"](around:25000,${lat},${lon});
-            node["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:25000,${lat},${lon});
-            way["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:25000,${lat},${lon});
-          );
-          out center;
-        `;
+        map.setView([lat, lon], 12);
 
-        const alleyRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery });
+        // Fetch Nearby Bowling Alleys via Overpass API
+        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node(around:25000,${lat},${lon})[sport=bowling];out;`;
+        const alleyRes = await fetch(overpassUrl);
         const alleyData = await alleyRes.json();
 
+        // Clear existing markers
         markers.forEach(m => map.removeLayer(m));
         markers = [];
 
-        if(!alleyData.elements || alleyData.elements.length === 0) {
-          statusEl.innerHTML = "Map centered on " + zip + ". No specific bowling alley nodes listed on OpenStreetMap in a 15-mile radius.";
-          const centerMarker = L.marker([lat, lon]).addTo(map).bindPopup("<b>" + zip + " Area</b>").openPopup();
-          markers.push(centerMarker);
+        if(alleyData.elements.length === 0) {
+          alert('No bowling centers listed on OpenStreetMap near this location.');
           return;
         }
 
         alleyData.elements.forEach(place => {
-          const pLat = place.lat || (place.center && place.center.lat);
-          const pLon = place.lon || (place.center && place.center.lon);
-          const name = (place.tags && place.tags.name) ? place.tags.name : "Bowling Center / Alley";
-
-          if(pLat && pLon) {
-            const marker = L.marker([pLat, pLon]).addTo(map)
-              .bindPopup(`<b>${name}</b><br><a href="https://maps.google.com/?q=${pLat},${pLon}" target="_blank">Get Directions</a>`);
-            markers.push(marker);
-          }
+          const name = place.tags.name || "Bowling Center";
+          const marker = L.marker([place.lat, place.lon]).addTo(map)
+            .bindPopup(`<b>${name}</b><br>Bowling Facility`);
+          markers.push(marker);
         });
-
-        statusEl.innerHTML = `Found ${alleyData.elements.length} bowling center pin(s) on the map near ${zip}. Click pins for details.`;
 
       } catch (err) {
         console.error(err);
-        statusEl.innerHTML = "Search complete. Check map pins above.";
+        alert('Error fetching center coordinates.');
       }
     }
 
+    /* ==========================================================================
+       4. VIDEO UPLOAD, PROFILE CREATION & FEED ENGINE
+       ========================================================================== */
     let communityPosts = [
-      { id: 1, player: "StrikeKing", title: "Clean 10th Frame Double at Bowlero", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", likes: 22, comments: ["Amazing action!"] }
-    ];
-
-    function initAccounts() {
-      if(!localStorage.getItem('bowlstrike_users')) {
-        const defaultUsers = [
-          { username: 'StrikeKing', status: 'active' },
-          { username: 'PinSmasher', status: 'active' },
-          { username: 'Spammer123', status: 'blocked' }
-        ];
-        localStorage.setItem('bowlstrike_users', JSON.stringify(defaultUsers));
+      {
+        id: 1,
+        player: "StrikeKing99",
+        title: "Clean 10th Frame Double under pressure!",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+        likes: 12,
+        comments: ["Great leverage at the line!", "Which ball are you throwing?"]
       }
-      renderFeed();
-    }
+    ];
 
     function renderFeed() {
       const feed = document.getElementById('video-feed');
-      const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
-
-      feed.innerHTML = communityPosts.map(post => {
-        const userObj = users.find(u => u.username.toLowerCase() === post.player.toLowerCase());
-        const isBlocked = userObj && userObj.status === 'blocked';
-
-        if(isBlocked) {
-          return `<div class="card video-card" style="opacity:0.5;"><h4>[Content Hidden]</h4><p style="font-size:0.8rem; color:var(--danger);">User blocked by admin.</p></div>`;
-        }
-
-        return `
-          <div class="card video-card">
-            <h4>${post.title}</h4>
-            <p style="font-size:0.85rem; color:var(--accent); margin-bottom:0.5rem;">Player: <strong>@${post.player}</strong></p>
-            <video controls src="${post.videoUrl}"></video>
-            <div class="video-actions">
-              <button class="action-btn" onclick="likePost(${post.id})"><i class="fa-solid fa-heart"></i> ${post.likes} Likes</button>
-            </div>
-            <div class="comments-list">
-              <strong>Comments (${post.comments.length}):</strong>
-              ${post.comments.map(c => `<div style="margin-top:2px;">• ${c}</div>`).join('')}
-              <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
-                <input type="text" id="comment-input-${post.id}" placeholder="Add comment..." style="padding:0.3rem; flex:1; border-radius:3px; border:1px solid #444; background:#111; color:#fff; font-size:0.8rem;" />
-                <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="addComment(${post.id})">Post</button>
-              </div>
+      feed.innerHTML = communityPosts.map(post => `
+        <div class="card video-card">
+          <h4>${post.title}</h4>
+          <p style="font-size:0.85rem; color:var(--accent); margin-bottom:0.5rem;">Player Profile: <strong>@${post.player}</strong></p>
+          <video controls src="${post.videoUrl}"></video>
+          <div class="video-actions">
+            <button class="action-btn" onclick="likePost(${post.id})"><i class="fa-solid fa-heart"></i> ${post.likes} Likes</button>
+          </div>
+          <div class="comments-list">
+            <strong>Comments (${post.comments.length}):</strong>
+            ${post.comments.map(c => `<div style="margin-top:2px;">• ${c}</div>`).join('')}
+            <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+              <input type="text" id="comment-input-${post.id}" placeholder="Add a comment..." style="padding:0.3rem; flex:1; border-radius:3px; border:1px solid #444; background:#111; color:#fff; font-size:0.8rem;" />
+              <button class="btn" style="padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="addComment(${post.id})">Post</button>
             </div>
           </div>
-        `;
-      }).join('');
+        </div>
+      `).join('');
     }
+    renderFeed();
 
     function uploadVideo() {
       const name = document.getElementById('player-name').value.trim();
       const title = document.getElementById('video-title').value.trim();
       const fileInput = document.getElementById('video-file');
 
-      const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
-      const userObj = users.find(u => u.username.toLowerCase() === name.toLowerCase());
-
-      if(userObj && userObj.status === 'blocked') { alert("Account blocked."); return; }
-      if (!name || !title || fileInput.files.length === 0) { alert("Please fill out all fields."); return; }
+      if (!name || !title || fileInput.files.length === 0) {
+        alert("Please fill out all fields and select a video file.");
+        return;
+      }
 
       const file = fileInput.files[0];
       const videoBlobUrl = URL.createObjectURL(file);
 
-      if(!userObj) {
-        users.push({ username: name, status: 'active' });
-        localStorage.setItem('bowlstrike_users', JSON.stringify(users));
-      }
+      const newPost = {
+        id: Date.now(),
+        player: name,
+        title: title,
+        videoUrl: videoBlobUrl,
+        likes: 0,
+        comments: []
+      };
 
-      communityPosts.unshift({ id: Date.now(), player: name, title: title, videoUrl: videoBlobUrl, likes: 0, comments: [] });
+      communityPosts.unshift(newPost);
       renderFeed();
+
+      // Clear inputs
       document.getElementById('player-name').value = '';
       document.getElementById('video-title').value = '';
       fileInput.value = '';
@@ -479,81 +352,82 @@
       }
     }
 
+    /* ==========================================================================
+       5. CONTACT FORM ENGINE (EMAILJS INTEGRATION)
+       ========================================================================== */
     function sendEmail(e) {
       e.preventDefault();
-      emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target)
-        .then(() => { alert("Thank you! Your email was sent."); document.getElementById('contact-form').reset(); },
-              () => { alert("Email processed! Add EmailJS credentials to enable real inbox delivery."); document.getElementById('contact-form').reset(); });
+
+      // REPLACE WITH YOUR EMAILJS SERVICE_ID AND TEMPLATE_ID
+      const SERVICE_ID = "YOUR_SERVICE_ID";
+      const TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target)
+        .then(() => {
+          alert("Thank you! Your message has been sent. An auto-reply confirmation is on its way to your inbox.");
+          document.getElementById('contact-form').reset();
+        }, (error) => {
+          console.error('EmailJS Error:', error);
+          alert("Failed to send message. Please ensure your EmailJS credentials are configured in the script.");
+        });
     }
 
+    /* ==========================================================================
+       6. REAL-TIME VISITOR LOGGING ENGINE (Descending Order)
+       ========================================================================== */
     async function trackVisitor() {
       let logs = JSON.parse(localStorage.getItem('bowlstrike_visitor_logs') || '[]');
+
       try {
+        // Fetch Visitor IP and Location data
         const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
-        logs.push({ timestamp: new Date().toLocaleString(), city: data.city || 'Unknown', state: data.region || 'Unknown', ip: data.ip || '127.0.0.1', rawTime: Date.now() });
+
+        const newVisit = {
+          timestamp: new Date().toLocaleString(),
+          city: data.city || 'Unknown',
+          state: data.region || 'Unknown',
+          ip: data.ip || '127.0.0.1',
+          rawTime: Date.now()
+        };
+
+        logs.push(newVisit);
+        localStorage.setItem('bowlstrike_visitor_logs', JSON.stringify(logs));
       } catch (e) {
-        logs.push({ timestamp: new Date().toLocaleString(), city: 'Local Session', state: 'Client', ip: '127.0.0.1', rawTime: Date.now() });
+        // Fallback trace
+        logs.push({
+          timestamp: new Date().toLocaleString(),
+          city: 'Local Session',
+          state: 'Client',
+          ip: '127.0.0.1',
+          rawTime: Date.now()
+        });
+        localStorage.setItem('bowlstrike_visitor_logs', JSON.stringify(logs));
       }
-      localStorage.setItem('bowlstrike_visitor_logs', JSON.stringify(logs));
     }
 
-    function openAdminModal(e) { e.preventDefault(); renderAdminData(); document.getElementById('admin-modal').style.display = 'flex'; }
-    function closeAdminModal() { document.getElementById('admin-modal').style.display = 'none'; }
-
-    function switchTab(tabName) {
-      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      if(tabName === 'visitors') { document.querySelectorAll('.admin-tab')[0].classList.add('active'); document.getElementById('tab-visitors').classList.add('active'); }
-      else if(tabName === 'accounts') { document.querySelectorAll('.admin-tab')[1].classList.add('active'); document.getElementById('tab-accounts').classList.add('active'); }
-      else { document.querySelectorAll('.admin-tab')[2].classList.add('active'); document.getElementById('tab-content').classList.add('active'); }
-    }
-
-    function renderAdminData() {
+    function openAdminModal(e) {
+      e.preventDefault();
       const logs = JSON.parse(localStorage.getItem('bowlstrike_visitor_logs') || '[]');
+      
+      // Sort Descending (Newest visits first)
       logs.sort((a, b) => b.rawTime - a.rawTime);
-      document.getElementById('visitor-log-body').innerHTML = logs.map(l => `<tr><td>${l.timestamp}</td><td>${l.city}</td><td>${l.state}</td><td>${l.ip}</td></tr>`).join('');
 
-      const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
-      document.getElementById('user-accounts-body').innerHTML = users.map((u, idx) => `
-        <tr><td>@${u.username}</td><td>${u.status.toUpperCase()}</td><td>
-          <button class="btn" style="padding:0.2rem 0.4rem; font-size:0.7rem;" onclick="toggleBlockUser(${idx})">${u.status === 'blocked' ? 'Unblock' : 'Block'}</button>
-          <button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.7rem;" onclick="adminDeleteUser(${idx})">Delete</button>
-        </td></tr>`).join('');
+      const tbody = document.getElementById('visitor-log-body');
+      tbody.innerHTML = logs.map(log => `
+        <tr>
+          <td>${log.timestamp}</td>
+          <td>${log.city}</td>
+          <td>${log.state}</td>
+          <td>${log.ip}</td>
+        </tr>
+      `).join('');
 
-      document.getElementById('content-moderation-body').innerHTML = communityPosts.map(p => `
-        <tr><td>@${p.player}</td><td>${p.title}</td><td><button class="btn btn-danger" style="padding:0.2rem 0.4rem; font-size:0.7rem;" onclick="adminDeletePost(${p.id})">Delete</button></td></tr>`).join('');
+      document.getElementById('admin-modal').style.display = 'flex';
     }
 
-    function toggleBlockUser(idx) {
-      const users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
-      users[idx].status = users[idx].status === 'blocked' ? 'active' : 'blocked';
-      localStorage.setItem('bowlstrike_users', JSON.stringify(users));
-      renderAdminData(); renderFeed();
-    }
-
-    function adminDeleteUser(idx) {
-      let users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
-      users.splice(idx, 1);
-      localStorage.setItem('bowlstrike_users', JSON.stringify(users));
-      renderAdminData(); renderFeed();
-    }
-
-    function adminAddUser() {
-      const input = document.getElementById('new-user-input');
-      const val = input.value.trim();
-      if(val) {
-        let users = JSON.parse(localStorage.getItem('bowlstrike_users') || '[]');
-        users.push({ username: val, status: 'active' });
-        localStorage.setItem('bowlstrike_users', JSON.stringify(users));
-        input.value = '';
-        renderAdminData();
-      }
-    }
-
-    function adminDeletePost(postId) {
-      communityPosts = communityPosts.filter(p => p.id !== postId);
-      renderAdminData(); renderFeed();
+    function closeAdminModal() {
+      document.getElementById('admin-modal').style.display = 'none';
     }
   </script>
 </body>
