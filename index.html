@@ -62,7 +62,7 @@
     .hero-banner p { font-size: 1.25rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 10px rgba(0,0,0,1); font-weight: 600; max-width: 750px; }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    /* Utility & Section Layout */
+    /* Utility Layout */
     .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
     .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; text-shadow: 0 0 5px rgba(255,60,60,0.3); }
     .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
@@ -70,7 +70,6 @@
     .btn:hover { background: var(--primary-dark); }
     .btn-secondary { background: #25252b; color: #fff; }
     .btn-secondary:hover { background: #35353d; }
-    .btn-danger { background: var(--danger); }
 
     /* News Grid */
     .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
@@ -173,8 +172,7 @@
     <section id="locator">
       <h2 class="section-title">Live Geolocation Bowling Radar</h2>
       <div class="map-header-controls">
-        <div id="map-status-msg" class="map-status"><i class="fa-solid fa-spinner fa-spin"></i> Detecting your location...</div>
-        <!-- Button label updated to 'My Location' -->
+        <div id="map-status-msg" class="map-status"><i class="fa-solid fa-spinner fa-spin"></i> Locating nearby centers...</div>
         <button class="btn btn-secondary" onclick="getUserLocation()"><i class="fa-solid fa-location-arrow"></i> My Location</button>
       </div>
       <div id="map"></div>
@@ -246,14 +244,14 @@
     })();
 
     /* ==========================================================================
-       AUTOMATIC GEOLOCATION & RADAR MAP
+       FAST GEOLOCATION & RADAR MAP
        ========================================================================== */
     let map;
     let markers = [];
     let userMarker;
 
     function initMap() {
-      map = L.map('map').setView([39.8283, -98.5795], 4);
+      map = L.map('map').setView([38.8951, -77.0364], 4);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '© OpenStreetMap contributors'
@@ -264,7 +262,7 @@
 
     function getUserLocation() {
       const statusEl = document.getElementById('map-status-msg');
-      statusEl.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Acquiring Wi-Fi / GPS location...";
+      statusEl.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Pinpointing your location...";
 
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -272,47 +270,24 @@
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
 
-            map.setView([lat, lon], 12);
+            map.setView([lat, lon], 11);
 
             if (userMarker) map.removeLayer(userMarker);
             userMarker = L.marker([lat, lon]).addTo(map)
-              .bindPopup("<b style='color:red;'>📍 Your Current Location</b>").openPopup();
+              .bindPopup("<b style='color:red;'>📍 Your Location</b>").openPopup();
 
-            statusEl.innerHTML = "<i class='fa-solid fa-check-circle' style='color:#388e3c;'></i> Location pinpointed! Scanning 15-mile radius for bowling centers...";
+            statusEl.innerHTML = "<i class='fa-solid fa-check-circle' style='color:#388e3c;'></i> Location pinpointed! Loading nearby bowling alleys...";
             fetchNearbyAlleys(lat, lon);
           },
           (error) => {
-            console.warn("Browser GPS blocked, falling back to IP geolocation...");
-            fallbackIPLocation();
+            // Fast fallback to US center if blocked/denied
+            statusEl.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Location access prompt closed or blocked. Click 'My Location' to allow.";
+            fetchNearbyAlleys(38.8951, -77.0364);
           },
-          { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 60000 }
         );
       } else {
-        fallbackIPLocation();
-      }
-    }
-
-    async function fallbackIPLocation() {
-      const statusEl = document.getElementById('map-status-msg');
-      try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        if (data.latitude && data.longitude) {
-          const lat = parseFloat(data.latitude);
-          const lon = parseFloat(data.longitude);
-
-          map.setView([lat, lon], 11);
-          if (userMarker) map.removeLayer(userMarker);
-          userMarker = L.marker([lat, lon]).addTo(map)
-            .bindPopup(`<b>📍 Location (${data.city || 'Local Area'})</b>`).openPopup();
-
-          statusEl.innerHTML = `<i class='fa-solid fa-wifi'></i> Wi-Fi/IP Location pinpointed near ${data.city}, ${data.region}. Scanning for bowling centers...`;
-          fetchNearbyAlleys(lat, lon);
-        } else {
-          statusEl.innerHTML = "Location access blocked. Please allow browser location access.";
-        }
-      } catch (err) {
-        statusEl.innerHTML = "Unable to resolve geolocation automatically. Click 'My Location' to retry.";
+        fetchNearbyAlleys(38.8951, -77.0364);
       }
     }
 
@@ -320,7 +295,7 @@
       const statusEl = document.getElementById('map-status-msg');
 
       const overpassQuery = `
-        [out:json][timeout:25];
+        [out:json][timeout:15];
         (
           node["sport"="bowling"](around:25000,${lat},${lon});
           way["sport"="bowling"](around:25000,${lat},${lon});
@@ -340,7 +315,7 @@
         markers = [];
 
         if (!alleyData.elements || alleyData.elements.length === 0) {
-          statusEl.innerHTML = "Location locked. No specific bowling alley nodes found in a 15-mile radius.";
+          statusEl.innerHTML = "Location set. No specific bowling alleys listed in OpenStreetMap for this 15-mile area.";
           return;
         }
 
@@ -356,9 +331,9 @@
           }
         });
 
-        statusEl.innerHTML = `<i class='fa-solid fa-bullseye' style='color:#388e3c;'></i> Found ${alleyData.elements.length} nearby bowling establishment(s) pinpointed on your map!`;
+        statusEl.innerHTML = `<i class='fa-solid fa-bullseye' style='color:#388e3c;'></i> Pinpointed ${alleyData.elements.length} nearby bowling establishment(s) on your map!`;
       } catch (err) {
-        statusEl.innerHTML = "Location pinpointed. Check map above for local alley pins.";
+        statusEl.innerHTML = "Location active. Check map above for local alley pins.";
       }
     }
 
