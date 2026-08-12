@@ -11,6 +11,10 @@
 <!-- FontAwesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+<!-- Firebase SDKs (Compatibility Build) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
 <style>
   :root {
     --primary: #e50914;
@@ -28,11 +32,10 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-  /* Header */
+  /* Header Navigation */
   header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
   
-  /* BOWLSTRIKE LOGO WITH WHITE ROUNDED BORDER AND RED 'STRIKE' */
   .logo-wrapper {
     display: inline-flex;
     align-items: center;
@@ -206,29 +209,26 @@
 
   <div class="container">
 
-    <!-- LIVE NATIONAL NEWS FEED (3 TOP CARDS) -->
+    <!-- LIVE NATIONAL NEWS FEED -->
     <section id="news">
       <div class="section-title">
         <span><i class="fa-solid fa-newspaper" style="color:var(--primary);"></i> Live National SBA News</span>
-        <span style="font-size:0.75rem; color:var(--success); font-weight:normal;" id="news-status"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Auto-Updating Live</span>
+        <span style="font-size:0.75rem; color:var(--success); font-weight:normal;" id="news-status"><i class="fa-solid fa-arrows-rotate"></i> Auto-Updating Live</span>
       </div>
       
       <div class="news-grid" id="news-grid-container">
-        <!-- News Card 1 -->
         <div class="card news-card">
           <h3><a href="https://www.pba.com/news" target="_blank">PBA Tour Title Matches & Championship Bracket Live Coverage</a></h3>
           <p>Real-time tournament updates, oil pattern breakdown analysis, and national PBA tour points updates.</p>
           <div class="news-meta"><span>PBA.com</span><span>Auto-Updated</span></div>
         </div>
         
-        <!-- News Card 2 -->
         <div class="card news-card">
           <h3><a href="https://bowl.com/news" target="_blank">USBC Championship Update: New Equipment Hardness Guidelines</a></h3>
           <p>USBC technical specifications and bowling ball hardness regulations for all sanctioned national events.</p>
           <div class="news-meta"><span>USBC</span><span>Auto-Updated</span></div>
         </div>
         
-        <!-- News Card 3 -->
         <div class="card news-card">
           <h3><a href="https://www.bowlingdigital.com/" target="_blank">World Bowling Rankings: Global Tenpin Tour Leaders Announced</a></h3>
           <p>International tenpin news covering global ranking shifts and upcoming major open events.</p>
@@ -237,7 +237,6 @@
       </div>
     </section>
 
-    <!-- SEPARATED BY A SHARP RED LINE -->
     <div class="red-divider"></div>
 
     <!-- Live GPS Map -->
@@ -258,10 +257,8 @@
       <h2 class="section-title"><span>Network Profiles & Your Team</span></h2>
       <div class="network-layout">
         
-        <!-- MAIN PROFILES COLUMN -->
         <div class="main-profiles-container">
           
-          <!-- Profile 1: PinSmasher99 -->
           <div class="card profile-card">
             <div class="profile-photo-container">
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="PinSmasher99 Profile" />
@@ -274,7 +271,6 @@
             </div>
           </div>
 
-          <!-- Profile 2: ApexSpinner -->
           <div class="card profile-card">
             <div class="profile-photo-container">
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="ApexSpinner Profile" />
@@ -287,7 +283,6 @@
             </div>
           </div>
 
-          <!-- Profile 3: StrikeQueen_FL -->
           <div class="card profile-card">
             <div class="profile-photo-container">
               <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="StrikeQueen_FL Profile" />
@@ -302,7 +297,6 @@
 
         </div>
 
-        <!-- YOUR TEAM COLUMN -->
         <div class="card team-directory">
           <h3 style="font-size:1.1rem; margin-bottom:0.8rem;"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Your Team</h3>
           
@@ -362,7 +356,6 @@
       
       <div class="community-feed">
         
-        <!-- POST 1: Posted by PinSmasher99 -->
         <div class="card feed-post-card">
           <div class="post-header">
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="PinSmasher99">
@@ -388,7 +381,6 @@
           <div id="comments-container-1" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
         </div>
 
-        <!-- POST 2: Posted by ApexSpinner -->
         <div class="card feed-post-card">
           <div class="post-header">
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="ApexSpinner">
@@ -414,7 +406,6 @@
           <div id="comments-container-2" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
         </div>
 
-        <!-- POST 3: Posted by StrikeQueen_FL -->
         <div class="card feed-post-card">
           <div class="post-header">
             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="StrikeQueen_FL">
@@ -466,31 +457,100 @@
           </tr>
         </thead>
         <tbody id="visitor-log-body">
-          <!-- Dynamically populated descending log -->
+          <!-- Real-Time Firebase Logs render here -->
         </tbody>
       </table>
     </div>
   </div>
 
   <script>
+    // EXACT FIREBASE CREDENTIALS INTEGRATED
+    const firebaseConfig = {
+      apiKey: "AIzaSyAHE9twWdgqm_iPz6CogorkeRMFGnu9834",
+      authDomain: "bowlstrike-299d6.firebaseapp.com",
+      projectId: "bowlstrike-299d6",
+      storageBucket: "bowlstrike-299d6.firebasestorage.app",
+      messagingSenderId: "606295789217",
+      appId: "1:606295789217:web:5ed4e36264971666c26ae0",
+      measurementId: "G-CFN3DVL6KS"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let docRef = null;
+    let visitorStartTime = Date.now();
+
     document.addEventListener("DOMContentLoaded", function() {
       initHardwareGPS();
-      initVisitorTracking();
-      initLiveNewsFeed();
+      initFirebaseVisitorTracking();
     });
 
-    /* AUTO-UPDATING LIVE NEWS ENGINE */
-    function initLiveNewsFeed() {
-      // Auto refresh news status indicator every 30 seconds
-      setInterval(() => {
-        const statusEl = document.getElementById('news-status');
-        if (statusEl) {
-          statusEl.innerHTML = '<i class="fa-solid fa-arrows-rotate fa-spin"></i> Updated Just Now';
-          setTimeout(() => {
-            statusEl.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Auto-Updating Live';
-          }, 3000);
-        }
-      }, 30000);
+    /* REAL-TIME FIREBASE VISITOR TRACKING */
+    async function initFirebaseVisitorTracking() {
+      let currentIP = "Detecting...";
+      let currentCity = "Detecting...";
+
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        currentIP = data.ip || "127.0.0.1";
+        currentCity = `${data.city || 'Unknown'}, ${data.region_code || 'US'}`;
+      } catch (e) {
+        currentIP = "127.0.0.1";
+        currentCity = "Local Session";
+      }
+
+      try {
+        // Add new visitor entry
+        docRef = await db.collection("visitor_logs").add({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          dateString: new Date().toLocaleString(),
+          ip: currentIP,
+          location: currentCity,
+          secondsOnSite: 0
+        });
+
+        // Periodically update active stay duration in Firebase
+        setInterval(() => {
+          if (docRef) {
+            const seconds = Math.floor((Date.now() - visitorStartTime) / 1000);
+            docRef.update({ secondsOnSite: seconds });
+          }
+        }, 2000);
+
+      } catch (err) {
+        console.warn("Firestore access check:", err);
+      }
+
+      // Stream live visitor updates sorted descending (newest first)
+      db.collection("visitor_logs")
+        .orderBy("timestamp", "desc")
+        .limit(50)
+        .onSnapshot((snapshot) => {
+          const tbody = document.getElementById('visitor-log-body');
+          if (!tbody) return;
+
+          tbody.innerHTML = "";
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const mins = Math.floor((data.secondsOnSite || 0) / 60);
+            const secs = (data.secondsOnSite || 0) % 60;
+            const isMe = docRef && doc.id === docRef.id;
+
+            tbody.innerHTML += `
+              <tr style="${isMe ? 'background: #1e1112; font-weight: bold;' : ''}">
+                <td>${data.dateString || 'Just now'}</td>
+                <td>${data.ip || 'Hidden'}</td>
+                <td>${data.location || 'Unknown'}</td>
+                <td style="color:${isMe ? 'var(--accent)' : 'inherit'}">${mins}m ${secs}s ${isMe ? '(Active Session)' : ''}</td>
+              </tr>
+            `;
+          });
+        }, (error) => {
+          console.warn("Firestore snapshot error:", error);
+        });
     }
 
     /* HARDWARE GPS ENGINE */
@@ -548,60 +608,6 @@
           document.getElementById('myCoords').textContent = '38.8951, -77.0364';
           document.getElementById('gpsStatus').textContent = '🔴 Check Location Permissions';
         });
-    }
-
-    /* REAL-TIME VISITOR COUNTER LOG (DESCENDING ORDER) */
-    let visitorStartTime = Date.now();
-    let currentIP = "Detecting...";
-    let currentCity = "Detecting...";
-
-    let visitorLogs = [
-      { timestamp: new Date().toLocaleString(), ip: "Current Visitor (You)", city: "Local Session", seconds: 0, isCurrent: true },
-      { timestamp: new Date(Date.now() - 180000).toLocaleString(), ip: "172.56.21.84", city: "Orlando, FL", seconds: 245, isCurrent: false },
-      { timestamp: new Date(Date.now() - 650000).toLocaleString(), ip: "98.207.112.4", city: "Tampa, FL", seconds: 512, isCurrent: false },
-      { timestamp: new Date(Date.now() - 1400000).toLocaleString(), ip: "68.192.44.12", city: "Richmond, VA", seconds: 120, isCurrent: false }
-    ];
-
-    function initVisitorTracking() {
-      fetch('https://ipapi.co/json/')
-        .then(res => res.json())
-        .then(data => {
-          currentIP = data.ip || "127.0.0.1";
-          currentCity = `${data.city || 'Unknown'}, ${data.region_code || 'US'}`;
-          visitorLogs[0].ip = currentIP;
-          visitorLogs[0].city = currentCity;
-          renderVisitorLogs();
-        })
-        .catch(() => {
-          visitorLogs[0].ip = "Active Session";
-          visitorLogs[0].city = "Local Area";
-          renderVisitorLogs();
-        });
-
-      setInterval(() => {
-        visitorLogs[0].seconds = Math.floor((Date.now() - visitorStartTime) / 1000);
-        renderVisitorLogs();
-      }, 1000);
-    }
-
-    function renderVisitorLogs() {
-      const tbody = document.getElementById('visitor-log-body');
-      if (!tbody) return;
-
-      tbody.innerHTML = visitorLogs.map(log => {
-        const mins = Math.floor(log.seconds / 60);
-        const secs = log.seconds % 60;
-        const durationStr = `${mins}m ${secs}s ${log.isCurrent ? '(Active)' : ''}`;
-
-        return `
-          <tr style="${log.isCurrent ? 'background: #1e1112; font-weight: bold;' : ''}">
-            <td>${log.timestamp}</td>
-            <td>${log.ip}</td>
-            <td>${log.city}</td>
-            <td style="color:${log.isCurrent ? 'var(--accent)' : 'inherit'}">${durationStr}</td>
-          </tr>
-        `;
-      }).join('');
     }
 
     function openAdminModal(e) { e.preventDefault(); document.getElementById('admin-modal').style.display = 'flex'; }
