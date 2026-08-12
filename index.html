@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>BowlStrike.com - National Tenpin Bowling Hub</title>
 
-  <!-- Leaflet CSS & JS for Interactive Map -->
+  <!-- Leaflet CSS & JS Engine -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   
-  <!-- FontAwesome for Icons -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
@@ -31,7 +31,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
     body { background-color: var(--dark-bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
 
-    /* Header & Navigation */
+    /* Header Navigation */
     header { background-color: #000000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
     .logo { font-size: 1.8rem; font-weight: 900; color: #ffffff; text-decoration: none; letter-spacing: 0.5px; }
@@ -76,7 +76,7 @@
     .news-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
     .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid var(--border); padding-top: 0.5rem; }
 
-    /* Real-Time Map Wrapper */
+    /* Real-Time Map Area */
     .map-wrapper { position: relative; width: 100%; height: 420px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 3rem; }
     #map { width: 100%; height: 100%; background: #1a1a1e; }
 
@@ -91,7 +91,7 @@
 
     .map-controls-panel { position: absolute; top: 12px; right: 12px; z-index: 500; }
 
-    /* Video & Photo Community Feed */
+    /* Media Community Feed */
     .media-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
     .media-form input, .media-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid var(--border); background: #2a2a2a; color: #ffffff; }
     .file-input-label { font-size: 0.82rem; color: var(--text-muted); margin-top: -0.4rem; }
@@ -101,7 +101,7 @@
     .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
     .action-btn i { color: var(--primary); }
 
-    /* Contact Form & Footer */
+    /* Contact & Footer */
     .contact-form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 650px; margin-bottom: 3rem; }
     .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid var(--border); background: #2a2a2a; color: #ffffff; }
     footer { background: #000000; padding: 2rem 1rem; text-align: center; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--text-muted); }
@@ -117,7 +117,7 @@
     th, td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; font-size: 0.8rem; }
     th { background: #111111; color: var(--accent); }
 
-    /* Leaflet Dark Tile Styling */
+    /* Dark Tile Styling */
     .leaflet-tile { filter: invert(1) hue-rotate(190deg) brightness(0.85) saturate(1.3); }
   </style>
 
@@ -145,7 +145,7 @@
       <div class="hero-title-badge">
         <h1>Bowl<span>Strike</span>.com</h1>
       </div>
-      <p>Your National Tenpin Hub — Live PBA & USBC News, Real-Time Radar Lane Finder, Player Profiles & Photo/Video Feeds</p>
+      <p>Your National Tenpin Hub — Live PBA & USBC News, Real-Time Radar Lane Finder, Player Profiles & Media Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-crosshairs"></i> Locate Nearby Alleys</a>
         <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
@@ -186,8 +186,8 @@
       <div class="map-wrapper">
         <div class="my-location-panel">
           <div class="ml-label">📍 My Position</div>
-          <div class="ml-coords" id="myCoords">Locating...</div>
-          <div class="ml-accuracy" id="myAccuracy">Connecting to GPS...</div>
+          <div class="ml-coords" id="myCoords">Acquiring GPS...</div>
+          <div class="ml-accuracy" id="myAccuracy">Connecting to satellites...</div>
         </div>
 
         <div class="map-controls-panel">
@@ -262,94 +262,104 @@
     })();
 
     /* ==========================================================================
-       BULLETPROOF GEOLOCATION & MAP RADAR ENGINE
+       REAL-TIME CONTINUOUS GEOLOCATION ENGINE (ARRIVETIME.COM ARCHITECTURE)
        ========================================================================== */
     let map, myMarker, myLat, myLng;
+    let watchId = null;
     let alleyMarkers = [];
 
     function initMap() {
-      // Create Leaflet Map instance
       map = L.map('map', { zoomControl: false, attributionControl: false });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18
+        maxZoom: 19
       }).addTo(map);
 
-      // Default initial view: Center of United States
-      map.setView([38.8951, -77.0364], 4);
+      map.setView([37.7749, -122.4194], 12);
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-      // Bind Leaflet's location listeners
-      map.on('locationfound', onLocationFound);
-      map.on('locationerror', onLocationError);
-
-      // Trigger automatic locator scan
-      locateUser();
+      // Start continuous real-time tracking pipeline
+      startGPS();
     }
 
-    function locateUser() {
-      document.getElementById('myCoords').textContent = "Scanning...";
-      document.getElementById('myAccuracy').textContent = "Acquiring GPS...";
+    function startGPS() {
+      if (!navigator.geolocation) {
+        onGPSError();
+        return;
+      }
 
-      // Leaflet native location call
-      map.locate({ setView: true, maxZoom: 12, timeout: 8000, enableHighAccuracy: false });
+      const opts = {
+        enableHighAccuracy: true,
+        maximumAge: 5000,
+        timeout: 15000
+      };
+
+      // Immediate single check + continuous real-time watcher
+      navigator.geolocation.getCurrentPosition(onPosition, onGPSError, opts);
+      watchId = navigator.geolocation.watchPosition(onPosition, onGPSError, opts);
     }
 
-    function onLocationFound(e) {
-      myLat = e.latlng.lat;
-      myLng = e.latlng.lng;
-      const acc = Math.round(e.accuracy);
+    function onPosition(pos) {
+      myLat = pos.coords.latitude;
+      myLng = pos.coords.longitude;
+      const acc = Math.round(pos.coords.accuracy);
 
-      document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
-      document.getElementById('myAccuracy').textContent = `±${acc}m accuracy · GPS Active`;
+      document.getElementById('myCoords').textContent = `${myLat.toFixed(5)}, ${myLng.toFixed(5)}`;
+      document.getElementById('myAccuracy').textContent = `±${acc}m accuracy · ${getSourceLabel(pos)}`;
 
-      updateUserMarker(myLat, myLng);
+      if (!myMarker) {
+        myMarker = L.marker([myLat, myLng], { icon: createMyIcon() }).addTo(map);
+        map.setView([myLat, myLng], 12);
+        fetchNearbyAlleys(myLat, myLng);
+      } else {
+        myMarker.setLatLng([myLat, myLng]);
+      }
     }
 
-    function onLocationError(e) {
-      // Fallback to CORS-compliant HTTPS IP Geolocation if browser GPS is blocked
-      fallbackIPLocation();
+    function getSourceLabel(pos) {
+      const acc = pos.coords.accuracy;
+      if (acc < 20) return 'GPS Live Stream';
+      if (acc < 100) return 'GPS/Wi-Fi';
+      return 'Wi-Fi/Cell Network';
     }
 
-    async function fallbackIPLocation() {
+    async function onGPSError(err) {
       try {
-        const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
+        const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
         if (data.latitude && data.longitude) {
           myLat = parseFloat(data.latitude);
           myLng = parseFloat(data.longitude);
 
           document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
-          document.getElementById('myAccuracy').textContent = `IP/Wi-Fi (${data.city || 'Local Area'})`;
+          document.getElementById('myAccuracy').textContent = `IP Location (${data.city || 'Local Area'})`;
 
-          map.setView([myLat, myLng], 12);
-          updateUserMarker(myLat, myLng);
+          if (!myMarker) {
+            myMarker = L.marker([myLat, myLng], { icon: createMyIcon() }).addTo(map);
+            map.setView([myLat, myLng], 12);
+            fetchNearbyAlleys(myLat, myLng);
+          } else {
+            myMarker.setLatLng([myLat, myLng]);
+          }
         }
-      } catch (err) {
-        document.getElementById('myCoords').textContent = 'Location Active';
-        document.getElementById('myAccuracy').textContent = 'Default View Set';
+      } catch (e) {
+        document.getElementById('myCoords').textContent = 'Location unavailable';
+        document.getElementById('myAccuracy').textContent = 'Check Safari location permissions';
       }
-    }
-
-    function updateUserMarker(lat, lon) {
-      if (!myMarker) {
-        myMarker = L.marker([lat, lon], { icon: createMyIcon() }).addTo(map);
-      } else {
-        myMarker.setLatLng([lat, lon]);
-      }
-      fetchNearbyAlleys(lat, lon);
     }
 
     function createMyIcon() {
       return L.divIcon({
         html: `
           <div style="
-            width:36px;height:36px;border-radius:50%;
-            background:#e50914;
-            display:grid;place-items:center;font-size:16px;
-            border:3px solid #ffffff;box-shadow:0 0 15px rgba(229,9,20,0.8);
-          ">📍</div>`,
-        iconSize: [36, 36], iconAnchor: [18, 18], className: ''
+            width:40px;height:40px;border-radius:50%;
+            background:linear-gradient(135deg,#e50914,#ff3c3c);
+            display:grid;place-items:center;font-size:18px;
+            border:3px solid #ffffff;box-shadow:0 0 20px rgba(229,9,20,0.8);
+            animation:pulse 2s ease infinite;
+          ">📍</div>
+          <style>@keyframes pulse{0%,100%{box-shadow:0 0 15px rgba(229,9,20,0.6);}50%{box-shadow:0 0 35px rgba(229,9,20,1);}}</style>`,
+        iconSize: [40, 40], iconAnchor: [20, 20], className: ''
       });
     }
 
@@ -357,7 +367,7 @@
       if (myLat && myLng) {
         map.flyTo([myLat, myLng], 12, { duration: 1.0 });
       } else {
-        locateUser();
+        startGPS();
       }
     }
 
@@ -459,7 +469,7 @@
     }
 
     /* ==========================================================================
-       CONTACT FORM & ADMIN TRACKER
+       CONTACT & ADMIN
        ========================================================================== */
     function sendEmail(e) {
       e.preventDefault();
@@ -470,7 +480,7 @@
     async function trackVisitor() {
       let logs = JSON.parse(localStorage.getItem('bowlstrike_visitor_logs') || '[]');
       try {
-        const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
+        const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
         logs.push({ timestamp: new Date().toLocaleString(), city: data.city || 'Unknown', state: data.region || 'Unknown', ip: data.ip || '127.0.0.1', rawTime: Date.now() });
       } catch (e) {
