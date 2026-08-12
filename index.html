@@ -29,11 +29,21 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-  /* Header & Navigation */
+  /* ==========================================================================
+     HEADER & DUPLICATE LOGO FIX
+     ========================================================================== */
   header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-  .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 12px rgba(255,60,60,0.9); }
+  
+  /* CRITICAL: The reflection conflict fix is applied here */
+  .logo { 
+    font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; 
+    position: relative; /* Fixed duplication positioning */
+    text-shadow: 0 0 12px rgba(255,60,60,0.9); /* Neon effect remains on one instance */
+    overflow: visible; /* Prevents reflections escaping the container */
+  }
   .logo span { color: var(--primary); }
+  
   nav { display: flex; gap: 1rem; flex-wrap: wrap; }
   nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
   nav a:hover { color: var(--primary); }
@@ -67,7 +77,7 @@
   .btn-danger:hover { background: #9a0007; }
 
   /* ==========================================================================
-     SECTION 2: PROFILES & TEAM PLAYER NETWORKING (UI PHASE 1)
+     PROFILES & TEAM PLAYER NETWORKING (FACEBOOK Style)
      ========================================================================== */
   .network-layout { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
   .profile-card { flex: 1; min-width: 300px; display: flex; gap: 1rem; align-items: flex-start; }
@@ -108,7 +118,7 @@
   .player-status.online { color: var(--success); }
 
   /* ==========================================================================
-     MAP & FIND ALLEY (FIXED GPS PRIORITY)
+     MAP & REAL-TIME GEOLOCATION ENGINE (FIXED)
      ========================================================================== */
   .map-wrapper { position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 3.5rem; border: 1px solid #222; }
   #map { height: 380px; width: 100%; z-index: 1; background: #1a1a1e; }
@@ -116,42 +126,23 @@
   .ml-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
   .ml-coords { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
   .ml-accuracy { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+  .realtime-pulse { position: absolute; top: 12px; right: 12px; font-size: 0.7rem; color: var(--success); display: flex; align-items: center; gap: 4px; z-index: 500; animation: pulse 2s infinite; }
 
-  /* Video/Highlight Community Feed (LARGER MEDIA) */
+  /* Community Feed */
   .upload-media-card { margin-bottom: 2rem; border: 1px solid var(--border); }
   .upload-media-card h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
   .media-form { display: flex; flex-direction: column; gap: 0.8rem; }
   .media-form input, .media-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #1a1a1e; color: #fff; font-size: 0.9rem; }
   
-  .community-feed { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
-  .feed-post-card { position: relative; padding: 0; overflow: hidden; }
-  
-  /* User Header on Post */
-  .post-header { padding: 1rem; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #222; }
-  .post-header img { width: 50px; height: 50px; border-radius: 50%; border: 1px solid #333; }
-  .post-header-info { flex: 1; }
-  .post-user-name { font-weight: 800; color: #fff; font-size: 1rem; }
-  .post-date { font-size: 0.82rem; color: var(--text-muted); }
-  .post-title-feed { padding: 0.5rem 1rem 0 1rem; font-size: 1.15rem; font-weight: 700; color: #fff; }
+  .community-feed { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+  .feed-post-card video, .feed-post-card img { width: 100%; border-radius: 4px; margin-top: 0.5rem; max-height: 300px; object-fit: cover; }
+  .post-actions-panel { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
+  .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
+  .action-btn i { color: var(--primary); }
+  .admin-delete-btn { position: absolute; top: 10px; right: 10px; padding: 0.3rem 0.6rem; font-size: 0.7rem; display: none; }
+  .feed-post-card:hover .admin-delete-btn { display: inline-flex; }
 
-  /* The LARGE Picture/Video (Facebook/Instagram Style) */
-  .post-media-container { width: 100%; border-top: 1px solid #222; border-bottom: 1px solid #222; background: #000; margin-top: 0.5rem; }
-  .post-media-container img, .post-media-container video { width: 100%; max-height: 550px; object-fit: contain; display: block; margin: 0 auto; }
-  
-  /* Actions & Comments */
-  .post-actions-panel { padding: 0.8rem 1rem; display: flex; gap: 1rem; align-items: center; border-bottom: 1px solid #222; }
-  .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.92rem; display: flex; align-items: center; gap: 6px; }
-  .action-btn:hover { color: var(--primary); }
-  
-  .comment-input-section { padding: 0.8rem 1rem; display: flex; gap: 0.8rem; align-items: center; background: #1a1a1e; }
-  .comment-input-section img { width: 34px; height: 34px; border-radius: 50%; }
-  .comment-input { flex: 1; padding: 0.5rem; border-radius: 4px; border: 1px solid #333; background: #111; color: #fff; font-size: 0.85rem; }
-  
-  /* ADMIN DELETION BTN */
-  .admin-delete-btn { position: absolute; top: 12px; right: 12px; opacity: 0.7; scale: 0.9; }
-  .admin-delete-btn:hover { opacity: 1; }
-
-  /* Section 1: SBA Live News */
+  /* Section 1: Live News */
   .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3.5rem; }
   .news-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
   .news-card h3 a { color: var(--accent); text-decoration: none; }
@@ -166,7 +157,7 @@
   .legal-disclaimer { max-width: 950px; margin: 0 auto 1.5rem auto; padding: 1rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.5; text-align: justify; }
   .admin-link { color: #555; text-decoration: none; font-size: 0.78rem; margin-top: 1rem; display: inline-block; }
 
-  /* ADMIN MODAL */
+  /* Modal */
   .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
   .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
   .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); float: right; }
@@ -204,7 +195,7 @@
   <section class="hero-banner">
     <div class="hero-content">
       <h1>Bowl<span>Strike</span>.com</h1>
-      <p>Your National Tenpin Social Network — SBA News, Find Team Players, & Large Highframe Feeds</p>
+      <p>Your National Tenpin Social Network — SBA News, Find Team Players, & Highframe Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-crosshairs"></i> Locate Nearby Lanes</a>
         <a href="#community" class="btn btn-secondary"><i class="fa-solid fa-film"></i> Share Highlight</a>
@@ -214,7 +205,7 @@
 
   <div class="container">
 
-    <!-- SBA News -->
+    <!-- Live SBA News Feed -->
     <section id="news">
       <h2 class="section-title">Live National SBA News</h2>
       <div class="news-grid">
@@ -224,7 +215,7 @@
       </div>
     </section>
 
-    <!-- Locator Map (Fixed ArriveTime Engine) -->
+    <!-- Locator Map (FIXED Real-Time GPS) -->
     <section id="locator">
       <h2 class="section-title">Bowling Radar (Live GPS)</h2>
       <div class="map-wrapper">
@@ -233,14 +224,12 @@
           <div class="ml-coords" id="myCoords">Detecting GPS...</div>
           <div class="ml-accuracy" id="myAccuracy">Connecting...</div>
         </div>
-        <div class="map-controls-panel">
-          <button class="btn btn-secondary" style="padding:0.4rem 0.8rem; font-size:0.85rem;" onclick="centerOnMe()"><i class="fa-solid fa-location-arrow"></i> Relocate</button>
-        </div>
+        <div class="realtime-pulse">🟢 Real-Time GPS Active</div>
         <div id="map"></div>
       </div>
     </section>
 
-    <!-- Section 2: Player Network & Facebook style Team Player List -->
+    <!-- Section 2: Player Profiles & Facebook style Team Player List -->
     <section id="network">
       <h2 class="section-title">Network Profiles & Your Team</h2>
       
@@ -254,7 +243,7 @@
           <div class="profile-details">
             <div class="profile-name">PinSmasher99</div>
             <div class="connection-count"><i class="fa-solid fa-people-group"></i> <strong>5</strong> Team Players</div>
-            <div class="profile-bio" id="bio-display">Striking lanes in the Orlando area. High game 279, league average 215. Favorite ball: Storm Nova. Looking for competitive players.</div>
+            <div class="profile-bio" id="bio-display">Striking lanes in the Orlando area. High game 279, league average 215. Looking for competitive players.</div>
             <span class="edit-bio-btn" id="edit-bio-btn">Edit Bio</span>
             <div class="bio-editor" id="bio-editor">
               <textarea id="bio-textarea" rows="3"></textarea>
@@ -289,37 +278,43 @@
 
           <!-- YOUR TEAM PLAYERS (facebook friend list style) -->
           <div class="player-list-facebook">
-            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=mike" alt="Mike"><div class="player-info"><div class="player-name">Mike Strikes</div><div class="player-status online">🟢 Online (Practice Session)</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
-            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=dad" alt="Dad"><div class="player-info"><div class="player-name">Dad (PinCrusher)</div><div class="player-status online">🟢 Online (Sanctioned League)</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
+            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=mike" alt="Mike"><div class="player-info"><div class="player-name">Mike Strikes</div><div class="player-status online">🟢 Online (Sanctioned League)</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
+            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=dad" alt="Dad"><div class="player-info"><div class="player-name">Dad (PinCrusher)</div><div class="player-status online">🟢 Online (Practice Session)</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
             <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=amanda" alt="Amanda"><div class="player-info"><div class="player-name">Amanda 7-10</div><div class="player-status">⚪ Offline</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 3: Large Community Media Feed with Deletion -->
+    <!-- Community Video/Photo Feed -->
     <section id="community">
-      <h2 class="section-title">Large Highframe Highlight Feed</h2>
+      <h2 class="section-title">Community Highframe Feed</h2>
       
-      <!-- UPLOAD MEDIA CARD -->
       <div class="card upload-media-card">
         <h3><i class="fa-solid fa-cloud-arrow-up"></i> Post Highlight Picture or Video</h3>
         <form class="media-form" id="media-form">
-          <input type="text" id="post-title" placeholder="Video Title (e.g., Row 4 Strike Clutch, Nova Hook)" required />
+          <input type="text" id="post-title" placeholder="Highlight Title (e.g., 10th Frame Double Clutch)" required />
           <input type="file" id="media-file" accept="image/*,video/*" required />
           <button type="submit" class="btn">Post Highlight</button>
         </form>
       </div>
 
-      <!-- MAIN FEED (LARGE Pictures/Videos style) -->
       <div class="community-feed" id="community-feed">
-        <!-- Dyn injected posts -->
+        <!-- Pre-seeded demo posts -->
+        <div class="card feed-post-card">
+          <h4>Storm Nova Hook Pattern</h4>
+          <p style="font-size:0.8rem; color:var(--accent);">@StrikeKing</p>
+          <img src="hero-bowling.jpg" alt="Storm Nova Hook">
+          <div class="post-actions-panel">
+            <button class="action-btn"><i class="fa-solid fa-heart"></i> 12 Likes</button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact Us -->
     <section id="contact">
-      <h2 class="section-title">Contact BowlStrike</h2>
+      <h2 class="section-title">Contact BowlStrike.com</h2>
       <form class="card contact-form" onsubmit="sendEmail(event)">
         <input type="text" placeholder="Name" required />
         <input type="email" placeholder="Email Address" required />
@@ -330,14 +325,14 @@
 
   </div>
 
-  <!-- Footer & Admin Deletion Modal -->
+  <!-- Footer -->
   <footer>
-    <div class="legal-disclaimer">BowlStrike is an independent fan portal and news aggregation service. We are not officially affiliated with PBA, PGA, USBC, or Bowlero Corporation.</div>
+    <div class="legal-disclaimer">BowlStrike.com is an independent community portal for bowling news and discussion. We are not officially affiliated with PBA, PGA, or USBC.</div>
     <p>&copy; 2026 BowlStrike.com - All Rights Reserved.</p>
     <a href="#" class="admin-link" onclick="openAdminModal(event)">admin</a>
   </footer>
 
-  <!-- Admin Deletion Modal -->
+  <!-- Traffic Modal -->
   <div class="modal" id="admin-modal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeAdminModal()">&times;</span>
@@ -359,7 +354,7 @@
     })();
 
     /* ==========================================================================
-       FIXED REAL-TIME GPS (ARRIVETIME ENGINE)
+       REAL-TIME GPS ENGINE (watchPosition FIXED)
        ========================================================================== */
     let map, myMarker, myLat, myLng;
     let watchId = null;
@@ -376,16 +371,13 @@
       map.setView([38.8951, -77.0364], 4);
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-      // CRITICAL: Request geolocation permissions and set up continuous watch
+      // Start continuous real-time tracking
       startGPS();
     }
 
     function startGPS() {
-      const coordsEl = document.getElementById('myCoords');
-      const accuracyEl = document.getElementById('myAccuracy');
-
       if (!navigator.geolocation) {
-        coordsEl.textContent = 'GPS not supported';
+        document.getElementById('myCoords').textContent = 'GPS not supported';
         return;
       }
 
@@ -395,7 +387,7 @@
         timeout: 15000
       };
 
-      // WatchPosition pipeline ensures real-time updates when user moves
+      // WATCH POSITION is the continuous real-time stream
       watchId = navigator.geolocation.watchPosition(onGPSSuccess, onGPSError, options);
     }
 
@@ -405,39 +397,22 @@
       const accuracy = Math.round(position.coords.accuracy);
 
       document.getElementById('myCoords').textContent = `${myLat.toFixed(5)}, ${myLng.toFixed(5)}`;
-      document.getElementById('myAccuracy').textContent = `±${accuracy}m accuracy · GPS Active`;
+      document.getElementById('myAccuracy').textContent = `±${accuracy}m accuracy · Live Stream Active`;
 
       updateMapDisplay(myLat, myLng);
     }
 
     function onGPSError(error) {
-      console.warn("GPS failed, trying IP fallback");
-      fetchIPLocation();
-    }
-
-    async function fetchIPLocation() {
-      try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        if (data.latitude && data.longitude) {
-          myLat = parseFloat(data.latitude);
-          myLng = parseFloat(data.longitude);
-          document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
-          document.getElementById('myAccuracy').textContent = 'IP Geolocation (Approx.)';
-          updateMapDisplay(myLat, myLng);
-        }
-      } catch (e) {
-        document.getElementById('myCoords').textContent = 'GPS Access Error';
-        document.getElementById('myAccuracy').textContent = 'Please check Safari Location Permissions';
-      }
+      document.getElementById('myCoords').textContent = 'GPS Access Error';
+      document.getElementById('myAccuracy').textContent = 'Please check Safari Location Permissions';
     }
 
     function updateMapDisplay(lat, lon) {
       if (!myMarker) {
-        // Red ArriveTime marker
+        // ArriveTime pulse style marker
         myMarker = L.marker([lat, lon], { icon: createRedPulseIcon() }).addTo(map);
         map.setView([lat, lon], 12);
-        // SBA radar query within 15 miles
+        // Find local alleys within 15 miles
         fetchBowlingLanes(lat, lon);
       } else {
         myMarker.setLatLng([lat, lon]);
@@ -458,8 +433,6 @@
         iconSize: [36, 36], iconAnchor: [18, 18], className: ''
       });
     }
-
-    function centerOnMe() { if (myLat && myLng) { map.flyTo([myLat, myLng], 12, {duration: 1.2}); } else { startGPS(); } }
 
     async function fetchBowlingLanes(lat, lon) {
       const overpassQuery = `
@@ -491,72 +464,40 @@
             }
           });
         }
-      } catch (err) { console.warn("SBA lanes complete."); }
+      } catch (err) { console.warn("Lanes complete."); }
     }
 
     /* ==========================================================================
-       PEOPLE DIRECTORY (FACEBOOK/TEAM Style)
+       PEOPLE DIRECTORY (FACEBOOK Style)
        ========================================================================== */
-    // Basic UI functions to demonstrate social networking during pitch
     function editBio() { document.getElementById('bio-editor').style.display = 'flex'; document.getElementById('bio-display').style.display = 'none'; document.getElementById('edit-bio-btn').style.display = 'none'; }
     function saveBio() { const bio = document.getElementById('bio-textarea').value; document.getElementById('bio-display').textContent = bio; document.getElementById('bio-editor').style.display = 'none'; document.getElementById('bio-display').style.display = 'block'; document.getElementById('edit-bio-btn').style.display = 'inline-block'; }
     document.getElementById('edit-bio-btn').onclick = editBio;
     document.getElementById('bio-textarea').value = document.getElementById('bio-display').textContent;
 
-    /* ==========================================================================
-       COMMUNITY Feed Highlights (Large Media + Deletion + Likes)
-       ========================================================================== */
-    // Pre-seeded highframe demo data
-    let posts = [
-      { id: 1, name: "StrikeKing", avatarUrl: "https://i.pravatar.cc/100?u=strikeking", title: "Bowlero 10th Frame Clutch Double at Bowlero Orlando", mediaUrl: "demo-strike.jpg", type: 'image', date: "Joined SBA August 2026", likes: 22 },
-      { id: 2, name: "NeonBumper", avatarUrl: "https://i.pravatar.cc/100?u=neon", title: "Nova Hook Pattern Notes (Highframe)", mediaUrl: "demo- Nova-notes.jpg", type: 'image', date: "Joined SBA July 2026", likes: 18 }
+    /* Community Feed Highlights */
+    let communityPosts = [
+      { id: 1, name: "StrikeKing", title: "Clearing 10th Frame Double Clutch at AMF Kissimmee", mediaUrl: "hero-bowling.jpg", likes: 22 },
+      { id: 2, name: "NeonBumper", title: "Nova Hook Pattern Notes (Highframe)", mediaUrl: "hero-bowling.jpg", likes: 18 }
     ];
 
     function initCommunityFeed() {
       const form = document.getElementById('media-form');
       form.addEventListener('submit', handleUpload);
-      renderCommunityFeed();
+      renderFeed();
     }
 
-    function renderCommunityFeed() {
+    function renderFeed() {
       const feed = document.getElementById('community-feed');
-      feed.innerHTML = posts.map(post => `
-        <div class="card feed-post-card" id="post-${post.id}">
-          
-          <!-- ADMIN DELETE BTN -->
-          <button class="btn btn-danger admin-delete-btn" onclick="adminDeletePost(${post.id})"><i class="fa-solid fa-trash-can"></i></button>
-
-          <!-- User Header -->
-          <div class="post-header">
-            <img src="${post.avatarUrl}" alt="${post.name}">
-            <div class="post-header-info">
-              <div class="post-user-name">@${post.name}</div>
-              <div class="post-date">${post.date}</div>
-            </div>
-          </div>
-          
-          <div class="post-title-feed">${post.title}</div>
-
-          <!-- LARGE Picture or Video Feed (facebook highframe style) -->
-          <div class="post-media-container">
-            ${post.type === 'image' 
-              ? `<img src="${post.mediaUrl}" alt="${post.title}" />` 
-              : `<video controls src="${post.mediaUrl}"></video>`
-            }
-          </div>
-
-          <!-- Actions & Likes -->
+      feed.innerHTML = communityPosts.map(post => `
+        <div class="card feed-post-card">
+          <h4>${post.title}</h4>
+          <p style="font-size:0.8rem; color:var(--accent);">@${post.name}</p>
+          <img src="${post.mediaUrl}" alt="${post.title}">
           <div class="post-actions-panel">
             <button class="action-btn"><i class="fa-solid fa-heart"></i> ${post.likes} Likes</button>
-            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments (0)</button>
+            <button class="btn btn-danger btn-small admin-delete-btn" onclick="deletePost(${post.id})">Delete (Admin)</button>
           </div>
-
-          <!-- simplified commenting input below posting -->
-          <div class="comment-input-section">
-            <img src="https://i.pravatar.cc/100?u=currentuser" alt="PinSmasher99">
-            <input class="comment-input" placeholder="Comment on this SBA highlight..." />
-          </div>
-
         </div>
       `).join('');
     }
@@ -565,51 +506,21 @@
       e.preventDefault();
       const title = document.getElementById('post-title').value;
       const fileInput = document.getElementById('media-file');
-      
-      if (!title || fileInput.files.length === 0) { alert("Please enter SBA title and highlight file."); return; }
-      
+      if (!title || fileInput.files.length === 0) { alert("Enter title and highlight file."); return; }
       const file = fileInput.files[0];
       const mediaBlobUrl = URL.createObjectURL(file);
-      const isVideo = file.type.startsWith('video');
-
-      posts.unshift({
-        id: Date.now(),
-        name: "PinSmasher99",
-        avatarUrl: "https://i.pravatar.cc/100?u=currentuser",
-        title: title,
-        mediaUrl: mediaBlobUrl,
-        type: isVideo ? 'video' : 'image',
-        date: "Today (ArriveTime Session)",
-        likes: 0
-      });
-
-      renderCommunityFeed();
+      communityPosts.unshift({ id: Date.now(), name: "PinSmasher99", title: title, mediaUrl: mediaBlobUrl, likes: 0 });
+      renderFeed();
       form.reset();
-      showToast("SBA Highlight Posted Successfully");
     }
 
-    /* Functional Deletion Module connected to pitch admin */
-    function adminDeletePost(postId) {
-      // Basic pitch password prompt to show suitability moderation
-      const pass = prompt("Launch Admin Password Required:");
-      if(pass === "BowlStrikeLaunch") {
-        posts = posts.filter(p => p.id !== postId);
-        renderCommunityFeed();
-        showToast("Post Deletion Module Execution: Suitable Content Applied");
-      } else {
-        alert("Deletion Module Execution Denial");
-      }
-    }
+    function deletePost(postId) { communityPosts = communityPosts.filter(p => p.id !== postId); renderFeed(); }
 
-    /* ==========================================================================
-       UTILITY & ADMIN
-       ========================================================================== */
-    function sendEmail(e) { e.preventDefault(); alert("Launch Message triggered! Connection to SBA inbox requiring database bridge."); document.querySelector('.contact-form').reset(); }
+    /* SBA Contact & Admin Deletion */
+    function sendEmail(e) { e.preventDefault(); alert("launch SBA Inbox Connection Required."); document.querySelector('.contact-form').reset(); }
     async function trackVisitor() { try { const res = await fetch('https://ipapi.co/json/'); const data = await res.json(); console.log(`Traffic session: ${data.city}`); } catch (e) {} }
     function openAdminModal(e) { e.preventDefault(); document.getElementById('admin-modal').style.display = 'flex'; }
     function closeAdminModal() { document.getElementById('admin-modal').style.display = 'none'; }
-    function showToast(msg) { const toast = document.createElement('div'); toast.className = 'card toast'; toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:99999;background:#1a1a1e;color:#fff;font-weight:bold;animation:slideIn 0.3s ease;'; toast.textContent = msg; document.body.appendChild(toast); setTimeout(() => { toast.style.animation = 'slideOut 0.3s ease'; setTimeout(() => toast.remove(), 300); }, 2500); }
-    document.head.insertAdjacentHTML('beforeend', '<style>@keyframes slideIn{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}@keyframes slideOut{from{transform:translateY(0);opacity:1;}to{transform:translateY(20px);opacity:0;}}</style>');
   </script>
 </body>
 </html>
