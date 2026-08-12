@@ -37,28 +37,48 @@
     nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
 
     /* ==========================================================================
-       HERO BANNER - Pointing to ACTUAL IMAGES in YOUR repository
+       HERO BANNER - PURE GENERATED CSS BACKGROUND (No image overlay glitches)
        ========================================================================== */
     .hero-banner {
       position: relative;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(8, 8, 10, 0.92) 100%),
-                  url('./hero-bowling.jpg') center/cover no-repeat;
-      padding: 4rem 1rem 3.5rem 1rem;
+      background: radial-gradient(circle at 50% 30%, #300306 0%, #0c0204 50%, #08080a 100%),
+                  linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, transparent 100%);
+      padding: 5rem 1rem 4rem 1rem;
       text-align: center;
       border-bottom: 4px solid var(--primary);
-      box-shadow: 0 10px 40px rgba(229, 9, 20, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Subtle lane grid pattern using CSS gradients */
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
     }
 
     .hero-content { position: relative; z-index: 10; max-width: 850px; margin: 0 auto; }
 
-    /* Centered Emblem Logo (bowlstrike-logo.png) */
-    .emblem-logo {
-      max-width: 280px;
-      width: 100%;
-      height: auto;
-      margin: 0 auto 1.2rem auto;
-      display: block;
-      filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.8));
+    /* Clean Styled Title Badge */
+    .hero-title-badge {
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title-badge h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(229,9,20,0.9), 0 0 40px rgba(229,9,20,0.5);
+    }
+
+    .hero-title-badge h1 span {
+      color: var(--primary);
     }
 
     .hero-banner p {
@@ -76,8 +96,8 @@
     @media (max-width: 768px) {
       .nav-container { flex-direction: column; gap: 0.8rem; text-align: center; }
       nav { justify-content: center; }
-      .hero-banner { padding: 2.5rem 0.8rem; }
-      .emblem-logo { max-width: 200px; }
+      .hero-banner { padding: 3rem 0.8rem; }
+      .hero-title-badge h1 { font-size: 2.2rem; }
       .hero-banner p { font-size: 0.95rem; }
       .btn { width: 100%; text-align: center; }
     }
@@ -163,9 +183,9 @@
   <!-- HERO BANNER -->
   <section class="hero-banner">
     <div class="hero-content">
-      <!-- Displays bowlstrike-logo.png directly from your repository -->
-      <img src="./bowlstrike-logo.png" alt="BowlStrike.com" class="emblem-logo" />
-      
+      <div class="hero-title-badge">
+        <h1>Bowl<span>Strike</span>.com</h1>
+      </div>
       <p>Your National Tenpin Hub — Live News, Local Alley Search, Player Profiles & Highlight Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Bowling Center</a>
@@ -302,7 +322,6 @@
 
   <script>
     (function() {
-      // REPLACE WITH YOUR EMAILJS PUBLIC KEY TO ACTIVATE AUTO-REPLY
       emailjs.init("YOUR_PUBLIC_KEY");
       trackVisitor();
       initAccounts();
@@ -360,7 +379,7 @@
         markers = [];
 
         if(!alleyData.elements || alleyData.elements.length === 0) {
-          statusEl.innerHTML = "Map centered on " + zip + ". No specific bowling alley nodes listed on OpenStreetMap in a 15-mile radius. For accurate local listings, use the direct Google Maps link below.";
+          statusEl.innerHTML = "Map centered on " + zip + ". No specific bowling alley nodes listed on OpenStreetMap in a 15-mile radius.";
           const centerMarker = L.marker([lat, lon]).addTo(map).bindPopup("<b>" + zip + " Area</b>").openPopup();
           markers.push(centerMarker);
           return;
