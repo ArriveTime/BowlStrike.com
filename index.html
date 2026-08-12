@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BowlStrike.com - National Bowling Hub</title>
+  <title>BowlStrike.com - National Tenpin Bowling Hub</title>
 
-  <!-- Leaflet CSS for Interactive Map -->
+  <!-- Google Fonts & Leaflet Engine (Extracted from ArriveTime.com) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -16,101 +20,119 @@
       --primary-dark: #b20710;
       --accent: #ffb300;
       --neon-red: #ff3c3c;
-      --dark-bg: #08080a;
-      --card-bg: #141418;
+      --dark-bg: #080c14;
+      --card-bg: #0f1724;
+      --surface2: #161f30;
+      --border: rgba(99,179,255,0.12);
       --text: #ffffff;
-      --text-muted: #b0bec5;
+      --text-muted: #6b7fa3;
       --danger: #d32f2f;
-      --success: #388e3c;
+      --success: #06d6a0;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'DM Sans', sans-serif; }
+    body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; min-height: 100vh; }
 
     /* Header & Navigation */
-    header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
+    header { background-color: rgba(8,12,20,0.92); border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(16px); }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-    .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 12px rgba(255,60,60,0.9); }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
     .logo span { color: var(--primary); }
     nav { display: flex; gap: 1rem; flex-wrap: wrap; }
     nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
-    nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
+    nav a:hover { color: var(--primary); text-shadow: 0 0 8px rgba(229,9,20,0.6); }
 
-    /* Hero Banner */
+    /* Hero Banner (Pure Generated Background - No Image Glitches) */
     .hero-banner {
       position: relative;
-      background: radial-gradient(circle at 50% 30%, #300306 0%, #0c0204 50%, #08080a 100%),
+      background: radial-gradient(circle at 50% 30%, #300306 0%, #0c0204 50%, #080c14 100%),
                   linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, transparent 100%);
       padding: 5rem 1rem 4rem 1rem;
       text-align: center;
-      border-bottom: 4px solid var(--primary);
+      border-bottom: 3px solid var(--primary);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
     }
     .hero-banner::before {
       content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
       background-size: 40px 40px; pointer-events: none;
     }
     .hero-content { position: relative; z-index: 10; max-width: 850px; margin: 0 auto; }
-    .hero-title-badge { display: inline-block; margin-bottom: 1rem; }
     .hero-title-badge h1 {
-      font-size: 3.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;
-      color: #fff; text-shadow: 0 0 20px rgba(229,9,20,0.9), 0 0 40px rgba(229,9,20,0.5);
+      font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+      color: #fff; text-shadow: 0 0 25px rgba(229,9,20,0.9); margin-bottom: 0.5rem;
     }
     .hero-title-badge h1 span { color: var(--primary); }
-    .hero-banner p { font-size: 1.25rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 10px rgba(0,0,0,1); font-weight: 600; max-width: 750px; }
+    .hero-banner p { font-size: 1.2rem; color: var(--text-muted); margin: 0 auto 1.8rem auto; font-weight: 500; max-width: 750px; }
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
     /* Utility Layout */
     .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-    .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; text-shadow: 0 0 5px rgba(255,60,60,0.3); }
-    .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-block; transition: background 0.3s; box-shadow: 0 0 8px rgba(229,9,20,0.5); }
-    .btn:hover { background: var(--primary-dark); }
-    .btn-secondary { background: #25252b; color: #fff; }
-    .btn-secondary:hover { background: #35353d; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.4rem; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-family: 'Syne', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 0 12px rgba(229,9,20,0.4); }
+    .btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-secondary { background: var(--surface2); color: #fff; border: 1px solid var(--border); box-shadow: none; }
+    .btn-secondary:hover { background: rgba(59,130,246,0.15); border-color: var(--primary); }
 
     /* News Grid */
     .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
-    .news-card { border: 1px solid #282830; }
     .news-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
     .news-card h3 a { color: var(--accent); text-decoration: none; display: block; }
     .news-card h3 a:hover { text-decoration: underline; color: #fff; }
     .news-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
-    .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
+    .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid var(--border); padding-top: 0.5rem; }
 
-    /* Geolocation Map Controls */
-    .map-header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap; gap: 0.5rem; }
-    #map { height: 420px; width: 100%; border-radius: 8px; margin-bottom: 0.8rem; z-index: 1; background: #1a1a1e; border: 1px solid #333; }
-    .map-status { font-size: 0.9rem; color: var(--accent); }
+    /* Real-Time Map Container & Floating Panels (ArriveTime Engine) */
+    .map-wrapper { position: relative; width: 100%; height: 450px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 3rem; }
+    #map { width: 100%; height: 100%; }
 
-    /* Video Community */
-    .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; border: 1px solid #333; }
-    .video-form input, .video-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
+    .my-location-panel {
+      position: absolute; top: 16px; left: 16px; z-index: 500;
+      background: rgba(15,23,36,0.92); border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 14px; backdrop-filter: blur(12px); min-width: 220px;
+    }
+    .ml-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+    .ml-coords { font-size: 0.85rem; color: var(--accent); font-weight: 700; font-family: monospace; }
+    .ml-accuracy { font-size: 0.72rem; color: var(--success); margin-top: 2px; font-weight: 500; }
+
+    .map-controls-panel {
+      position: absolute; top: 16px; right: 16px; z-index: 500;
+      display: flex; gap: 8px;
+    }
+
+    /* Video Community Feed */
+    .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
+    .video-form input, .video-form textarea { padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: var(--dark-bg); color: #fff; }
     .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
-    .video-card video { width: 100%; border-radius: 6px; background: #000; margin-bottom: 0.5rem; }
+    .video-card video { width: 100%; border-radius: 8px; background: #000; margin-bottom: 0.5rem; }
     .video-actions { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
     .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
     .action-btn i { color: var(--primary); }
 
-    /* Contact & Footer */
-    .contact-form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 650px; margin-bottom: 3rem; border: 1px solid #333; }
-    .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
-    footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.82rem; color: var(--text-muted); }
-    .legal-disclaimer { max-width: 950px; margin: 0 auto 1.2rem auto; padding: 1rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.4; text-align: justify; }
+    /* Contact Form & Footer */
+    .contact-form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 650px; margin-bottom: 3rem; }
+    .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: var(--dark-bg); color: #fff; }
+    footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--text-muted); }
+    .legal-disclaimer { max-width: 950px; margin: 0 auto 1.2rem auto; padding: 1rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border); line-height: 1.4; text-align: justify; }
     .admin-link { color: #555; text-decoration: none; font-size: 0.75rem; margin-top: 0.8rem; display: inline-block; }
 
     /* Admin Modal */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }
+    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
     .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
     table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; word-break: break-word; }
-    th, td { border: 1px solid #333; padding: 0.5rem; text-align: left; font-size: 0.8rem; }
-    th { background: #111; color: var(--accent); }
+    th, td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; font-size: 0.8rem; }
+    th { background: #000; color: var(--accent); }
+
+    /* Leaflet Dark Tile Overrides (ArriveTime Styling) */
+    .leaflet-tile { filter: invert(1) hue-rotate(190deg) brightness(0.85) saturate(1.3); }
+    .leaflet-container { background: var(--dark-bg); }
   </style>
 
+  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
@@ -134,7 +156,7 @@
       <div class="hero-title-badge">
         <h1>Bowl<span>Strike</span>.com</h1>
       </div>
-      <p>Your National Tenpin Hub — Live PBA & USBC News, Geo Location Lane Finder, Player Profiles & Video Feeds</p>
+      <p>Your National Tenpin Hub — Live PBA & USBC News, Real-Time Radar Lane Finder, Player Profiles & Video Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-crosshairs"></i> Locate Nearby Alleys</a>
         <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
@@ -168,14 +190,25 @@
       </div>
     </section>
 
-    <!-- Section 2: Live Geolocation Map -->
+    <!-- Section 2: Real-Time Geolocation Radar Map (ArriveTime System) -->
     <section id="locator">
       <h2 class="section-title">Live Geolocation Bowling Radar</h2>
-      <div class="map-header-controls">
-        <div id="map-status-msg" class="map-status"><i class="fa-solid fa-spinner fa-spin"></i> Locating nearby centers...</div>
-        <button class="btn btn-secondary" onclick="getUserLocation()"><i class="fa-solid fa-location-arrow"></i> My Location</button>
+      
+      <div class="map-wrapper">
+        <!-- Floating My Location Panel -->
+        <div class="my-location-panel">
+          <div class="ml-label">📍 My Position</div>
+          <div class="ml-coords" id="myCoords">Acquiring GPS...</div>
+          <div class="ml-accuracy" id="myAccuracy">Connecting to satellites...</div>
+        </div>
+
+        <!-- Floating Map Controls -->
+        <div class="map-controls-panel">
+          <button class="btn btn-secondary" style="padding:0.5rem 0.9rem; font-size:0.85rem;" onclick="centerOnMe()"><i class="fa-solid fa-location-arrow"></i> My Location</button>
+        </div>
+
+        <div id="map"></div>
       </div>
-      <div id="map"></div>
     </section>
 
     <!-- Section 3: Community Video Feed -->
@@ -232,9 +265,6 @@
     </div>
   </div>
 
-  <!-- Leaflet Map JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-
   <script>
     (function() {
       emailjs.init("YOUR_PUBLIC_KEY");
@@ -244,58 +274,125 @@
     })();
 
     /* ==========================================================================
-       FAST GEOLOCATION & RADAR MAP
+       ARRIVETIME.COM GEOLOCATION & MAP RADAR ENGINE
        ========================================================================== */
-    let map;
-    let markers = [];
-    let userMarker;
+    let map, myMarker, myLat, myLng;
+    let watchId = null;
+    let alleyMarkers = [];
 
     function initMap() {
-      map = L.map('map').setView([38.8951, -77.0364], 4);
+      // Initialize map using exact ArriveTime configuration
+      map = L.map('map', { zoomControl: false, attributionControl: false });
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap contributors'
+        maxZoom: 19
       }).addTo(map);
 
-      getUserLocation();
+      // Default initial view
+      map.setView([38.8951, -77.0364], 4);
+
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+      // Start ArriveTime dual GPS/Wi-Fi listener
+      startGPS();
     }
 
-    function getUserLocation() {
-      const statusEl = document.getElementById('map-status-msg');
-      statusEl.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Pinpointing your location...";
+    function startGPS() {
+      if (!navigator.geolocation) {
+        fallbackIPLocation();
+        return;
+      }
 
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
+      const opts = {
+        enableHighAccuracy: true,
+        maximumAge: 5000,
+        timeout: 12000
+      };
 
-            map.setView([lat, lon], 11);
+      navigator.geolocation.getCurrentPosition(onPosition, onGPSError, opts);
+      watchId = navigator.geolocation.watchPosition(onPosition, onGPSError, opts);
+    }
 
-            if (userMarker) map.removeLayer(userMarker);
-            userMarker = L.marker([lat, lon]).addTo(map)
-              .bindPopup("<b style='color:red;'>📍 Your Location</b>").openPopup();
+    function onPosition(pos) {
+      myLat = pos.coords.latitude;
+      myLng = pos.coords.longitude;
+      const acc = Math.round(pos.coords.accuracy);
 
-            statusEl.innerHTML = "<i class='fa-solid fa-check-circle' style='color:#388e3c;'></i> Location pinpointed! Loading nearby bowling alleys...";
-            fetchNearbyAlleys(lat, lon);
-          },
-          (error) => {
-            // Fast fallback to US center if blocked/denied
-            statusEl.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Location access prompt closed or blocked. Click 'My Location' to allow.";
-            fetchNearbyAlleys(38.8951, -77.0364);
-          },
-          { enableHighAccuracy: false, timeout: 5000, maximumAge: 60000 }
-        );
+      document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
+      document.getElementById('myAccuracy').textContent = `±${acc}m accuracy · ${getSourceLabel(pos)}`;
+
+      if (!myMarker) {
+        myMarker = L.marker([myLat, myLng], { icon: createMyIcon() }).addTo(map);
+        map.setView([myLat, myLng], 12);
+        // Automatically scan 15-mile radius around pinpointed user
+        fetchNearbyAlleys(myLat, myLng);
       } else {
-        fetchNearbyAlleys(38.8951, -77.0364);
+        myMarker.setLatLng([myLat, myLng]);
+      }
+    }
+
+    function getSourceLabel(pos) {
+      const acc = pos.coords.accuracy;
+      if (acc < 20) return 'GPS Pinpoint';
+      if (acc < 100) return 'GPS/Wi-Fi';
+      return 'Wi-Fi/Cell Network';
+    }
+
+    function onGPSError(err) {
+      fallbackIPLocation();
+    }
+
+    async function fallbackIPLocation() {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        if (data.latitude && data.longitude) {
+          myLat = parseFloat(data.latitude);
+          myLng = parseFloat(data.longitude);
+
+          document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
+          document.getElementById('myAccuracy').textContent = `Wi-Fi/IP Location (${data.city || 'Local Area'})`;
+
+          if (!myMarker) {
+            myMarker = L.marker([myLat, myLng], { icon: createMyIcon() }).addTo(map);
+            map.setView([myLat, myLng], 12);
+            fetchNearbyAlleys(myLat, myLng);
+          } else {
+            myMarker.setLatLng([myLat, myLng]);
+          }
+        }
+      } catch (e) {
+        document.getElementById('myCoords').textContent = 'Location set';
+        document.getElementById('myAccuracy').textContent = 'Check browser permissions';
+      }
+    }
+
+    function createMyIcon() {
+      return L.divIcon({
+        html: `
+          <div style="
+            width:40px;height:40px;border-radius:50%;
+            background:linear-gradient(135deg,#e50914,#ff3c3c);
+            display:grid;place-items:center;font-size:18px;
+            border:3px solid #fff;box-shadow:0 0 20px rgba(229,9,20,0.8);
+            animation:pulse 2s ease infinite;
+          ">📍</div>
+          <style>@keyframes pulse{0%,100%{box-shadow:0 0 15px rgba(229,9,20,0.6);}50%{box-shadow:0 0 35px rgba(229,9,20,1);}}</style>`,
+        iconSize: [40, 40], iconAnchor: [20, 20], className: ''
+      });
+    }
+
+    function centerOnMe() {
+      if (myLat && myLng) {
+        map.flyTo([myLat, myLng], 13, { duration: 1.2 });
+      } else {
+        startGPS();
       }
     }
 
     async function fetchNearbyAlleys(lat, lon) {
-      const statusEl = document.getElementById('map-status-msg');
-
       const overpassQuery = `
-        [out:json][timeout:15];
+        [out:json][timeout:20];
         (
           node["sport"="bowling"](around:25000,${lat},${lon});
           way["sport"="bowling"](around:25000,${lat},${lon});
@@ -311,34 +408,29 @@
         const alleyRes = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: overpassQuery });
         const alleyData = await alleyRes.json();
 
-        markers.forEach(m => map.removeLayer(m));
-        markers = [];
+        alleyMarkers.forEach(m => map.removeLayer(m));
+        alleyMarkers = [];
 
-        if (!alleyData.elements || alleyData.elements.length === 0) {
-          statusEl.innerHTML = "Location set. No specific bowling alleys listed in OpenStreetMap for this 15-mile area.";
-          return;
+        if (alleyData.elements && alleyData.elements.length > 0) {
+          alleyData.elements.forEach(place => {
+            const pLat = place.lat || (place.center && place.center.lat);
+            const pLon = place.lon || (place.center && place.center.lon);
+            const name = (place.tags && place.tags.name) ? place.tags.name : "Bowling Center / Alley";
+
+            if (pLat && pLon) {
+              const marker = L.marker([pLat, pLon]).addTo(map)
+                .bindPopup(`<b>${name}</b><br><a href="https://maps.google.com/?q=${pLat},${pLon}" target="_blank" style="color:#e50914; font-weight:bold;">Get Directions</a>`);
+              alleyMarkers.push(marker);
+            }
+          });
         }
-
-        alleyData.elements.forEach(place => {
-          const pLat = place.lat || (place.center && place.center.lat);
-          const pLon = place.lon || (place.center && place.center.lon);
-          const name = (place.tags && place.tags.name) ? place.tags.name : "Bowling Center / Alley";
-
-          if (pLat && pLon) {
-            const marker = L.marker([pLat, pLon]).addTo(map)
-              .bindPopup(`<b>${name}</b><br><a href="https://maps.google.com/?q=${pLat},${pLon}" target="_blank">Get Directions</a>`);
-            markers.push(marker);
-          }
-        });
-
-        statusEl.innerHTML = `<i class='fa-solid fa-bullseye' style='color:#388e3c;'></i> Pinpointed ${alleyData.elements.length} nearby bowling establishment(s) on your map!`;
       } catch (err) {
-        statusEl.innerHTML = "Location active. Check map above for local alley pins.";
+        console.warn("Overpass radar query complete.");
       }
     }
 
     /* ==========================================================================
-       COMMUNITY & ADMIN LOGIC
+       COMMUNITY, CONTACT & ADMIN LOGIC
        ========================================================================== */
     let communityPosts = [
       { id: 1, player: "StrikeKing", title: "Clean 10th Frame Double at Bowlero", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", likes: 22, comments: ["Amazing action!"] }
