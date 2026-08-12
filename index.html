@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>BowlStrike.com - National Tenpin Bowling Hub</title>
 
-  <!-- Leaflet CSS for Map -->
+  <!-- Leaflet CSS & JS for Interactive Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -89,16 +89,15 @@
     .ml-coords { font-size: 0.85rem; color: var(--accent); font-weight: 700; font-family: monospace; }
     .ml-accuracy { font-size: 0.72rem; color: #388e3c; margin-top: 2px; font-weight: 600; }
 
-    .map-controls-panel {
-      position: absolute; top: 12px; right: 12px; z-index: 500;
-    }
+    .map-controls-panel { position: absolute; top: 12px; right: 12px; z-index: 500; }
 
-    /* Video Community Feed */
-    .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
-    .video-form input, .video-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid var(--border); background: #2a2a2a; color: #ffffff; }
-    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
-    .video-card video { width: 100%; border-radius: 6px; background: #000000; margin-bottom: 0.5rem; }
-    .video-actions { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
+    /* Video & Photo Community Feed */
+    .media-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
+    .media-form input, .media-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid var(--border); background: #2a2a2a; color: #ffffff; }
+    .file-input-label { font-size: 0.82rem; color: var(--text-muted); margin-top: -0.4rem; }
+    .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+    .media-card img, .media-card video { width: 100%; border-radius: 6px; background: #000000; max-height: 380px; object-fit: cover; margin-bottom: 0.5rem; }
+    .media-actions { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
     .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
     .action-btn i { color: var(--primary); }
 
@@ -146,7 +145,7 @@
       <div class="hero-title-badge">
         <h1>Bowl<span>Strike</span>.com</h1>
       </div>
-      <p>Your National Tenpin Hub — Live PBA & USBC News, Real-Time Radar Lane Finder, Player Profiles & Video Feeds</p>
+      <p>Your National Tenpin Hub — Live PBA & USBC News, Real-Time Radar Lane Finder, Player Profiles & Photo/Video Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-crosshairs"></i> Locate Nearby Alleys</a>
         <a href="#news" class="btn btn-secondary"><i class="fa-solid fa-newspaper"></i> Read News</a>
@@ -188,7 +187,7 @@
         <div class="my-location-panel">
           <div class="ml-label">📍 My Position</div>
           <div class="ml-coords" id="myCoords">Locating...</div>
-          <div class="ml-accuracy" id="myAccuracy">Connecting to network...</div>
+          <div class="ml-accuracy" id="myAccuracy">Connecting to GPS...</div>
         </div>
 
         <div class="map-controls-panel">
@@ -199,17 +198,18 @@
       </div>
     </section>
 
-    <!-- Section 3: Community Video Feed -->
+    <!-- Section 3: Photo & Video Community Feed -->
     <section id="community">
-      <h2 class="section-title">Player Profiles & Video Feed</h2>
-      <div class="card video-form">
-        <h3>Post Your Highlight Video</h3>
+      <h2 class="section-title">Player Profiles & Media Feed</h2>
+      <div class="card media-form">
+        <h3>Post Photo or Highlight Video</h3>
         <input type="text" id="player-name" placeholder="Your Player Name / Handle" required />
-        <input type="text" id="video-title" placeholder="Video Title (e.g., Bowlero 300 Game High Frame)" required />
-        <input type="file" id="video-file" accept="video/*" required />
-        <button class="btn" onclick="uploadVideo()">Upload Video & Update Profile</button>
+        <input type="text" id="media-title" placeholder="Post Title (e.g., New Ball Arsenal or 300 Game High Frame)" required />
+        <div class="file-input-label">Select Photo (JPG, PNG) or Video (MP4, MOV):</div>
+        <input type="file" id="media-file" accept="image/*,video/*" required />
+        <button class="btn" onclick="uploadMedia()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Post & Update Profile</button>
       </div>
-      <div class="video-grid" id="video-feed"></div>
+      <div class="media-grid" id="media-feed"></div>
     </section>
 
     <!-- Section 4: Contact Form -->
@@ -262,74 +262,82 @@
     })();
 
     /* ==========================================================================
-       GEOLOCATION & MAP RADAR ENGINE
+       BULLETPROOF GEOLOCATION & MAP RADAR ENGINE
        ========================================================================== */
     let map, myMarker, myLat, myLng;
     let alleyMarkers = [];
 
     function initMap() {
+      // Create Leaflet Map instance
       map = L.map('map', { zoomControl: false, attributionControl: false });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18
       }).addTo(map);
 
+      // Default initial view: Center of United States
       map.setView([38.8951, -77.0364], 4);
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-      // Instant IP lookup first so map NEVER gets stuck hanging
-      instantIPLookup();
+      // Bind Leaflet's location listeners
+      map.on('locationfound', onLocationFound);
+      map.on('locationerror', onLocationError);
+
+      // Trigger automatic locator scan
+      locateUser();
     }
 
-    async function instantIPLookup() {
+    function locateUser() {
+      document.getElementById('myCoords').textContent = "Scanning...";
+      document.getElementById('myAccuracy').textContent = "Acquiring GPS...";
+
+      // Leaflet native location call
+      map.locate({ setView: true, maxZoom: 12, timeout: 8000, enableHighAccuracy: false });
+    }
+
+    function onLocationFound(e) {
+      myLat = e.latlng.lat;
+      myLng = e.latlng.lng;
+      const acc = Math.round(e.accuracy);
+
+      document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
+      document.getElementById('myAccuracy').textContent = `±${acc}m accuracy · GPS Active`;
+
+      updateUserMarker(myLat, myLng);
+    }
+
+    function onLocationError(e) {
+      // Fallback to CORS-compliant HTTPS IP Geolocation if browser GPS is blocked
+      fallbackIPLocation();
+    }
+
+    async function fallbackIPLocation() {
       try {
-        const res = await fetch('https://ipapi.co/json/');
+        const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
         const data = await res.json();
         if (data.latitude && data.longitude) {
           myLat = parseFloat(data.latitude);
           myLng = parseFloat(data.longitude);
 
           document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
-          document.getElementById('myAccuracy').textContent = `Wi-Fi/IP Location (${data.city || 'Local Area'})`;
+          document.getElementById('myAccuracy').textContent = `IP/Wi-Fi (${data.city || 'Local Area'})`;
 
-          updateMapPosition(myLat, myLng);
+          map.setView([myLat, myLng], 12);
+          updateUserMarker(myLat, myLng);
         }
-      } catch (e) {
-        document.getElementById('myCoords').textContent = 'Location active';
-        document.getElementById('myAccuracy').textContent = 'Default view set';
-      }
-
-      // Quietly upgrade to GPS if browser allows
-      requestGPS();
-    }
-
-    function requestGPS() {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            myLat = pos.coords.latitude;
-            myLng = pos.coords.longitude;
-            const acc = Math.round(pos.coords.accuracy);
-
-            document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
-            document.getElementById('myAccuracy').textContent = `±${acc}m accuracy · High Precision GPS`;
-
-            updateMapPosition(myLat, myLng);
-          },
-          (err) => { /* Silently keep IP location if GPS prompt declined */ },
-          { enableHighAccuracy: false, timeout: 6000, maximumAge: 60000 }
-        );
+      } catch (err) {
+        document.getElementById('myCoords').textContent = 'Location Active';
+        document.getElementById('myAccuracy').textContent = 'Default View Set';
       }
     }
 
-    function updateMapPosition(lat, lon) {
+    function updateUserMarker(lat, lon) {
       if (!myMarker) {
         myMarker = L.marker([lat, lon], { icon: createMyIcon() }).addTo(map);
-        map.setView([lat, lon], 12);
-        fetchNearbyAlleys(lat, lon);
       } else {
         myMarker.setLatLng([lat, lon]);
       }
+      fetchNearbyAlleys(lat, lon);
     }
 
     function createMyIcon() {
@@ -349,7 +357,7 @@
       if (myLat && myLng) {
         map.flyTo([myLat, myLng], 12, { duration: 1.0 });
       } else {
-        instantIPLookup();
+        locateUser();
       }
     }
 
@@ -393,10 +401,10 @@
     }
 
     /* ==========================================================================
-       COMMUNITY, CONTACT & ADMIN
+       PHOTO & VIDEO COMMUNITY FEED
        ========================================================================== */
     let communityPosts = [
-      { id: 1, player: "StrikeKing", title: "Clean 10th Frame Double at Bowlero", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", likes: 22 }
+      { id: 1, player: "StrikeKing", title: "Clean 10th Frame Double at Bowlero", mediaUrl: "https://www.w3schools.com/html/mov_bbb.mp4", isVideo: true, likes: 22 }
     ];
 
     function initAccounts() {
@@ -408,30 +416,40 @@
     }
 
     function renderFeed() {
-      const feed = document.getElementById('video-feed');
+      const feed = document.getElementById('media-feed');
       feed.innerHTML = communityPosts.map(post => `
-        <div class="card video-card">
+        <div class="card media-card">
           <h4>${post.title}</h4>
           <p style="font-size:0.85rem; color:var(--accent); margin-bottom:0.5rem;">Player: <strong>@${post.player}</strong></p>
-          <video controls src="${post.videoUrl}"></video>
-          <div class="video-actions">
+          ${post.isVideo 
+            ? `<video controls src="${post.mediaUrl}"></video>` 
+            : `<img src="${post.mediaUrl}" alt="${post.title}" />`}
+          <div class="media-actions">
             <button class="action-btn" onclick="likePost(${post.id})"><i class="fa-solid fa-heart"></i> ${post.likes} Likes</button>
           </div>
         </div>
       `).join('');
     }
 
-    function uploadVideo() {
+    function uploadMedia() {
       const name = document.getElementById('player-name').value.trim();
-      const title = document.getElementById('video-title').value.trim();
-      const fileInput = document.getElementById('video-file');
-      if (!name || !title || fileInput.files.length === 0) { alert("Please fill out all fields."); return; }
+      const title = document.getElementById('media-title').value.trim();
+      const fileInput = document.getElementById('media-file');
+      
+      if (!name || !title || fileInput.files.length === 0) { 
+        alert("Please enter player name, post title, and choose a photo or video file."); 
+        return; 
+      }
 
-      const videoBlobUrl = URL.createObjectURL(fileInput.files[0]);
-      communityPosts.unshift({ id: Date.now(), player: name, title: title, videoUrl: videoBlobUrl, likes: 0 });
+      const file = fileInput.files[0];
+      const mediaBlobUrl = URL.createObjectURL(file);
+      const isVideo = file.type.startsWith('video');
+
+      communityPosts.unshift({ id: Date.now(), player: name, title: title, mediaUrl: mediaBlobUrl, isVideo: isVideo, likes: 0 });
       renderFeed();
+
       document.getElementById('player-name').value = '';
-      document.getElementById('video-title').value = '';
+      document.getElementById('media-title').value = '';
       fileInput.value = '';
     }
 
@@ -440,6 +458,9 @@
       if(post) { post.likes++; renderFeed(); }
     }
 
+    /* ==========================================================================
+       CONTACT FORM & ADMIN TRACKER
+       ========================================================================== */
     function sendEmail(e) {
       e.preventDefault();
       alert("Thank you! Your email was sent.");
@@ -449,7 +470,7 @@
     async function trackVisitor() {
       let logs = JSON.parse(localStorage.getItem('bowlstrike_visitor_logs') || '[]');
       try {
-        const res = await fetch('https://ipapi.co/json/');
+        const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
         const data = await res.json();
         logs.push({ timestamp: new Date().toLocaleString(), city: data.city || 'Unknown', state: data.region || 'Unknown', ip: data.ip || '127.0.0.1', rawTime: Date.now() });
       } catch (e) {
