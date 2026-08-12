@@ -37,13 +37,13 @@
     nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
 
     /* ==========================================================================
-       HERO BANNER - 3D STRIKE ACTION WITH REALISTIC BALL & FLYING PINS
+       HERO BANNER - SHOWS hero-bowling.jpg DIRECTLY FROM REPO
        ========================================================================== */
     .hero-banner {
       position: relative;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(8, 8, 10, 0.95) 100%),
-                  url('https://as2.ftcdn.net/v2/jpg/08/38/54/22/1000_F_838542289_1gS3wJ7KkZ8Iq013L0H3e6qYvJg0A87K.jpg') center/cover no-repeat;
-      padding: 5rem 1rem 4rem 1rem;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(8, 8, 10, 0.92) 100%),
+                  url('./hero-bowling.jpg') center/cover no-repeat;
+      padding: 3.5rem 1rem 3.5rem 1rem;
       text-align: center;
       border-bottom: 4px solid var(--primary);
       box-shadow: 0 10px 40px rgba(229, 9, 20, 0.5);
@@ -56,31 +56,14 @@
       margin: 0 auto;
     }
 
-    /* 3D Crest Emblem Style Title */
-    .hero-title-badge {
-      display: inline-block;
-      background: rgba(0, 0, 0, 0.65);
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      border: 2px solid var(--primary);
-      box-shadow: 0 0 30px rgba(229, 9, 20, 0.8), inset 0 0 15px rgba(255, 179, 0, 0.4);
-      margin-bottom: 1.2rem;
-      backdrop-filter: blur(4px);
-    }
-
-    .hero-banner h1 {
-      font-size: 3.8rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #ffffff;
-      text-shadow: 3px 3px 0px #9a0007, 0 0 25px rgba(229,9,20,1);
-      line-height: 1.1;
-    }
-
-    .hero-banner h1 span {
-      color: #ff3c3c;
-      text-shadow: 3px 3px 0px #500, 0 0 30px rgba(255,60,60,1);
+    /* Embedded BowlStrike Logo Image */
+    .emblem-logo {
+      max-width: 320px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1rem auto;
+      display: block;
+      filter: drop-shadow(0 0 25px rgba(229, 9, 20, 0.9));
     }
 
     .hero-banner p {
@@ -98,9 +81,8 @@
     @media (max-width: 768px) {
       .nav-container { flex-direction: column; gap: 0.8rem; text-align: center; }
       nav { justify-content: center; }
-      .hero-banner { padding: 3rem 0.8rem 2.5rem 0.8rem; background-position: center bottom; }
-      .hero-title-badge { padding: 0.6rem 1rem; }
-      .hero-banner h1 { font-size: 2.2rem; }
+      .hero-banner { padding: 2.5rem 0.8rem; }
+      .emblem-logo { max-width: 220px; }
       .hero-banner p { font-size: 0.95rem; }
       .btn { width: 100%; text-align: center; }
     }
@@ -183,12 +165,12 @@
     </div>
   </header>
 
-  <!-- HERO BANNER WITH 3D STRIKE ACTION BACKGROUND -->
+  <!-- HERO BANNER -->
   <section class="hero-banner">
     <div class="hero-content">
-      <div class="hero-title-badge">
-        <h1>Bowl<span>Strike</span>.com</h1>
-      </div>
+      <!-- Displays bowlstrike-logo.png from your repository -->
+      <img src="./bowlstrike-logo.png" alt="BowlStrike.com" class="emblem-logo" />
+      
       <p>Your National Tenpin Hub — Live PBA & USBC News, Zip Code Center Locator, Player Profiles & Video Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-location-dot"></i> Find Nearby Center</a>
