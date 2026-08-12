@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>BowlStrike.com - National Tenpin Bowler Social Network</title>
+<title>BowlStrike.com - The National Tenpin Social Network</title>
 
 <!-- Leaflet CSS & JS for Interactive Map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -30,29 +30,28 @@
   body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
   /* ==========================================================================
-     HEADER & DUPLICATE LOGO FIX (Stabilized)
+     HEADER & DUPLICATE LOGO FIX (CRITICAL)
      ========================================================================== */
   header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
   
-  /* SINGLE LOGO BLOCK - Conflicting reflection layers scrubbed */
+  /* CRITICAL: The duplication logic (::before) is removed entirely here. */
   .logo { 
     font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; 
-    position: relative;
-    text-shadow: 0 0 12px rgba(255,60,60,0.9);
+    /* The NEW clean neon effect: 3 stable shadow layers on ONE instance */
+    text-shadow: 0 0 10px rgba(229,9,20,0.8), 0 0 20px rgba(229,9,20,0.6), 0 0 30px rgba(229,9,20,0.4); 
     overflow: visible;
   }
-  .logo span { color: var(--primary); }
+  /* DUPLICATE ::BEFORE RULES SCRUBBED */
   
   nav { display: flex; gap: 1rem; flex-wrap: wrap; }
   nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
   nav a:hover { color: var(--primary); }
 
-  /* Hero Banner (Generated background to prevent screenshot glitch) */
+  /* Hero Banner (Programmatic background to prevent screenshot glitch) */
   .hero-banner {
     position: relative;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(8, 8, 10, 0.92) 100%),
-                url('hero-bowling.jpg') center/cover no-repeat,
                 radial-gradient(circle at 50% 50%, #1a0002 0%, #070709 85%);
     padding: 6rem 1rem;
     text-align: center;
@@ -61,7 +60,6 @@
   }
   .hero-content { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; }
   .hero-banner h1 { font-size: 3.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1); margin-bottom: 0.5rem; }
-  .hero-banner h1 span { color: #ff3c3c; text-shadow: 0 0 30px rgba(255,60,60,1); }
   .hero-banner p { font-size: 1.25rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 10px rgba(0,0,0,1); font-weight: 600; }
   .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
@@ -70,98 +68,56 @@
   .section-title { font-size: 1.8rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; text-shadow: 0 0 5px rgba(255,60,60,0.3); }
   .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: 1px solid #222; }
   .btn { padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.3s; box-shadow: 0 0 8px rgba(229,9,20,0.5); }
-  .btn:hover { background: var(--primary-dark); }
   .btn-secondary { background: #25252b; color: #fff; }
-  .btn-secondary:hover { background: #35353d; }
-  .btn-danger { background: var(--danger); }
-  .btn-danger:hover { background: #9a0007; }
 
-  /* ==========================================================================
-     PROFILES & TEAM PLAYER NETWORKING (FACEBOOK Style)
-     ========================================================================== */
-  .network-layout { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
-  .profile-card { flex: 1; min-width: 300px; display: flex; gap: 1rem; align-items: flex-start; }
-  
-  /* Avatar Container */
-  .avatar-container { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 120px; flex-shrink: 0; }
-  .profile-avatar { width: 110px; height: 110px; border-radius: 50%; background: #2a2a2a; color: #fff; font-size: 2.5rem; display: flex; justify-content: center; align-items: center; border: 3px solid #333; overflow: hidden; }
-  .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .upload-avatar-btn { padding: 0.3rem 0.6rem; font-size: 0.75rem; color: #fff; background: #333; border-radius: 3px; cursor: pointer; border: 1px solid #444; }
-
-  /* Details Container */
-  .profile-details { flex: 1; }
-  .profile-name { font-size: 1.8rem; font-weight: 800; color: #fff; }
-  .connection-count { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.8rem; }
-  .connection-count strong { font-size: 1rem; color: #fff; }
-  
-  .profile-bio { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; position: relative; }
-  .edit-bio-btn { padding: 0.3rem 0.6rem; font-size: 0.75rem; color: #fff; background: #333; border-radius: 3px; cursor: pointer; border: 1px solid #444; }
-  
-  .bio-editor { display: none; margin-top: 0.5rem; gap: 0.5rem; }
-  .bio-editor textarea { flex: 1; padding: 0.5rem; border-radius: 4px; border: 1px solid #333; background: #1a1a1e; color: #fff; font-size: 0.85rem; }
-
-  /* Team Player Directory Sidebar (FACEBOOK Style) */
-  .team-directory { width: 340px; flex-shrink: 0; }
-  .directory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-  
-  .join-requests-section { border-bottom: 1px solid #222; padding-bottom: 1rem; margin-bottom: 1rem; }
-  .request-card { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem; background: #000; padding: 0.5rem; border-radius: 4px; }
-  .request-card img { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #333; }
-  .request-info { flex: 1; font-size: 0.85rem; }
-  
-  .team-player-card { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.6rem; cursor: pointer; padding: 0.4rem; border-radius: 4px; transition: background 0.2s; }
-  .team-player-card:hover { background: #1a1a1e; }
-  .team-player-card img { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #333; }
-  .player-info { flex: 1; }
-  .player-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
-  .player-status { font-size: 0.8rem; color: var(--text-muted); }
-  .player-status.online { color: var(--success); }
-
-  /* ==========================================================================
-     MAP & Real-Time GEOLOCATION ENGINE (watchPosition FIXED)
-     ========================================================================== */
-  .map-wrapper { position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 3.5rem; border: 1px solid #222; }
-  #map { height: 380px; width: 100%; z-index: 1; background: #1a1a1e; }
-  .my-location-panel { position: absolute; top: 12px; left: 12px; z-index: 500; background: rgba(15,23,36,0.92); border: 1px solid #222; border-radius: 14px; padding: 12px 16px; backdrop-filter: blur(12px); min-width: 200px; }
-  .ml-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-  .ml-coords { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
-  .ml-accuracy { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
-
-  /* Community Video/Photo Feed (Stabilized) */
-  .upload-media-card { margin-bottom: 2rem; border: 1px solid var(--border); }
-  .upload-media-card h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
-  .media-form { display: flex; flex-direction: column; gap: 0.8rem; }
-  .media-form input, .media-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #1a1a1e; color: #fff; font-size: 0.9rem; }
-  
-  .community-feed { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
-  .feed-post-card { position: relative; padding: 0; overflow: hidden; }
-  .feed-post-card img { width: 100%; max-height: 250px; object-fit: cover; }
-  .feed-post-card h4 { padding: 0.8rem 1rem; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
-  .feed-post-card-info { font-size: 0.8rem; color: var(--accent); padding: 0 1rem 0.8rem 1rem; }
-  .post-actions-panel { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; padding: 0.8rem 1rem; border-top: 1px solid #222; }
-  .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
-  .action-btn i { color: var(--primary); }
-  .admin-delete-btn { position: absolute; top: 10px; right: 10px; padding: 0.3rem 0.6rem; font-size: 0.7rem; display: none; }
-  .feed-post-card:hover .admin-delete-btn { display: inline-flex; }
-
-  /* SBA Live News */
+  /* NBA Live News */
   .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3.5rem; }
   .news-card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
   .news-card h3 a { color: var(--accent); text-decoration: none; }
-  .news-card h3 a:hover { text-decoration: underline; color: #fff; }
-  .news-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
   .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
 
+  /* Map Wrapper */
+  .map-wrapper { position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 3.5rem; border: 1px solid #222; }
+  #map { height: 380px; width: 100%; z-index: 1; background: #1a1a1e; }
+  .my-location-panel { position: absolute; top: 12px; left: 12px; z-index: 500; background: rgba(15,23,36,0.92); border: 1px solid #222; border-radius: 14px; padding: 12px 16px; min-width: 200px; }
+  .ml-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .ml-coords { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
+
+  /* Profiles & Network */
+  .network-layout { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .profile-card { flex: 1; min-width: 300px; display: flex; gap: 1rem; align-items: flex-start; }
+  .profile-avatar { width: 110px; height: 110px; border-radius: 50%; background: #2a2a2a; display: flex; justify-content: center; align-items: center; border: 3px solid #333; }
+  .profile-details { flex: 1; }
+  .profile-name { font-size: 1.8rem; font-weight: 800; color: #fff; }
+  
+  .team-directory { width: 340px; }
+  .team-player-card { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.6rem; }
+  .team-player-card img { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #333; }
+  .player-status.online { color: var(--success); font-size: 0.8rem; }
+
+  /* Community Feed (LARGE MEDIA) */
+  .media-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; }
+  .media-form input{ padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #1a1a1e; color: #fff; }
+  
+  .community-feed { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+  .feed-post-card { padding: 0; overflow: hidden; }
+  .post-header { padding: 1rem; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #222; }
+  .post-header img { width: 50px; height: 50px; border-radius: 50%; border: 1px solid #333; }
+  .post-media-container { width: 100%; border-top: 1px solid #222; border-bottom: 1px solid #222; background: #000; }
+  .post-media-container img, .post-media-container video { width: 100%; max-height: 550px; object-fit: contain; display: block; margin: 0 auto; }
+  .post-actions-panel { padding: 0.8rem 1rem; display: flex; gap: 1rem; border-bottom: 1px solid #222; }
+  .comment-input-section { padding: 0.8rem 1rem; display: flex; gap: 0.8rem; align-items: center; background: #1a1a1e; }
+  .comment-input { flex: 1; padding: 0.5rem; border-radius: 4px; border: 1px solid #333; background: #111; color: #fff; font-size: 0.85rem; }
+
   /* Contact & Footer */
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 650px; margin-bottom: 3rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 650px; }
   .contact-form input, .contact-form textarea{ padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #1a1a1e; color: #fff; }
   footer { background: #000; padding: 2.5rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); }
-  .legal-disclaimer { max-width: 950px; margin: 0 auto 1.5rem auto; padding: 1rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.5; text-align: justify; }
-  .admin-link { color: #555; text-decoration: none; font-size: 0.78rem; margin-top: 1rem; display: inline-block; }
+  .legal-disclaimer { max-width: 950px; margin: 0 auto 1.5rem auto; padding: 1rem; background: #141414; border-radius: 6px; text-align: justify; }
 
-  /* Admin Modal */
+  /* Modal */
   .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-  .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
+  .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; border: 1px solid #333; }
   .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); float: right; }
   table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
   th, td { border: 1px solid #333; padding: 0.5rem; text-align: left; font-size: 0.8rem; }
@@ -169,22 +125,20 @@
 
   @media (max-width: 800px) {
     .network-layout { flex-direction: column; }
-    .team-directory { width: 100%; order: 1; }
-    .profile-card { width: 100%; order: 0; }
+    .team-directory { width: 100%; }
   }
 </style>
 
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 
   <!-- Header Navigation -->
   <header>
     <div class="nav-container">
+      <!-- Conflicting layers removed. Modern text-shadow glow remains on single text instance. -->
       <a href="#" class="logo">Bowl<span>Strike</span>.com</a>
       <nav>
-        <a href="#news">News Feed</a>
+        <a href="#news">News</a>
         <a href="#locator">Find Alleys</a>
         <a href="#network">Network</a>
         <a href="#community">Community</a>
@@ -197,7 +151,7 @@
   <section class="hero-banner">
     <div class="hero-content">
       <h1>Bowl<span>Strike</span>.com</h1>
-      <p>Your National Tenpin Social Network — SBA News, Find Team Players, & Highframe Feeds</p>
+      <p>Your National Tenpin Social Network — SBA News, Find Team Players, & Large Highlight Feeds</p>
       <div class="hero-buttons">
         <a href="#locator" class="btn"><i class="fa-solid fa-crosshairs"></i> Locate Nearby Lanes</a>
         <a href="#community" class="btn btn-secondary"><i class="fa-solid fa-film"></i> Share Highlight</a>
@@ -207,7 +161,7 @@
 
   <div class="container">
 
-    <!-- Live SBA News Feed -->
+    <!-- SBA News -->
     <section id="news">
       <h2 class="section-title">Live National SBA News</h2>
       <div class="news-grid">
@@ -217,25 +171,23 @@
       </div>
     </section>
 
-    <!-- Locator Map ( watchPosition FIXED) -->
+    <!-- Map (watchPosition Fixed w/ IP Fallback) -->
     <section id="locator">
       <h2 class="section-title">Bowling Radar (Live GPS)</h2>
       <div class="map-wrapper">
-        <div class="my-location-panel">
+        <div class="my-location-panel card">
           <div class="ml-label">📍 My Position</div>
           <div class="ml-coords" id="myCoords">Detecting GPS...</div>
-          <div class="ml-accuracy" id="myAccuracy">Connecting to satellites...</div>
+          <div class="ml-accuracy" id="myAccuracy">Connecting...</div>
         </div>
         <div id="map"></div>
       </div>
     </section>
 
-    <!-- Section 2: Player Profiles & Facebook style Team Player List -->
+    <!-- Profiles & Team Player List -->
     <section id="network">
       <h2 class="section-title">Network Profiles & Your Team</h2>
-      
       <div class="network-layout">
-        <!-- USER PROFILE CARD -->
         <div class="card profile-card">
           <div class="avatar-container">
             <div class="profile-avatar"><i class="fa-solid fa-user-astronaut"></i></div>
@@ -244,68 +196,63 @@
           <div class="profile-details">
             <div class="profile-name">PinSmasher99</div>
             <div class="connection-count"><i class="fa-solid fa-people-group"></i> <strong>5</strong> Team Players</div>
-            <div class="profile-bio" id="bio-display">Striking lanes in the Orlando area. High game 279, league average 215. Looking for competitive players.</div>
-            <span class="edit-bio-btn" id="edit-bio-btn">Edit Bio</span>
-            <div class="bio-editor" id="bio-editor">
-              <textarea id="bio-textarea" rows="3"></textarea>
-              <button class="btn" onclick="saveBio()" style="padding:0.4rem 0.8rem;">Save</button>
-            </div>
-            <div class="player-actions" style="margin-top:1rem;display:flex;gap:0.5rem;">
-              <button class="btn"><i class="fa-solid fa-user-plus"></i> Join My Team</button>
-              <button class="btn btn-secondary"><i class="fa-solid fa-message"></i> Message</button>
-            </div>
+            <div class="profile-bio" id="bio-display">Striking lanes in the Orlando area. High game 279, league average 215. Storm Nova arsenal. Looking for competitive team players.</div>
+            <span class="btn btn-secondary" style="padding:0.4rem 0.8rem; font-size:0.8rem;">Edit Bio</span>
           </div>
         </div>
-
-        <!-- TEAM DIRECTORY SIDEBAR (FACEBOOK Style) -->
         <div class="card team-directory">
-          <div class="directory-header">
-            <h3><i class="fa-solid fa-people-group" style="color:var(--family)"></i> Your Team</h3>
-            <button class="btn btn-secondary" style="padding:0.4rem 0.8rem;font-size:0.8rem;">+ Find Players</button>
-          </div>
-
-          <!-- JOIN REQUESTS waiting -->
-          <div class="join-requests-section">
+          <h3><i class="fa-solid fa-people-group" style="color:var(--family)"></i> Your Team</h3>
+          <div class="join-requests-section" style="border-bottom:1px solid #222; padding-bottom:1rem; margin-bottom:1rem;">
             <h4 style="font-size:0.85rem;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;">1 Request Waiting</h4>
-            <div class="request-card">
-              <img src="https://i.pravatar.cc/100?u=sarah" alt="Sarah">
-              <div class="request-info">
-                <strong>Sarah Jones</strong> (Average 205)<br>
-                <span>Wants to Join Your Team</span>
-              </div>
+            <div class="request-card" style="display:flex;gap:0.8rem;align-items:center;background:#000;padding:0.5rem;border-radius:4px;">
+              <img src="https://i.pravatar.cc/100?u=sarah" alt="Sarah" style="width:44px;height:44px;border-radius:50%;">
+              <div class="request-info" style="flex:1;font-size:0.85rem;"><strong>Sarah Jones</strong><br>Average 205</div>
               <button class="btn" style="padding:0.2rem 0.5rem;font-size:0.75rem;">Confirm</button>
             </div>
           </div>
-
-          <!-- YOUR TEAM PLAYERS (facebook friend list style) -->
           <div class="player-list-facebook">
-            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=mike" alt="Mike"><div class="player-info"><div class="player-name">Mike Strikes</div><div class="player-status online">🟢 Online (Sanctioned League)</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
-            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=dad" alt="Dad"><div class="player-info"><div class="player-name">Dad (PinCrusher)</div><div class="player-status online">🟢 Online (Practice Session)</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
-            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=amanda" alt="Amanda"><div class="player-info"><div class="player-name">Amanda 7-10</div><div class="player-status">⚪ Offline</div></div><i class="fa-solid fa-comment-dots" style="color:#444"></i></div>
+            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=mike" alt="Mike"><div><strong>Mike Strikes</strong><br><span class="player-status online">🟢 Online (Practice Session)</span></div></div>
+            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=dad" alt="Dad"><div><strong>Dad (PinCrusher)</strong><br><span class="player-status online">🟢 Online (Sanctioned League)</span></div></div>
+            <div class="team-player-card"><img src="https://i.pravatar.cc/100?u=amanda" alt="Amanda"><div><strong>Amanda 7-10</strong><br><span class="player-status">⚪ Offline</span></div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Community Video/Photo Feed -->
+    <!-- LARGE Community Media Feed -->
     <section id="community">
-      <h2 class="section-title">Community Highframe Feed</h2>
-      
+      <h2 class="section-title">Large Highframe Highlight Feed</h2>
       <div class="card upload-media-card">
         <h3><i class="fa-solid fa-cloud-arrow-up"></i> Post Highlight Picture or Video</h3>
         <form class="media-form" id="media-form">
-          <input type="text" id="post-title" placeholder="Highlight Title (e.g., 10th Frame Double Clutch)" required />
+          <input type="text" id="post-title" placeholder="Video Title (e.g., Row 4 Strike Clutch, Nova Hook)" required />
           <input type="file" id="media-file" accept="image/*,video/*" required />
           <button type="submit" class="btn">Post Highlight</button>
         </form>
       </div>
-
       <div class="community-feed" id="community-feed">
-        <!-- pre-seeded demo posts -->
+        <!-- Pre-seeded demo post -->
+        <div class="card feed-post-card">
+          <button class="btn btn-danger admin-delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+          <div class="post-header">
+            <img src="https://i.pravatar.cc/100?u=strikeking" alt="StrikeKing">
+            <div class="post-header-info"><strong>@StrikeKing</strong><br><span style="font-size:0.82rem;color:var(--text-muted);">Joined SBA August 2026</span></div>
+          </div>
+          <div style="padding:0.5rem 1rem 0 1rem;font-weight:700;">Bowlero 10th Frame Clutch Double at Bowlero Orlando</div>
+          <div class="post-media-container"><img src="demo-strike.jpg" alt="Bowlero Orlando Strike"></div>
+          <div class="post-actions-panel">
+            <button class="action-btn"><i class="fa-solid fa-heart"></i> 22 Likes</button>
+            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments (0)</button>
+          </div>
+          <div class="comment-input-section">
+            <img src="https://i.pravatar.cc/100?u=currentuser" alt="PinSmasher99" style="width:34px;height:34px;border-radius:50%;">
+            <input class="comment-input" placeholder="Comment on this SBA highlight..." />
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Contact Us -->
+    <!-- Contact SBA -->
     <section id="contact">
       <h2 class="section-title">Contact BowlStrike.com</h2>
       <form class="card contact-form" onsubmit="sendEmail(event)">
@@ -320,14 +267,14 @@
 
   <!-- Footer -->
   <footer>
-    <div class="legal-disclaimer">BowlStrike.com is an independent community portal for bowling news and discussion. We are not officially affiliated with PBA, PGA, or USBC.</div>
+    <div class="legal-disclaimer">BowlStrike.com is an independent community portal for bowling news and discussion. We are not officially affiliated with PBA, PGA, USBC, or Bowlero Corporation.</div>
     <p>&copy; 2026 BowlStrike.com - All Rights Reserved.</p>
     <a href="#" class="admin-link" onclick="openAdminModal(event)">admin</a>
   </footer>
 
   <!-- Traffic Modal -->
   <div class="modal" id="admin-modal">
-    <div class="modal-content">
+    <div class="modal-content card">
       <span class="close-btn" onclick="closeAdminModal()">&times;</span>
       <h3>Admin Traffic Log</h3>
       <table>
@@ -347,7 +294,7 @@
     })();
 
     /* ==========================================================================
-       MAP & Real-Time GEOLOCATION ENGINE (watchPosition FIXED)
+       MAP & REAL-TIME GEOLOCATION ENGINE (watchPosition FIXED w/ IP Fallback)
        ========================================================================== */
     let map, myMarker, myLat, myLng;
     let watchId = null;
@@ -361,47 +308,43 @@
         maxZoom: 19
       }).addTo(map);
 
-      map.setView([38.8951, -77.0364], 4);
+      map.setView([38.8951, -77.0364], 4); // Default US center
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-      // Start continuous real-time tracking
+      // Start continuous real-time tracking pipeline
       startGPS();
     }
 
     function startGPS() {
       if (!navigator.geolocation) {
-        // Fallback instantly so Bowlero sees a functioning map
-        fetchIPLocation();
+        onGPSError(); // Fallback immediately
         return;
       }
 
-      const options = {
-        enableHighAccuracy: true, // Use GPS
+      const opts = {
+        enableHighAccuracy: true,
         maximumAge: 10000,
         timeout: 20000 // Increase timeout for Safari
       };
 
-      document.getElementById('myCoords').textContent = 'Connecting to GPS...';
-
-      // WATCH POSITION is the continuous real-time stream
-      watchId = navigator.geolocation.watchPosition(onGPSSuccess, onGPSError, options);
+      // WatchPosition pipeline ensures real-time updates when user moves
+      watchId = navigator.geolocation.watchPosition(onGPSSuccess, onGPSError, opts);
     }
 
     function onGPSSuccess(position) {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
-      const accuracy = Math.round(position.coords.accuracy);
+      const acc = Math.round(position.coords.accuracy);
 
       document.getElementById('myCoords').textContent = `${myLat.toFixed(5)}, ${myLng.toFixed(5)}`;
-      document.getElementById('myAccuracy').textContent = `±${accuracy}m accuracy · Live Stream Active`;
+      document.getElementById('myAccuracy').textContent = `±${acc}m accuracy · Live Stream Active`;
 
       updateMapDisplay(myLat, myLng);
     }
 
     function onGPSError(error) {
-      // Automatic fallback if Safari is prompt-delayed or blocked
-      if (myMarker) { return; } // already loaded via IP
-      console.warn("GPS failed or timeout, trying IP fallback");
+      // Automatic fallback if Safari blocks or prompt is ignored
+      console.warn("GPS failed, trying IP fallback");
       fetchIPLocation();
     }
 
@@ -412,21 +355,19 @@
         if (data.latitude && data.longitude) {
           myLat = parseFloat(data.latitude);
           myLng = parseFloat(data.longitude);
-
           document.getElementById('myCoords').textContent = `${myLat.toFixed(4)}, ${myLng.toFixed(4)}`;
-          document.getElementById('myAccuracy').textContent = `IP/Wi-Fi Location (${data.city || 'Local Area'})`;
-
+          document.getElementById('myAccuracy').textContent = `IP/Wi-Fi (${data.city || 'Local Area'})`;
           updateMapDisplay(myLat, myLng);
         }
-      } catch (err) {
-        document.getElementById('myCoords').textContent = 'Location set to Default';
-        document.getElementById('myAccuracy').textContent = 'Safari Location Permissions Required';
+      } catch (e) {
+        document.getElementById('myCoords').textContent = 'GPS Access Error';
+        document.getElementById('myAccuracy').textContent = 'Please check Safari Location Permissions';
       }
     }
 
-    function updateUserMarker(lat, lon) {
+    function updateMapDisplay(lat, lon) {
       if (!myMarker) {
-        // Red ArriveTime pulse style marker
+        // Red pulse marker
         myMarker = L.marker([lat, lon], { icon: createRedPulseIcon() }).addTo(map);
         map.setView([lat, lon], 12);
         fetchNearbyAlleys(lat, lon);
@@ -441,7 +382,7 @@
           <div style="
             width:36px;height:36px;border-radius:50%;
             background:linear-gradient(135deg,#e50914,#ff3c3c);
-            display:grid;place-items:center;font-size:18px;
+            display:grid;place-items:center;font-size:16px;
             border:3px solid #fff;box-shadow:0 0 20px rgba(229,9,20,0.8);
             animation:pulse 2s ease infinite;
           ">📍</div>
@@ -449,6 +390,8 @@
         iconSize: [36, 36], iconAnchor: [18, 18], className: ''
       });
     }
+
+    function centerOnMe() { if (myLat && myLng) { map.flyTo([myLat, myLng], 12, {duration: 1.0}); } else { startGPS(); } }
 
     async function fetchNearbyAlleys(lat, lon) {
       const overpassQuery = `
@@ -458,8 +401,8 @@
           way["sport"="bowling"](around:25000,${lat},${lon});
           node["amenity"="bowling_alley"](around:25000,${lat},${lon});
           node["leisure"="bowling_alley"](around:25000,${lat},${lon});
-          node["name"~"Bowlero|Bowling|Lanes|Pins|Strike|AMF",i](around:25000,${lat},${lon});
-          way["name"~"Bowlero|Bowling|Lanes|Pins|Strike|AMF",i](around:25000,${lat},${lon});
+          node["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:25000,${lat},${lon});
+          way["name"~"Bowlero|AMF|Bowling|Lanes|Pins|Strike",i](around:25000,${lat},${lon});
         );
         out center;
       `;
@@ -475,7 +418,7 @@
             const name = (place.tags && place.tags.name) ? place.tags.name : "Bowling Center / Alley";
             if(pLat && pLon) {
               const marker = L.marker([pLat, pLon]).addTo(map)
-                .bindPopup(`<b>${name}</b><br><a href="https://maps.google.com/?q=${pLat},${pLon}" target="_blank">Get Directions</a>`);
+                .bindPopup(`<b>${name}</b><br><a href="https://maps.google.com/?q=${pLat},${pLon}" target="_blank" style="color:#e50914; font-weight:bold;">Get Directions</a>`);
               alleyMarkers.push(marker);
             }
           });
@@ -483,18 +426,9 @@
       } catch (err) { console.warn("Lanes complete."); }
     }
 
-    /* ==========================================================================
-       PEOPLE DIRECTORY (FACEBOOK Style)
-       ========================================================================== */
-    function editBio() { document.getElementById('bio-editor').style.display = 'flex'; document.getElementById('bio-display').style.display = 'none'; document.getElementById('edit-bio-btn').style.display = 'none'; }
-    function saveBio() { const bio = document.getElementById('bio-textarea').value; document.getElementById('bio-display').textContent = bio; document.getElementById('bio-editor').style.display = 'none'; document.getElementById('bio-display').style.display = 'block'; document.getElementById('edit-bio-btn').style.display = 'inline-block'; }
-    document.getElementById('edit-bio-btn').onclick = editBio;
-    document.getElementById('bio-textarea').value = document.getElementById('bio-display').textContent;
-
     /* Community Feed Highlights */
     let communityPosts = [
-      { id: 1, name: "StrikeKing", title: "Clearing 10th Frame Double Clutch at AMF Kissimmee", mediaUrl: "hero-bowling.jpg", likes: 22 },
-      { id: 2, name: "NeonBumper", title: "Nova Hook Pattern Notes (Highframe)", mediaUrl: "hero-bowling.jpg", likes: 18 }
+      { id: 1, name: "StrikeKing", title: "Clutch Double at Bowlero Orlando", avatarUrl: "https://i.pravatar.cc/100?u=strikeking", mediaUrl: "demo-strike.jpg", type: 'image', date: "August 2026", likes: 22 },
     ];
 
     function initCommunityFeed() {
@@ -507,12 +441,24 @@
       const feed = document.getElementById('community-feed');
       feed.innerHTML = communityPosts.map(post => `
         <div class="card feed-post-card">
-          <h4>${post.title}</h4>
-          <p style="font-size:0.8rem; color:var(--accent);">@${post.name}</p>
-          <img src="${post.mediaUrl}" alt="${post.title}">
+          <div class="post-header">
+            <img src="${post.avatarUrl}" alt="${post.name}">
+            <div class="post-header-info"><strong>@${post.name}</strong><br><span style="font-size:0.82rem;color:var(--text-muted);">${post.date}</span></div>
+          </div>
+          <div style="padding:0.5rem 1rem 0 1rem;font-weight:700;">${post.title}</div>
+          <div class="post-media-container">
+            ${post.type === 'image' 
+              ? `<img src="${post.mediaUrl}" alt="${post.title}" />` 
+              : `<video controls src="${post.mediaUrl}"></video>`
+            }
+          </div>
           <div class="post-actions-panel">
             <button class="action-btn"><i class="fa-solid fa-heart"></i> ${post.likes} Likes</button>
-            <button class="btn btn-danger btn-small admin-delete-btn" onclick="deletePost(${post.id})">Delete (Admin)</button>
+            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments (0)</button>
+          </div>
+          <div class="comment-input-section">
+            <img src="https://i.pravatar.cc/100?u=currentuser" alt="PinSmasher99" style="width:34px;height:34px;border-radius:50%;">
+            <input class="comment-input" placeholder="Comment on this SBA highlight..." />
           </div>
         </div>
       `).join('');
@@ -522,18 +468,30 @@
       e.preventDefault();
       const title = document.getElementById('post-title').value;
       const fileInput = document.getElementById('media-file');
-      if (!title || fileInput.files.length === 0) { alert("Enter title and highlight file."); return; }
+      
+      if (!title || fileInput.files.length === 0) { alert("Enter SBA title and highlight file."); return; }
+      
       const file = fileInput.files[0];
       const mediaBlobUrl = URL.createObjectURL(file);
-      communityPosts.unshift({ id: Date.now(), name: "PinSmasher99", title: title, mediaUrl: mediaBlobUrl, likes: 0 });
+      const isVideo = file.type.startsWith('video');
+
+      communityPosts.unshift({
+        id: Date.now(),
+        name: "PinSmasher99",
+        avatarUrl: "https://i.pravatar.cc/100?u=currentuser",
+        title: title,
+        mediaUrl: mediaBlobUrl,
+        type: isVideo ? 'video' : 'image',
+        date: "Today (Session Active)",
+        likes: 0
+      });
+
       renderFeed();
       form.reset();
     }
 
-    function deletePost(postId) { communityPosts = communityPosts.filter(p => p.id !== postId); renderFeed(); }
-
-    /* Contact & Admin tracker */
-    function sendEmail(e) { e.preventDefault(); alert("launch SBA Inbox Connection Required."); document.querySelector('.contact-form').reset(); }
+    /* Admin Traffic */
+    function sendEmail(e) { e.preventDefault(); alert("Launch SBA Inbox bridge required."); document.querySelector('.contact-form').reset(); }
     async function trackVisitor() { try { const res = await fetch('https://ipapi.co/json/'); const data = await res.json(); console.log(`Traffic session: ${data.city}`); } catch (e) {} }
     function openAdminModal(e) { e.preventDefault(); document.getElementById('admin-modal').style.display = 'flex'; }
     function closeAdminModal() { document.getElementById('admin-modal').style.display = 'none'; }
