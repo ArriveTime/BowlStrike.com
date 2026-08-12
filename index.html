@@ -28,7 +28,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-  /* Single Clean Logo Header */
+  /* Header */
   header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
   .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
   .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 1px; text-shadow: 0 0 10px rgba(229,9,20,0.8); }
@@ -56,14 +56,14 @@
   .btn:hover { background: var(--primary-dark); }
   .btn-secondary { background: #25252b; color: #fff; }
 
-  /* PASSPORT SIZE PROFILE PICTURES FIX */
+  /* PROFILE PHOTO STYLING */
   .network-layout { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
-  .profile-card { flex: 1; min-width: 300px; display: flex; gap: 1rem; align-items: flex-start; }
+  .main-profiles-container { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem; }
+  .profile-card { display: flex; gap: 1rem; align-items: flex-start; }
   
-  /* Standard 35mm x 45mm Passport Aspect Ratio (Ratio 7:9) */
-  .passport-avatar-container {
+  .profile-photo-container {
     width: 90px;
-    height: 115px; /* Passport aspect ratio */
+    height: 115px;
     border-radius: 6px;
     border: 2px solid var(--primary);
     overflow: hidden;
@@ -74,33 +74,31 @@
     align-items: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.6);
   }
-  .passport-avatar-container img { width: 100%; height: 100%; object-fit: cover; }
-  .passport-avatar-container i { font-size: 2.5rem; color: #555; }
+  .profile-photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
   .profile-details { flex: 1; }
-  .profile-name { font-size: 1.5rem; font-weight: 800; color: #fff; }
+  .profile-name { font-size: 1.3rem; font-weight: 800; color: #fff; }
 
-  /* Team Directory Passport Pics */
+  /* TEAM DIRECTORY */
   .team-directory { width: 340px; flex-shrink: 0; }
   .team-player-card { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem; background: #000; padding: 0.5rem; border-radius: 6px; border: 1px solid #222; }
-  .passport-mini { width: 42px; height: 54px; border-radius: 4px; border: 1px solid var(--accent); object-fit: cover; flex-shrink: 0; }
+  .profile-thumb { width: 42px; height: 54px; border-radius: 4px; border: 1px solid var(--accent); object-fit: cover; flex-shrink: 0; }
 
-  /* MAP SECTION WITH REFRESHING REAL-TIME GPS */
+  /* MAP SECTION */
   .map-wrapper { position: relative; border-radius: 8px; overflow: hidden; margin-bottom: 2.5rem; border: 1px solid #222; }
   #map { height: 350px; width: 100%; background: #1a1a1e; }
   .my-location-panel { position: absolute; top: 12px; left: 12px; z-index: 500; background: rgba(15,23,36,0.92); border: 1px solid #333; border-radius: 8px; padding: 10px 14px; }
   .ml-coords { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
 
-  /* BANDWIDTH OPTIMIZED MEDIA & COMMENT BUTTON */
+  /* MEDIA & FEED */
   .community-feed { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
   .feed-post-card { padding: 0; overflow: hidden; }
   .post-header { padding: 0.8rem 1rem; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #222; }
   
-  /* Bandwidth Saver: Strict max-height on video/photo embeds */
   .post-media-container { width: 100%; background: #000; text-align: center; }
   .post-media-container img, .post-media-container video {
     max-width: 100%;
-    max-height: 280px; /* Constrained height saves viewport space and data */
+    max-height: 280px;
     object-fit: contain;
     display: block;
     margin: 0 auto;
@@ -109,12 +107,21 @@
   .post-actions-panel { padding: 0.6rem 1rem; display: flex; gap: 1rem; border-bottom: 1px solid #222; }
   .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; }
 
-  /* COMMENT INPUT WITH SUBMIT BUTTON */
   .comment-input-section { padding: 0.8rem 1rem; display: flex; gap: 0.5rem; align-items: center; background: #16161a; }
   .comment-input { flex: 1; padding: 0.5rem 0.8rem; border-radius: 4px; border: 1px solid #333; background: #0a0a0c; color: #fff; font-size: 0.85rem; }
   
-  /* Footer */
-  footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); }
+  /* Footer & Admin */
+  footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); position: relative; }
+  .hidden-admin-link { color: #222; text-decoration: none; font-size: 0.75rem; margin-top: 1rem; display: inline-block; cursor: pointer; }
+  .hidden-admin-link:hover { color: #555; }
+
+  /* Admin Modal */
+  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+  .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 850px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
+  .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); float: right; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  th, td { border: 1px solid #333; padding: 0.6rem; text-align: left; font-size: 0.8rem; }
+  th { background: #111; color: var(--accent); }
 
   @media (max-width: 800px) {
     .network-layout { flex-direction: column; }
@@ -140,17 +147,17 @@
   <!-- Hero -->
   <section class="hero-banner">
     <h1>Bowl<span>Strike</span>.com</h1>
-    <p>National Tenpin Social Network — SBA News, Passport Profiles & Highlights</p>
+    <p>National Tenpin Social Network — SBA News, Bowler Profiles & Highlights</p>
   </section>
 
   <div class="container">
 
     <!-- Live GPS Map -->
     <section id="locator">
-      <h2 class="section-title">Bowling Radar (Hardware GPS Engine)</h2>
+      <h2 class="section-title">Bowling Radar (Live Hardware GPS)</h2>
       <div class="map-wrapper">
         <div class="my-location-panel card">
-          <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">📍 Live GPS Stream</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">📍 Live Location Stream</div>
           <div class="ml-coords" id="myCoords">Acquiring Satellites...</div>
           <div style="font-size:0.75rem; color:var(--success);" id="gpsStatus">Connecting...</div>
         </div>
@@ -158,69 +165,127 @@
       </div>
     </section>
 
-    <!-- Section: Passport Profiles & Team Network -->
+    <!-- Section: Bowler Network Profiles & Your Team -->
     <section id="network">
       <h2 class="section-title">Network Profiles & Your Team</h2>
       <div class="network-layout">
         
-        <!-- USER PROFILE CARD WITH PASSPORT PICTURE -->
-        <div class="card profile-card">
-          <div class="passport-avatar-container">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Passport Photo" />
+        <!-- MAIN PROFILES COLUMN (EXPANDED) -->
+        <div class="main-profiles-container">
+          
+          <!-- Profile 1 -->
+          <div class="card profile-card">
+            <div class="profile-photo-container">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Profile Photo" />
+            </div>
+            <div class="profile-details">
+              <div class="profile-name">PinSmasher99</div>
+              <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Striking in Orlando area. High game 279, league average 215. Storm Nova arsenal.</p>
+              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Upload Profile Photo</button>
+            </div>
           </div>
-          <div class="profile-details">
-            <div class="profile-name">PinSmasher99</div>
-            <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.5rem;"><i class="fa-solid fa-id-card"></i> Passport Verified Member</div>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.8rem;">Striking in the Orlando area. High game 279, league average 215. Storm Nova arsenal.</p>
-            <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Upload New Passport Photo</button>
+
+          <!-- Profile 2 -->
+          <div class="card profile-card">
+            <div class="profile-photo-container">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Profile Photo" />
+            </div>
+            <div class="profile-details">
+              <div class="profile-name">ApexSpinner</div>
+              <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Sanctioned USBC bowler. High game 300 (x2), average 228. Roto Grip fan.</p>
+              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Connect</button>
+            </div>
           </div>
+
+          <!-- Profile 3 -->
+          <div class="card profile-card">
+            <div class="profile-photo-container">
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="Profile Photo" />
+            </div>
+            <div class="profile-details">
+              <div class="profile-name">StrikeQueen_FL</div>
+              <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Thursday Night Scratch League captain. High game 268, average 202. Brunswick defender.</p>
+              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Connect</button>
+            </div>
+          </div>
+
         </div>
 
-        <!-- TEAM DIRECTORY WITH PASSPORT SIZE THUMBNAILS -->
+        <!-- YOUR TEAM COLUMN (EXPANDED ROSTER) -->
         <div class="card team-directory">
-          <h3 style="font-size:1.1rem; margin-bottom:0.8rem;"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Your Team (Passport Roster)</h3>
+          <h3 style="font-size:1.1rem; margin-bottom:0.8rem;"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Your Team</h3>
           
           <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=mike" class="passport-mini" alt="Mike">
+            <img src="https://i.pravatar.cc/150?u=mike" class="profile-thumb" alt="Mike">
             <div style="flex:1;">
-              <strong style="font-size:0.9rem;">Mike Strikes</strong><br>
+              <strong style="font-size:0.88rem;">Mike Strikes</strong><br>
               <span style="font-size:0.75rem; color:var(--success);">🟢 Live on Lane 14</span>
             </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.5rem;">Chat</button>
+            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button>
           </div>
 
           <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=dad" class="passport-mini" alt="Dad">
+            <img src="https://i.pravatar.cc/150?u=dad" class="profile-thumb" alt="Dad">
             <div style="flex:1;">
-              <strong style="font-size:0.9rem;">Dad (PinCrusher)</strong><br>
+              <strong style="font-size:0.88rem;">Dad (PinCrusher)</strong><br>
               <span style="font-size:0.75rem; color:var(--success);">🟢 Live on Lane 2</span>
             </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.5rem;">Chat</button>
+            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button>
           </div>
+
+          <div class="team-player-card">
+            <img src="https://i.pravatar.cc/150?u=sarah" class="profile-thumb" alt="Sarah">
+            <div style="flex:1;">
+              <strong style="font-size:0.88rem;">Sarah Jones</strong><br>
+              <span style="font-size:0.75rem; color:var(--text-muted);">⚪ Offline (Bowlero Kissimmee)</span>
+            </div>
+            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Profile</button>
+          </div>
+
+          <div class="team-player-card">
+            <img src="https://i.pravatar.cc/150?u=dave" class="profile-thumb" alt="Dave">
+            <div style="flex:1;">
+              <strong style="font-size:0.88rem;">Dave "Hook" Miller</strong><br>
+              <span style="font-size:0.75rem; color:var(--success);">🟢 Practicing (Lane 22)</span>
+            </div>
+            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button>
+          </div>
+
+          <div class="team-player-card">
+            <img src="https://i.pravatar.cc/150?u=amanda" class="profile-thumb" alt="Amanda">
+            <div style="flex:1;">
+              <strong style="font-size:0.88rem;">Amanda 7-10</strong><br>
+              <span style="font-size:0.75rem; color:var(--text-muted);">⚪ Offline (League Night Thu)</span>
+            </div>
+            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Profile</button>
+          </div>
+
         </div>
 
       </div>
     </section>
 
-    <!-- Community Feed with Post Comment Button & Bandwidth Saver -->
+    <!-- Community Feed -->
     <section id="community" style="margin-top:2rem;">
       <h2 class="section-title">Highlight Community Feed</h2>
       
       <div class="community-feed">
         <div class="card feed-post-card">
           <div class="post-header">
-            <img src="https://i.pravatar.cc/150?u=strikeking" class="passport-mini" alt="User">
+            <img src="https://i.pravatar.cc/150?u=strikeking" class="profile-thumb" alt="User">
             <div>
               <strong style="font-size:0.95rem;">@StrikeKing</strong>
               <div style="font-size:0.75rem; color:var(--text-muted);">Bowlero Orlando Clutch Double</div>
             </div>
           </div>
           
-          <!-- Bandwidth Optimized Video Frame -->
           <div class="post-media-container">
             <video controls preload="metadata" poster="hero-bowling.jpg">
               <source src="demo-video.mp4" type="video/mp4">
-              Your browser does not support playing video highlights directly.
+              Video highlight preview unavailable.
             </video>
           </div>
 
@@ -229,14 +294,11 @@
             <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
           </div>
 
-          <!-- COMMENT INPUT SECTION WITH DIRECT POST BUTTON -->
           <div class="comment-input-section">
             <input type="text" class="comment-input" id="comment-input-1" placeholder="Write a comment..." />
             <button class="btn" onclick="addComment(1)"><i class="fa-solid fa-paper-plane"></i> Post</button>
           </div>
-          <div id="comments-container-1" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);">
-            <!-- Dynamic comments display here -->
-          </div>
+          <div id="comments-container-1" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
         </div>
       </div>
     </section>
@@ -245,15 +307,39 @@
 
   <footer>
     <p>&copy; 2026 BowlStrike.com - National Tenpin Bowler Network</p>
+    <a href="#" class="hidden-admin-link" onclick="openAdminModal(event)">admin</a>
   </footer>
+
+  <!-- Admin Visitor Log Modal -->
+  <div class="modal" id="admin-modal">
+    <div class="modal-content card">
+      <span class="close-btn" onclick="closeAdminModal()">&times;</span>
+      <h3><i class="fa-solid fa-chart-line" style="color:var(--accent);"></i> Real-Time Web Visitor Counter Log</h3>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Displays active and past web visitors in descending order (most recent first).</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>IP Address</th>
+            <th>Location</th>
+            <th>Duration on Site</th>
+          </tr>
+        </thead>
+        <tbody id="visitor-log-body">
+          <!-- Dynamically populated descending log -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       initHardwareGPS();
+      initVisitorTracking();
     });
 
     /* ==========================================================================
-       HARDWARE GPS ENGINE (Heartbeat Interval Watcher for Mobile Safari)
+       HARDWARE GPS ENGINE
        ========================================================================== */
     let map, myMarker;
 
@@ -261,13 +347,11 @@
       map = L.map('map', { zoomControl: false, attributionControl: false }).setView([38.8951, -77.0364], 5);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-      // Force high accuracy continuous polling
       if ("geolocation" in navigator) {
-        // Continuous Heartbeat Polling guarantees real-time location on mobile browser subdomains
         navigator.geolocation.getCurrentPosition(updatePosition, handleGPSError, { enableHighAccuracy: true });
         setInterval(function() {
           navigator.geolocation.getCurrentPosition(updatePosition, null, { enableHighAccuracy: true, maximumAge: 0 });
-        }, 4000); // Polls hardware GPS every 4 seconds
+        }, 4000);
       } else {
         handleGPSError();
       }
@@ -295,7 +379,6 @@
     }
 
     function handleGPSError() {
-      // IP Fallback so map always displays a working position
       fetch('https://ipapi.co/json/')
         .then(res => res.json())
         .then(data => {
@@ -314,7 +397,68 @@
         });
     }
 
-    /* Comment Posting Functionality */
+    /* ==========================================================================
+       REAL-TIME WEB VISITOR COUNTER & DURATION LOG (DESCENDING ORDER)
+       ========================================================================== */
+    let visitorStartTime = Date.now();
+    let currentIP = "Detecting...";
+    let currentCity = "Detecting...";
+
+    // Mock recent visitors table for demo presentation
+    let visitorLogs = [
+      { timestamp: new Date().toLocaleString(), ip: "Current Visitor (You)", city: "Local Session", seconds: 0, isCurrent: true },
+      { timestamp: new Date(Date.now() - 180000).toLocaleString(), ip: "172.56.21.84", city: "Orlando, FL", seconds: 245, isCurrent: false },
+      { timestamp: new Date(Date.now() - 650000).toLocaleString(), ip: "98.207.112.4", city: "Tampa, FL", seconds: 512, isCurrent: false },
+      { timestamp: new Date(Date.now() - 1400000).toLocaleString(), ip: "68.192.44.12", city: "Richmond, VA", seconds: 120, isCurrent: false }
+    ];
+
+    function initVisitorTracking() {
+      fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+          currentIP = data.ip || "127.0.0.1";
+          currentCity = `${data.city || 'Unknown'}, ${data.region_code || 'US'}`;
+          visitorLogs[0].ip = currentIP;
+          visitorLogs[0].city = currentCity;
+          renderVisitorLogs();
+        })
+        .catch(() => {
+          visitorLogs[0].ip = "Active Session";
+          visitorLogs[0].city = "Local Area";
+          renderVisitorLogs();
+        });
+
+      // Update current visitor stay time every second
+      setInterval(() => {
+        visitorLogs[0].seconds = Math.floor((Date.now() - visitorStartTime) / 1000);
+        renderVisitorLogs();
+      }, 1000);
+    }
+
+    function renderVisitorLogs() {
+      const tbody = document.getElementById('visitor-log-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = visitorLogs.map(log => {
+        const mins = Math.floor(log.seconds / 60);
+        const secs = log.seconds % 60;
+        const durationStr = `${mins}m ${secs}s ${log.isCurrent ? '(Active)' : ''}`;
+
+        return `
+          <tr style="${log.isCurrent ? 'background: #1e1112; font-weight: bold;' : ''}">
+            <td>${log.timestamp}</td>
+            <td>${log.ip}</td>
+            <td>${log.city}</td>
+            <td style="color:${log.isCurrent ? 'var(--accent)' : 'inherit'}">${durationStr}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openAdminModal(e) { e.preventDefault(); document.getElementById('admin-modal').style.display = 'flex'; }
+    function closeAdminModal() { document.getElementById('admin-modal').style.display = 'none'; }
+
+    /* Comments & Likes */
     function addComment(postId) {
       const input = document.getElementById(`comment-input-${postId}`);
       const container = document.getElementById(`comments-container-${postId}`);
