@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BowlStrike.com - The National Bowler Social Network</title>
+  <title>BowlStrike.com - National Tenpin Social Network</title>
 
   <!-- Leaflet CSS for Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -38,34 +38,48 @@
     nav a:hover { color: var(--primary); text-shadow: 0 0 5px var(--neon-red); }
 
     /* ==========================================================================
-       HERO BANNER - Clean Background with Fallback Loading
+       HERO BANNER - Pointing directly to your uploaded images
        ========================================================================== */
     .hero-banner {
       position: relative;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(8, 8, 10, 0.95) 100%),
-                  url('./hero-bowling.jpg') center/cover no-repeat,
-                  radial-gradient(circle at 50% 50%, #200003 0%, #070709 85%);
-      padding: 4.5rem 1rem;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(8, 8, 10, 0.92) 100%),
+                  url('hero-bowling.jpg') center/cover no-repeat,
+                  radial-gradient(circle at 50% 50%, #0a0a0c, #141418);
+      padding: 4rem 1rem 3.5rem 1rem;
       text-align: center;
       border-bottom: 4px solid var(--primary);
-      box-shadow: var(--soft-shadow);
+      box-shadow: 0 10px 40px rgba(229, 9, 20, 0.5);
     }
-    .hero-banner::after { /* Red glow effect */
-      content:''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 150px; height: 10px; background: var(--primary); filter: blur(20px); border-radius: 50%; z-index: 1;
+
+    .hero-content { position: relative; z-index: 10; max-width: 850px; margin: 0 auto; }
+
+    /* Centered Emblem Logo (bowlstrike-logo.png) */
+    .emblem-logo {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1.2rem auto;
+      display: block;
+      filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.8));
     }
-    .hero-content { position: relative; z-index: 10; max-width: 900px; margin: 0 auto; }
-    .hero-banner h1 { font-size: 3.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; color: #fff; text-shadow: 0 0 25px rgba(229,9,20,1), 0 0 10px rgba(255,179,0,0.8); margin-bottom: 0.5rem; }
-    .hero-banner h1 span { color: #ff3c3c; text-shadow: 0 0 30px rgba(255,60,60,1); }
-    .hero-banner p { font-size: 1.25rem; color: #fff; margin: 0 auto 1.8rem auto; text-shadow: 0 2px 10px rgba(0,0,0,1); font-weight: 600; }
+
+    .hero-banner p {
+      font-size: 1.25rem;
+      color: #fff;
+      margin: 0 auto 1.8rem auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,1);
+      font-weight: 600;
+      max-width: 750px;
+    }
+
     .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    /* MOBILE ADJUSTMENTS */
+    /* MOBILE RESPONSIVE FIXES */
     @media (max-width: 768px) {
       .nav-container { flex-direction: column; gap: 0.8rem; text-align: center; }
       nav { justify-content: center; }
-      .hero-banner { padding: 3rem 0.8rem; background-position: top center; }
-      .hero-banner h1 { font-size: 2.2rem; }
+      .hero-banner { padding: 2.5rem 0.8rem; }
+      .emblem-logo { max-width: 200px; }
       .hero-banner p { font-size: 0.95rem; }
       .btn { width: 100%; text-align: center; }
     }
@@ -82,36 +96,38 @@
     .btn-danger:hover { background: #9a0007; }
 
     /* ==========================================================================
-       PROFILE & TEAM PLAYER NETWORKING (UI PHASE 1)
+       SECTION 1: Live National News Feed (At the Top)
+       ========================================================================== */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+    .news-card { border: 1px solid #282830; }
+    .news-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .news-card h3 a { color: var(--accent); text-decoration: none; display: block; }
+    .news-card h3 a:hover { text-decoration: underline; color: #fff; }
+    .news-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
+
+    /* ==========================================================================
+       SECTION 2: PROFILE & TEAM PLAYER NETWORKING (Below News)
        ========================================================================== */
     .profile-card { margin-bottom: 2rem; display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; border: 1px solid #222; }
-    
-    /* Profile Image Container */
     .profile-image-container { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 150px; }
     .profile-avatar { width: 140px; height: 140px; border-radius: 50%; background: #2a2a2a; color: #fff; font-size: 3rem; display: flex; justify-content: center; align-items: center; border: 3px solid #333; overflow: hidden; }
     .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .upload-avatar-btn { padding: 0.3rem 0.6rem; font-size: 0.75rem; color: #fff; background: #333; border-radius: 3px; cursor: pointer; border: 1px solid #444; }
-
-    /* Profile Details */
     .profile-details { flex: 1; min-width: 300px; }
     .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
     .profile-name { font-size: 1.8rem; font-weight: 800; color: #fff; }
     .connection-count { font-size: 0.85rem; color: var(--accent); }
     .connection-count strong { font-size: 1rem; color: #fff; }
-    
     .profile-bio { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .player-actions { display: flex; gap: 0.8rem; margin-top: 1.2rem; flex-wrap: wrap; }
     .edit-bio-btn { padding: 0.3rem 0.6rem; font-size: 0.75rem; color: #fff; background: #333; border-radius: 3px; cursor: pointer; border: 1px solid #444; }
-    
     .bio-editor { display: none; margin-top: 0.5rem; gap: 0.5rem; }
     .bio-editor textarea { flex: 1; padding: 0.5rem; border-radius: 4px; border: 1px solid #333; background: #1a1a1e; color: #fff; font-size: 0.85rem; }
-
-    /* Networking Actions */
-    .player-actions { display: flex; gap: 0.8rem; margin-top: 1.2rem; flex-wrap: wrap; }
     .team-player-card { background: #000; border-radius: 6px; padding: 0.8rem; border: 1px solid #222; text-align: center; width: 120px; }
-    .team-player-card img { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 0.5rem; border: 1px solid #333; }
 
     /* ==========================================================================
-       MAP & FIND ALLEY FEATURES (FIXED ZIP SEARCH)
+       MAP & FIND ALLEY FEATURES (FIXED ZIP SEARCH PRIORITY)
        ========================================================================== */
     .search-box { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .search-box input { flex: 1; min-width: 200px; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
@@ -119,11 +135,20 @@
     .map-status { font-size: 0.85rem; color: var(--accent); margin-top: 0.4rem; }
 
     /* Video Community Feed */
+    .video-form { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2rem; border: 1px solid #333; }
+    .video-form input, .video-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
     .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
     .video-card video { width: 100%; border-radius: 6px; background: #000; margin-bottom: 0.5rem; }
+    .video-actions { display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem; }
+    .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.88rem; }
+    .action-btn i { color: var(--primary); }
     .comments-list { margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid #333; padding-top: 0.5rem; }
 
-    /* Footer & Admin */
+    /* Contact Form */
+    .contact-form { display: flex; flex-direction: column; gap: 0.8rem; max-width: 650px; margin-bottom: 3rem; border: 1px solid #333; }
+    .contact-form input, .contact-form textarea { padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background: #2a2a2a; color: #fff; }
+
+    /* Footer */
     footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.82rem; color: var(--text-muted); }
     .legal-disclaimer { max-width: 950px; margin: 0 auto 1.2rem auto; padding: 1rem; background: #141414; border-radius: 6px; border: 1px solid #282828; line-height: 1.4; text-align: justify; }
     .admin-link { color: #555; text-decoration: none; font-size: 0.75rem; margin-top: 0.8rem; display: inline-block; }
@@ -131,12 +156,14 @@
     /* Modal */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
     .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 950px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+    .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
     table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; word-break: break-word; }
     th, td { border: 1px solid #333; padding: 0.5rem; text-align: left; font-size: 0.8rem; }
     th { background: #111; color: var(--accent); }
   </style>
 
-  <!-- EmailJS SDK (for contact form fallback) -->
+  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
@@ -146,8 +173,9 @@
     <div class="nav-container">
       <a href="#" class="logo">Bowl<span>Strike</span>.com</a>
       <nav>
-        <a href="#network">Network</a>
+        <a href="#news">News Feed</a>
         <a href="#locator">Find Lanes</a>
+        <a href="#network">Network</a>
         <a href="#community">Community</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -157,8 +185,8 @@
   <!-- HERO BANNER -->
   <section class="hero-banner">
     <div class="hero-content">
-      <h1>Bowl<span>Strike</span>.com</h1>
-      <p>Your National Tenpin Social Network — Create Profiles, Find Team Players & Share Highlights</p>
+      <img src="bowlstrike-logo.png" alt="BowlStrike.com" class="emblem-logo" />
+      <p>Your National Tenpin Social Network — SBA Live News, Create Profiles, Find Team Players & Share Highlights</p>
       <div class="hero-buttons">
         <a href="#network" class="btn"><i class="fa-solid fa-user-plus"></i> Join BowlStrike</a>
         <a href="#locator" class="btn btn-secondary"><i class="fa-solid fa-location-dot"></i> Find Nearby Lanes</a>
@@ -168,19 +196,41 @@
 
   <div class="container">
 
-    <!-- Section 1: Bowler Network Profiles -->
+    <!-- Section 1: Live National News Feed (MOVED TO TOP) -->
+    <section id="news">
+      <h2 class="section-title">National Bowling News Feed</h2>
+      <div class="news-grid" id="news-container">
+        <div class="card news-card">
+          <h3><a href="https://www.pba.com/news" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> PBA Tour Official Championship Results & Scores</a></h3>
+          <p>Direct match play scores, oil pattern notes, and bracket updates straight from the PBA Tour newsroom.</p>
+          <div class="news-meta"><span>PBA.com Official</span><span>Live Link</span></div>
+        </div>
+
+        <div class="card news-card">
+          <h3><a href="https://bowl.com/news" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> USBC National Event Regulations & Standings</a></h3>
+          <p>Official announcements on national event schedules, sanctioned lane patterns, and ball specification updates.</p>
+          <div class="news-meta"><span>USBC bowl.com</span><span>Live Link</span></div>
+        </div>
+
+        <div class="card news-card">
+          <h3><a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Bowling Digital International Championship Headlines</a></h3>
+          <p>Global tenpin tournament updates, core & coverstock tech updates, and world rankings across all series.</p>
+          <div class="news-meta"><span>BowlingDigital</span><span>Live Link</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Bowler Network Directory (Profiles) -->
     <section id="network">
       <h2 class="section-title">BowlStrike Network Directory</h2>
 
-      <!-- Active User Profile Card (UI PHASE 1 - NOT SECURED BY AUTH) -->
+      <!-- Active User Profile Card (UI PHASE 1 ONLY) -->
       <div class="card profile-card" id="my-profile-container">
-        
         <div class="profile-image-container">
           <div class="profile-avatar" id="avatar-display"><i class="fa-solid fa-user-tie"></i></div>
           <label class="upload-avatar-btn" for="avatar-input">Upload Photo</label>
           <input type="file" id="avatar-input" accept="image/*" style="display:none;" />
         </div>
-
         <div class="profile-details">
           <div class="profile-header">
             <div>
@@ -189,55 +239,34 @@
             </div>
             <div class="connection-count"><i class="fa-solid fa-people-group"></i> <strong>22</strong> Team Players</div>
           </div>
-          
           <div class="profile-bio" id="bio-display">Striking lanes and looking for new players in the Orlando area. High game 279, league average 215. Favorite ball coverstock: Solid Reactive.</div>
           <span class="edit-bio-btn" id="edit-bio-btn">Edit Bio</span>
-
           <div class="bio-editor" id="bio-editor">
             <textarea id="bio-textarea" rows="3"></textarea>
             <button class="btn" style="padding:0.4rem 0.8rem;" onclick="saveBio()">Save Bio</button>
           </div>
-
           <div class="player-actions">
             <button class="btn"><i class="fa-solid fa-user-plus"></i> Join My Team (Send Request)</button>
             <button class="btn btn-secondary"><i class="fa-solid fa-comment"></i> Message</button>
-            <button class="btn btn-danger"><i class="fa-solid fa-video"></i> Follow Video Feed</button>
           </div>
         </div>
       </div>
-
-      <!-- Network Player Directory UI -->
-      <h3>Nearby Team Players</h3>
-      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
-          <div class="team-player-card">
-              <div class="profile-avatar" style="width:60px; height:60px; font-size:1.5rem; margin: 0 auto 0.5rem auto;"><i class="fa-solid fa-user"></i></div>
-              <p style="font-size:0.85rem; font-weight:700;">PinSmasher</p>
-              <button class="btn btn-secondary" style="padding:0.2rem 0.5rem; font-size:0.7rem; margin-top:0.3rem;">Request to Join</button>
-          </div>
-          <div class="team-player-card">
-              <div class="profile-avatar" style="width:60px; height:60px; font-size:1.5rem; margin: 0 auto 0.5rem auto;"><i class="fa-solid fa-user-astronaut"></i></div>
-              <p style="font-size:0.85rem; font-weight:700;">KingPin</p>
-              <button class="btn btn-secondary" style="padding:0.2rem 0.5rem; font-size:0.7rem; margin-top:0.3rem;">Request to Join</button>
-          </div>
-      </div>
     </section>
 
-    <!-- Section 2: Zip Code Locator Map (FIXED ZIP SEARCH) -->
+    <!-- Section 3: Zip Code Locator Map (FIXED ZIP SEARCH PRIORITY) -->
     <section id="locator">
       <h2 class="section-title">Find Bowling Centers Near You</h2>
       <div class="search-box">
-        <input type="text" id="zip-input" placeholder="Enter Zip Code or City (e.g., 90210, Orlando, Chicago)..." />
+        <input type="text" id="zip-input" placeholder="Enter US Zip Code (e.g., 90210, Orlando)..." />
         <button class="btn" onclick="searchBowlingCenters()"><i class="fa-solid fa-magnifying-glass"></i> Search Map</button>
       </div>
       <div id="map"></div>
       <div id="map-status-msg" class="map-status"></div>
     </section>
 
-    <!-- Section 3: Community Video Feed (Profile Integrated) -->
+    <!-- Section 4: Community Video Feed -->
     <section id="community">
-      <h2 class="section-title">Community Video Highlights</h2>
-      <p style="color:var(--text-muted); margin-bottom:1rem;">Player videos tagged with 'Highlights' from across the network.</p>
-      
+      <h2 class="section-title">Player Video Highlights</h2>
       <div class="card video-form" id="video-upload-section">
         <h3>Post Your Highlight Video</h3>
         <input type="text" id="upload-name" value="NeonRanger" readonly required style="opacity:0.6;" />
@@ -245,13 +274,12 @@
         <input type="file" id="video-file" accept="video/*" required />
         <button class="btn" onclick="uploadHighlightVideo()">Upload Highlight to Profile</button>
       </div>
-
       <div class="video-grid" id="video-feed"></div>
     </section>
 
-    <!-- Section 4: Contact Form -->
+    <!-- Section 5: Contact Form -->
     <section id="contact">
-      <h2 class="section-title">Contact BowlStrike</h2>
+      <h2 class="section-title">Contact Us</h2>
       <form class="card contact-form" id="contact-form" onsubmit="sendEmail(event)">
         <input type="text" id="contact-name" name="from_name" placeholder="Your Full Name" required />
         <input type="email" id="contact-email" name="reply_to" placeholder="Your Email Address" required />
@@ -262,10 +290,10 @@
 
   </div>
 
-  <!-- Footer & Legal Disclaimer -->
+  <!-- Footer -->
   <footer>
     <div class="legal-disclaimer">
-      <strong>LEGAL DISCLAIMER:</strong> BowlStrike.com is an independent fan and community news aggregator portal. We are not affiliated, associated, authorized, endorsed by, or in any official way connected with the Professional Bowlers Association (PBA), the Professional Golfers' Association (PGA), the United States Bowling Congress (USBC), Bowlero Corporation, or any of their subsidiaries or affiliates. All product names, trademarks, and registered trademarks are property of their respective owners.
+      <strong>LEGAL DISCLAIMER:</strong> BowlStrike.com is an independent community portal for bowling news and community discussion. We are not affiliated, associated, authorized, endorsed by, or in any official way connected with the Professional Bowlers Association (PBA), the United States Bowling Congress (USBC), Bowlero Corporation, or any of their subsidiaries or affiliates. All product names, trademarks, and registered trademarks are property of their respective owners.
     </div>
     <p>&copy; 2026 BowlStrike.com - All Rights Reserved.</p>
     <a href="#" class="admin-link" onclick="openAdminModal(event)">admin</a>
@@ -275,17 +303,15 @@
   <div class="modal" id="admin-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>BowlStrike.com Admin Control Center</h3>
+        <h3>Admin Log</h3>
         <span class="close-btn" onclick="closeAdminModal()">&times;</span>
       </div>
-      <h4 style="margin-bottom:1rem;">Visitor Traffic Log (Descending Order)</h4>
       <table>
         <thead>
           <tr><th>Date & Time</th><th>City</th><th>State</th><th>IP Address</th></tr>
         </thead>
         <tbody id="visitor-log-body"></tbody>
       </table>
-      <button class="btn btn-secondary" style="margin-top:1rem; float:right;" onclick="closeAdminModal()">Close</button>
     </div>
   </div>
 
@@ -301,7 +327,7 @@
 
     /* ==========================================================================
        MAP & FIND ALLEY FEATURES (FIXED ZIP SEARCH PRIORITY)
-       ========================================================================== */
+       ========================================================================= */
     let map;
     let markers = [];
 
@@ -316,7 +342,7 @@
     async function searchBowlingCenters() {
       const zipInput = document.getElementById('zip-input').value.trim();
       const statusEl = document.getElementById('map-status-msg');
-      if(!zipInput) { alert('Please enter a Zip Code or US City.'); return; }
+      if(!zipInput) { alert('Please enter a US Zip Code or US City.'); return; }
 
       // Force Nominatim to prioritize US results by countryCodes=us
       const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(zipInput)}&countryCodes=us&addressdetails=1&limit=1`;
@@ -327,7 +353,7 @@
         const geoData = await geoRes.json();
 
         if(geoData.length === 0) {
-          statusEl.innerHTML = "Location coordinates not found. Try entering city name, US Zip Code, or city+state (e.g., Orlando, FL).";
+          statusEl.innerHTML = "Location not found in the US. Try entering city name, US Zip Code, or city+state (e.g., Orlando, FL).";
           return;
         }
 
@@ -360,8 +386,7 @@
         markers = [];
 
         if(!alleyData.elements || alleyData.elements.length === 0) {
-          statusEl.innerHTML = "Map centered on " + cityName + ", " + stateName + ". No specific bowling alley nodes listed on OpenStreetMap in a 15-mile radius.";
-          // Drop center pin
+          statusEl.innerHTML = "Map centered on " + cityName + ", " + stateName + ". No OpenStreetMap bowling alley nodes found in a 15-mile radius.";
           const centerMarker = L.marker([lat, lon]).addTo(map).bindPopup("<b>" + cityName + " Area</b>").openPopup();
           markers.push(centerMarker);
           return;
@@ -379,7 +404,7 @@
           }
         });
 
-        statusEl.innerHTML = `Found ${alleyData.elements.length} bowling center pin(s) on the map near ${cityName}, ${stateName}. Click pins for details.`;
+        statusEl.innerHTML = `Found ${alleyData.elements.length} bowling pins on the map near ${cityName}, ${stateName}. Click pins for details.`;
 
       } catch (err) {
         console.error(err);
@@ -397,7 +422,6 @@
     const avatarInput = document.getElementById('avatar-input');
     const avatarDisplay = document.getElementById('avatar-display');
 
-    // UI Trigger only: BIO
     editBioBtn.addEventListener('click', function() {
         bioTextarea.value = bioDisplay.textContent;
         bioDisplay.style.display = 'none';
@@ -410,16 +434,15 @@
         bioEditor.style.display = 'none';
         bioDisplay.style.display = 'block';
         editBioBtn.style.display = 'inline-block';
-        alert("UI update: Your Bio has been updated (NOT SAVED TO LIVE DB). Profiles with live saving require a backend server in Phase 2.");
+        alert("UI update: Your Bio has been updated (NOT SAVED TO LIVE DB). This requires a backend database.");
     }
 
-    // UI Trigger only: AVATAR
     avatarInput.addEventListener('change', function(event) {
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 avatarDisplay.innerHTML = `<img src="${e.target.result}" alt="Profile Avatar" />`;
-                alert("UI update: Profile Picture uploaded (NOT SAVED TO LIVE DB). Phase 2 required for persistent live storage.");
+                alert("UI update: Profile Picture uploaded (NOT SAVED TO LIVE DB). This requires a backend.");
             };
             reader.readAsDataURL(event.target.files[0]);
         }
@@ -472,7 +495,7 @@
       renderFeed();
       document.getElementById('video-title').value = '';
       fileInput.value = '';
-      alert("UI update: Highlight posted to your local feed (NOT SAVED TO LIVE DB). Phase 2 required for live persistence.");
+      alert("UI update: Highlight posted to feed (NOT SAVED TO LIVE DB). Profiles with data require database connection.");
     }
 
     /* ==========================================================================
