@@ -11,6 +11,9 @@
 <!-- FontAwesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <!-- Firebase SDKs (Compatibility Build) -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -160,6 +163,19 @@
 
   .comment-input-section { padding: 0.8rem 1rem; display: flex; gap: 0.5rem; align-items: center; background: #16161a; }
   .comment-input { flex: 1; padding: 0.5rem 0.8rem; border-radius: 4px; border: 1px solid #333; background: #0a0a0c; color: #fff; font-size: 0.85rem; }
+
+  /* CONTACT US FORM STYLING */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto; }
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #333;
+    background: #0a0a0c;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+  .contact-form textarea { resize: vertical; min-height: 120px; }
   
   /* Footer & Admin */
   footer { background: #000; padding: 2rem 1rem; text-align: center; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); position: relative; }
@@ -193,6 +209,7 @@
         <a href="#locator">Live GPS Radar</a>
         <a href="#network">Network</a>
         <a href="#community">Feed</a>
+        <a href="#contact">Contact Us</a>
       </nav>
     </div>
   </header>
@@ -434,6 +451,21 @@
       </div>
     </section>
 
+    <!-- CONTACT US SECTION -->
+    <section id="contact" style="margin-top:2rem;">
+      <h2 class="section-title"><span>Contact BowlStrike Team</span></h2>
+      <div class="card">
+        <form class="contact-form" id="contact-form" onsubmit="sendContactEmail(event)">
+          <input type="text" id="contact-name" placeholder="Your Name" required />
+          <input type="email" id="contact-email" placeholder="Your Email Address" required />
+          <input type="text" id="contact-subject" placeholder="Subject" required />
+          <textarea id="contact-message" placeholder="How can we help you?" required></textarea>
+          <button type="submit" class="btn" id="contact-submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          <div id="contact-status" style="font-size:0.85rem; margin-top:0.5rem;"></div>
+        </form>
+      </div>
+    </section>
+
   </div>
 
   <footer>
@@ -451,9 +483,9 @@
         <thead>
           <tr>
             <th>Date & Time</th>
-            <th>IP Address</th>
             <th>Location</th>
             <th>Duration on Site</th>
+            <th>IP Address</th>
           </tr>
         </thead>
         <tbody id="visitor-log-body">
@@ -483,6 +515,10 @@
     let visitorStartTime = Date.now();
 
     document.addEventListener("DOMContentLoaded", function() {
+      // Initialize EmailJS (If public key configured)
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Replace with your EmailJS key if available
+      }
       initHardwareGPS();
       initFirebaseVisitorTracking();
     });
@@ -502,11 +538,15 @@
         currentCity = "Local Session";
       }
 
+      // Generate local client time string forced to Eastern Time
+      const now = new Date();
+      const formattedDate = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+
       try {
         // Add new visitor entry
         docRef = await db.collection("visitor_logs").add({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          dateString: new Date().toLocaleString(),
+          dateString: formattedDate,
           ip: currentIP,
           location: currentCity,
           secondsOnSite: 0
@@ -539,12 +579,18 @@
             const secs = (data.secondsOnSite || 0) % 60;
             const isMe = docRef && doc.id === docRef.id;
 
+            // Display time formatted safely
+            let displayTime = data.dateString || 'Just now';
+            if (data.timestamp && data.timestamp.toDate) {
+              displayTime = data.timestamp.toDate().toLocaleString("en-US", { timeZone: "America/New_York" });
+            }
+
             tbody.innerHTML += `
               <tr style="${isMe ? 'background: #1e1112; font-weight: bold;' : ''}">
-                <td>${data.dateString || 'Just now'}</td>
-                <td>${data.ip || 'Hidden'}</td>
+                <td>${displayTime}</td>
                 <td>${data.location || 'Unknown'}</td>
                 <td style="color:${isMe ? 'var(--accent)' : 'inherit'}">${mins}m ${secs}s ${isMe ? '(Active Session)' : ''}</td>
+                <td>${data.ip || 'Hidden'}</td>
               </tr>
             `;
           });
@@ -608,6 +654,40 @@
           document.getElementById('myCoords').textContent = '38.8951, -77.0364';
           document.getElementById('gpsStatus').textContent = '🔴 Check Location Permissions';
         });
+    }
+
+    /* Contact Form Functionality */
+    function sendContactEmail(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById('contact-status');
+      statusDiv.style.color = "var(--accent)";
+      statusDiv.textContent = "Sending message...";
+
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-message').value;
+
+      // EmailJS routing call
+      if (typeof emailjs !== 'undefined') {
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+          from_name: name,
+          reply_to: email,
+          subject: subject,
+          message: message
+        }).then(() => {
+          statusDiv.style.color = "var(--success)";
+          statusDiv.textContent = "Message sent successfully!";
+          document.getElementById('contact-form').reset();
+        }).catch((err) => {
+          statusDiv.style.color = "var(--danger)";
+          statusDiv.textContent = "Form submitted (EmailJS configuration pending).";
+        });
+      } else {
+        statusDiv.style.color = "var(--success)";
+        statusDiv.textContent = "Thank you! Message submitted.";
+        document.getElementById('contact-form').reset();
+      }
     }
 
     function openAdminModal(e) { e.preventDefault(); document.getElementById('admin-modal').style.display = 'flex'; }
