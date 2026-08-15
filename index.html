@@ -1,1328 +1,989 @@
-set="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>BowlStrike.com - National Tenpin Social Network & Live Radar</title>
-
-<!-- Primary Search Engine Meta Tags -->
-<meta name="title" content="BowlStrike.com - National Tenpin Social Network & Live Radar" />
-<meta name="description" content="Connect with tenpin bowlers nationwide on BowlStrike.com. Features live GPS alley radar, SBA news updates, bowler profiles, and real-time community feeds." />
-<meta name="keywords" content="bowling network, tenpin bowling, bowling alley radar, PBA news, USBC, bowler profiles, bowling score tracker, local bowling lanes" />
-<meta name="robots" content="index, follow" />
-<meta name="author" content="BowlStrike Team" />
-
-<!-- Open Graph / Facebook / WhatsApp Preview -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://bowlstrike.com/" />
-<meta property="og:title" content="BowlStrike.com - National Tenpin Social Network" />
-<meta property="og:description" content="Live GPS bowling radar, national tournament news, and player community feed. Join the national tenpin network!" />
-<meta property="og:image" content="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" />
-
-<!-- Twitter Card Preview -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://bowlstrike.com/" />
-<meta property="twitter:title" content="BowlStrike.com - National Tenpin Social Network" />
-<meta property="twitter:description" content="Live GPS bowling radar, national tournament news, and player community feed." />
-<meta property="twitter:image" content="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" />
-
-<!-- Canonical URL -->
-<link rel="canonical" href="https://bowlstrike.com/" />
-
-<!-- Leaflet CSS & JS for Interactive Map -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-
-<!-- FontAwesome for Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
-
-<!-- Firebase SDKs (Compatibility Build) -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" defer></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js" defer></script>
-
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+<title>BowlStrike.com - National Tenpin Social Network & Live Radar</title> 
+<!-- Primary Search Engine Meta Tags --> 
+<meta name="title" content="BowlStrike.com - National Tenpin Social Network & Live Radar" /> 
+<meta name="description" content="Connect with tenpin bowlers nationwide on BowlStrike.com. Features live GPS alley radar, SBA news updates, bowler profiles, Pro Shop directory, and community feeds." /> 
+<meta name="keywords" content="bowling network, tenpin bowling, bowling alley radar, PBA news, USBC, bowler profiles, bowling pro shop, bowling balls, local bowling lanes" /> 
+<meta name="robots" content="index, follow" /> 
+<meta name="author" content="BowlStrike Team" /> 
+<!-- Open Graph / Facebook / WhatsApp Preview --> 
+<meta property="og:type" content="website" /> 
+<meta property="og:url" content="https://bowlstrike.com/" /> 
+<meta property="og:title" content="BowlStrike.com - National Tenpin Social Network" /> 
+<meta property="og:description" content="Live GPS bowling radar, national tournament news, player community feed, and Pro Shop directory." /> 
+<meta property="og:image" content="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" /> 
+<!-- Twitter Card Preview --> 
+<meta property="twitter:card" content="summary_large_image" /> 
+<meta property="twitter:url" content="https://bowlstrike.com/" /> 
+<meta property="twitter:title" content="BowlStrike.com - National Tenpin Social Network" /> 
+<meta property="twitter:description" content="Live GPS bowling radar, national tournament news, and player community feed." /> 
+<meta property="twitter:image" content="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" /> 
+<!-- Canonical URL --> 
+<link rel="canonical" href="https://bowlstrike.com/" /> 
+<!-- Leaflet CSS & JS for Interactive Map --> 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" /> 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script> 
+<!-- FontAwesome for Icons --> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> 
+<!-- EmailJS SDK --> 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script> 
+<!-- Firebase SDKs (Compatibility Build) --> 
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js" defer></script> 
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js" defer></script> 
 <style>
-  :root {
-    --primary: #e50914;
-    --primary-dark: #b20710;
-    --accent: #ffb300;
-    --neon-red: #ff3c3c;
-    --dark-bg: #070709;
-    --card-bg: #111114;
-    --text: #ffffff;
-    --text-muted: #b0bec5;
-    --danger: #d32f2f;
-    --success: #388e3c;
-  }
+:root { 
+  --primary: #e50914; 
+  --primary-dark: #b20710; 
+  --accent: #ffb300; 
+  --neon-red: #ff3c3c; 
+  --dark-bg: #f4f6f8; 
+  --card-bg: #ffffff; 
+  --text: #222222; 
+  --text-muted: #555555; 
+  --danger: #d32f2f; 
+  --success: #388e3c; 
+} 
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; } 
+body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; } 
+/* Header Navigation */ 
+header { background-color: #ffffff; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); } 
+.nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; } 
+.logo-wrapper { display: inline-flex; align-items: center; border: 2px solid var(--primary); border-radius: 25px; padding: 0.3rem 1rem; background: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); text-decoration: none; transition: border-color 0.3s; } 
+.logo-wrapper:hover { border-color: var(--primary-dark); } 
+.logo { font-size: 1.6rem; font-weight: 900; color: #222222; letter-spacing: 1px; line-height: 1; } 
+.logo span { color: var(--primary); } 
+/* Hero Banner Logo Variation */ 
+.hero-logo-wrapper { display: inline-flex; align-items: center; border: 3px solid var(--primary); border-radius: 35px; padding: 0.5rem 1.8rem; background: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.15); text-decoration: none; margin-bottom: 1.2rem; }
+.hero-logo { font-size: 2.5rem; font-weight: 900; color: #222222; letter-spacing: 1.5px; line-height: 1; } 
+.hero-logo span { color: var(--primary); } 
+nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; } 
+nav a:hover { color: var(--primary); } 
+/* Hero Banner */ 
+.hero-banner { background: linear-gradient(180deg, #ffffff 0%, #eef2f5 100%); padding: 3.5rem 1rem; text-align: center; border-bottom: 4px solid var(--primary); } 
+.hero-banner p { font-size: 1.15rem; color: #333; margin-bottom: 0.5rem; } 
+/* Utility */ 
+.container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; } 
+.section-title { font-size: 1.5rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center; } 
+.card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05); } 
+.btn { padding: 0.6rem 1.2rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; } 
+.btn:hover { background: var(--primary-dark); } 
+.btn-secondary { background: #e0e0e0; color: #333; } 
+.btn-secondary:hover { background: #d0d0d0; }
+.btn-danger { background: var(--danger); color: #fff; } 
+.btn-danger:hover { background: #b71c1c; } 
+/* LIVE NEWS GRID */ 
+.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; } 
+.news-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; } 
+.news-card h3 a { color: var(--primary); text-decoration: none; } 
+.news-card h3 a:hover { text-decoration: underline; color: var(--primary-dark); } 
+.news-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; } 
+.news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #eee; padding-top: 0.5rem; } 
+/* RED DIVIDER LINE */ 
+.red-divider { height: 3px; background: linear-gradient(90deg, var(--primary) 0%, var(--neon-red) 50%, var(--primary) 100%); margin: 2.5rem 0; border-radius: 2px; }
+/* RADAR & BOWLING GAME LAYOUT */ 
+.interactive-duo-container { display: flex; gap: 1.2rem; margin-bottom: 2.5rem; align-items: stretch; } 
+.duo-block { flex: 1; min-width: 0; display: flex; flex-direction: column; } 
+/* MAP SECTION */ 
+.map-wrapper { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #ccc; flex: 1; display: flex; flex-direction: column; min-height: 260px; } 
+#map { height: 260px; width: 100%; background: #e5e3df; flex: 1; } 
+.my-location-panel { position: absolute; top: 10px; left: 10px; z-index: 500; background: rgba(255,255,255,0.95); border: 1px solid #ccc; border-radius: 6px; padding: 6px 10px; } 
+.ml-coords { font-size: 0.78rem; color: #0055cc; font-weight: 600; } 
+/* BOWLING GAME STYLING */ 
+.game-wrapper { background: #fdfdfd; border-radius: 8px; border: 1px solid #ccc; padding: 0.8rem; display: flex; flex-direction: column; justify-content: space-between; align-items: center; position: relative; } 
+.game-canvas-container { width: 100%; height: 250px; background: #1a1a1a; border-radius: 6px; position: relative; overflow: hidden; border: 2px solid #333; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); } 
+#bowlingCanvas { width: 100%; height: 100%; display: block; } 
+.gutter-overlay { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; font-weight: 900; color: #ff3c3c; text-shadow: 0 0 5px #fff; background: rgba(255,255,255,0.9); padding: 6px 16px; border-radius: 6px; border: 2px solid #ff3c3c; display: none; z-index: 10; pointer-events: none; letter-spacing: 1.5px; }
+/* SCOREBOARD SHEET */ 
+.bowling-scorecard { width: 100%; background: #ffffff; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 0.5rem; padding: 0.3rem; overflow-x: auto; } 
+.scorecard-grid { display: flex; justify-content: space-between; gap: 2px; } 
+.frame-box { flex: 1; min-width: 28px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 3px; text-align: center; padding: 2px; } 
+.frame-box.active { border-color: var(--primary); background: #fff0f0; } 
+.frame-title { font-size: 0.62rem; color: var(--text-muted); font-weight: bold; border-bottom: 1px solid #eee; } 
+.frame-rolls { font-size: 0.7rem; color: #222; font-weight: bold; height: 16px; line-height: 16px; letter-spacing: 1px; } 
+.frame-total { font-size: 0.72rem; color: var(--primary); font-weight: 900; height: 16px; line-height: 16px; } 
+.game-controls { display: flex; gap: 0.4rem; width: 100%; margin-top: 0.4rem; justify-content: space-between; align-items: center; flex-wrap: wrap; } 
+/* PROFILE PHOTO STYLING */ 
+.network-layout { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; } 
+.main-profiles-container { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem; } 
+.profile-card { display: flex; gap: 1rem; align-items: flex-start; } 
+.profile-photo-container { width: 90px; height: 115px; border-radius: 6px; border: 2px solid var(--primary); overflow: hidden; flex-shrink: 0; background: #e0e0e0; display: flex; justify-content: center; align-items: center; } 
+.profile-photo-container img { width: 100%; height: 100%; object-fit: cover; } 
+.profile-details { flex: 1; } 
+.profile-name { font-size: 1.3rem; font-weight: 800; color: #222; } 
+/* TEAM DIRECTORY */ 
+.team-directory { width: 340px; flex-shrink: 0; } 
+.team-player-card { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem; background: #f9f9f9; padding: 0.5rem; border-radius: 6px; border: 1px solid #e0e0e0; } 
+.profile-thumb { width: 42px; height: 54px; border-radius: 4px; border: 1px solid var(--primary); object-fit: cover; flex-shrink: 0; } 
 
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-  body { background-color: var(--dark-bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+/* 50/50 SPLIT GRID LAYOUT FOR DESKTOP (COMMUNITY FEED LEFT, PRO SHOP & CONTACT RIGHT) */
+.split-50-layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1rem; }
+@media (min-width: 800px) {
+  .split-50-layout { grid-template-columns: 1fr 1fr; align-items: start; }
+}
 
-  /* Header Navigation */
-  header { background-color: #000; border-bottom: 3px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
-  .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1rem; }
-  
-  .logo-wrapper {
-    display: inline-flex;
-    align-items: center;
-    border: 2px solid #ffffff;
-    border-radius: 25px;
-    padding: 0.3rem 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    text-decoration: none;
-    transition: border-color 0.3s;
-  }
-  .logo-wrapper:hover { border-color: var(--primary); }
-  .logo { font-size: 1.6rem; font-weight: 900; color: #ffffff; letter-spacing: 1px; line-height: 1; }
-  .logo span { color: var(--primary); text-shadow: 0 0 8px rgba(229, 9, 20, 0.8); }
+/* COMMUNITY FEED STYLING */
+.community-feed { display: flex; flex-direction: column; gap: 1.2rem; } 
+.feed-post-card { padding: 0; overflow: hidden; } 
+.post-header { padding: 0.7rem 0.9rem; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #eee; background: #fcfcfc; } 
+.feed-author-thumb { width: 38px; height: 48px; border-radius: 4px; border: 1px solid var(--primary); object-fit: cover; flex-shrink: 0; } 
+.post-media-container { width: 100%; background: #f0f0f0; text-align: center; } 
+.post-media-container img { max-width: 100%; max-height: 220px; object-fit: contain; display: block; margin: 0 auto; } 
+.post-actions-panel { padding: 0.5rem 0.8rem; display: flex; gap: 1rem; border-bottom: 1px solid #eee; } 
+.action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.82rem; } 
+.comment-input-section { padding: 0.6rem 0.8rem; display: flex; gap: 0.5rem; align-items: center; background: #f9f9f9; } 
+.comment-input { flex: 1; padding: 0.4rem 0.6rem; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #222; font-size: 0.82rem; } 
 
-  /* Hero Banner Logo Variation */
-  .hero-logo-wrapper {
-    display: inline-flex;
-    align-items: center;
-    border: 3px solid #ffffff;
-    border-radius: 35px;
-    padding: 0.5rem 1.8rem;
-    background: rgba(0, 0, 0, 0.85);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    text-decoration: none;
-    margin-bottom: 1.2rem;
-  }
-  .hero-logo { font-size: 2.5rem; font-weight: 900; color: #ffffff; letter-spacing: 1.5px; line-height: 1; }
-  .hero-logo span { color: var(--primary); text-shadow: 0 0 12px rgba(229, 9, 20, 0.9); }
+/* PRO SHOP SECTION STYLING */
+.pro-shop-container { display: flex; flex-direction: column; gap: 0.8rem; }
+.pro-shop-card { background: #ffffff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+.pro-shop-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+.pro-shop-item { display: flex; gap: 0.8rem; align-items: center; }
+.pro-shop-icon { width: 45px; height: 45px; background: #fff0f0; border-radius: 50%; color: var(--primary); display: flex; justify-content: center; align-items: center; font-size: 1.2rem; flex-shrink: 0; border: 1px solid #ffd0d0; }
+.pro-shop-details { flex: 1; }
+.pro-shop-details h4 { font-size: 0.95rem; color: #222; margin-bottom: 0.2rem; }
+.pro-shop-details p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.3; }
+.pro-shop-link { font-size: 0.78rem; font-weight: bold; color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 0.3rem; }
+.pro-shop-link:hover { text-decoration: underline; color: var(--primary-dark); }
+.compliance-note { font-size: 0.72rem; color: #777; background: #f0f0f0; padding: 0.5rem 0.8rem; border-radius: 4px; border-left: 3px solid var(--primary); margin-top: 0.5rem; }
 
-  nav { display: flex; gap: 1rem; flex-wrap: wrap; }
-  nav a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
-  nav a:hover { color: var(--primary); }
+/* CONTACT US FORM STYLING */ 
+.contact-form { display: flex; flex-direction: column; gap: 0.8rem; } 
+.contact-form input, .contact-form textarea { width: 100%; padding: 0.6rem 0.8rem; border-radius: 4px; border: 1px solid #ccc; background: #fff; color: #222; font-size: 0.85rem; } 
+.contact-form textarea { resize: vertical; min-height: 90px; } 
 
-  /* Hero Banner */
-  .hero-banner {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(8, 8, 10, 0.92) 100%),
-                radial-gradient(circle at 50% 50%, #1a0002 0%, #070709 85%);
-    padding: 3.5rem 1rem;
-    text-align: center;
-    border-bottom: 4px solid var(--primary);
-  }
-  .hero-banner p { font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem; }
+/* Footer & Legal Disclaimers */ 
+footer { background: #ffffff; padding: 2.5rem 1rem 1.5rem 1rem; border-top: 1px solid #ddd; font-size: 0.85rem; color: var(--text-muted); position: relative; } 
+.footer-legal-container { max-width: 1000px; margin: 0 auto 1.5rem auto; text-align: left; background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 6px; padding: 1.2rem; line-height: 1.5; font-size: 0.78rem; color: #666; } 
+.footer-legal-container h4 { color: #333; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; } 
+.footer-legal-container p { margin-bottom: 0.8rem; } 
+.footer-legal-container p:last-child { margin-bottom: 0; } 
+.hidden-admin-link { color: #888; text-decoration: none; font-size: 0.75rem; margin-top: 1rem; display: inline-block; cursor: pointer; } 
+.hidden-admin-link:hover { color: #333; } 
+/* Admin Modal & Analytics Dashboard */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; } 
+.modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 850px; max-height: 85vh; overflow-y: auto; border: 1px solid #ccc; } 
+.close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); float: right; } 
+.admin-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; } 
+.stat-card { background: #f9f9f9; border: 1px solid #ddd; border-radius: 6px; padding: 0.8rem; text-align: center; } 
+.stat-card .val { font-size: 1.5rem; font-weight: 900; color: var(--primary); } 
+.stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; } 
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; } 
+th, td { border: 1px solid #ddd; padding: 0.6rem; text-align: left; font-size: 0.8rem; } 
+th { background: #f0f0f0; color: #333; } 
 
-  /* Utility */
-  .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-  .section-title { font-size: 1.6rem; margin-bottom: 1.2rem; border-left: 5px solid var(--primary); padding-left: 0.8rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
-  .card { background: var(--card-bg); border-radius: 8px; padding: 1.2rem; border: 1px solid #222; }
-  .btn { padding: 0.6rem 1.2rem; background: var(--primary); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-  .btn:hover { background: var(--primary-dark); }
-  .btn-secondary { background: #25252b; color: #fff; }
-  .btn-danger { background: var(--danger); color: #fff; }
-  .btn-danger:hover { background: #b71c1c; }
-
-  /* LIVE NEWS GRID */
-  .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
-  .news-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-  .news-card h3 a { color: var(--accent); text-decoration: none; }
-  .news-card h3 a:hover { text-decoration: underline; color: #fff; }
-  .news-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; }
-  .news-card .news-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #757575; border-top: 1px solid #2a2a2a; padding-top: 0.5rem; }
-
-  /* RED DIVIDER LINE */
-  .red-divider {
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary) 0%, var(--neon-red) 50%, var(--primary) 100%);
-    box-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
-    margin: 2.5rem 0;
-    border-radius: 2px;
-  }
-
-  /* SIDE-BY-SIDE RADAR & BOWLING GAME LAYOUT */
-  .interactive-duo-container {
-    display: flex;
-    gap: 1.2rem;
-    margin-bottom: 2.5rem;
-    align-items: stretch;
-  }
-  .duo-block {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* MAP SECTION */
-  .map-wrapper { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #222; flex: 1; display: flex; flex-direction: column; min-height: 260px; }
-  #map { height: 260px; width: 100%; background: #1a1a1e; flex: 1; }
-  .my-location-panel { position: absolute; top: 10px; left: 10px; z-index: 500; background: rgba(15,23,36,0.92); border: 1px solid #333; border-radius: 6px; padding: 6px 10px; }
-  .ml-coords { font-size: 0.78rem; color: var(--accent); font-weight: 600; }
-
-  /* BOWLING GAME STYLING */
-  .game-wrapper {
-    background: #000;
-    border-radius: 8px;
-    border: 1px solid #222;
-    padding: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-  }
-  .game-canvas-container {
-    width: 100%;
-    height: 220px;
-    background: #0a0a0c;
-    border-radius: 6px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid #333;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
-  }
-  #bowlingCanvas { width: 100%; height: 100%; display: block; }
-  
-  .gutter-overlay {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: #ff3c3c;
-    text-shadow: 0 0 10px #000, 0 0 20px #ff0000;
-    background: rgba(0,0,0,0.85);
-    padding: 6px 16px;
-    border-radius: 6px;
-    border: 2px solid #ff3c3c;
-    display: none;
-    z-index: 10;
-    pointer-events: none;
-    letter-spacing: 1.5px;
-  }
-
-  /* SCOREBOARD SHEET */
-  .bowling-scorecard {
-    width: 100%;
-    background: #0d0d11;
-    border: 1px solid #222;
-    border-radius: 6px;
-    margin-bottom: 0.5rem;
-    padding: 0.3rem;
-    overflow-x: auto;
-  }
-  .scorecard-grid {
-    display: flex;
-    justify-content: space-between;
-    gap: 2px;
-  }
-  .frame-box {
-    flex: 1;
-    min-width: 28px;
-    background: #15151c;
-    border: 1px solid #333;
-    border-radius: 3px;
-    text-align: center;
-    padding: 2px;
-  }
-  .frame-box.active { border-color: var(--accent); background: #1f1f2a; }
-  .frame-title { font-size: 0.62rem; color: var(--text-muted); font-weight: bold; border-bottom: 1px solid #2a2a35; }
-  .frame-rolls { font-size: 0.7rem; color: #fff; font-weight: bold; height: 16px; line-height: 16px; letter-spacing: 1px; }
-  .frame-total { font-size: 0.72rem; color: var(--accent); font-weight: 900; height: 16px; line-height: 16px; }
-
-  .game-controls {
-    display: flex;
-    gap: 0.4rem;
-    width: 100%;
-    margin-top: 0.4rem;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  /* PROFILE PHOTO STYLING */
-  .network-layout { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: flex-start; }
-  .main-profiles-container { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem; }
-  .profile-card { display: flex; gap: 1rem; align-items: flex-start; }
-  
-  .profile-photo-container {
-    width: 90px;
-    height: 115px;
-    border-radius: 6px;
-    border: 2px solid var(--primary);
-    overflow: hidden;
-    flex-shrink: 0;
-    background: #1a1a1e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-  }
-  .profile-photo-container img { width: 100%; height: 100%; object-fit: cover; }
-
-  .profile-details { flex: 1; }
-  .profile-name { font-size: 1.3rem; font-weight: 800; color: #fff; }
-
-  /* TEAM DIRECTORY */
-  .team-directory { width: 340px; flex-shrink: 0; }
-  .team-player-card { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem; background: #000; padding: 0.5rem; border-radius: 6px; border: 1px solid #222; }
-  .profile-thumb { width: 42px; height: 54px; border-radius: 4px; border: 1px solid var(--accent); object-fit: cover; flex-shrink: 0; }
-
-  /* MEDIA & FEED */
-  .community-feed { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
-  .feed-post-card { padding: 0; overflow: hidden; }
-  
-  .post-header { padding: 0.8rem 1rem; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #222; background: #0b0b0d; }
-  .feed-author-thumb { width: 42px; height: 54px; border-radius: 4px; border: 1px solid var(--primary); object-fit: cover; flex-shrink: 0; }
-
-  .post-media-container { width: 100%; background: #000; text-align: center; }
-  .post-media-container img, .post-media-container video {
-    max-width: 100%;
-    max-height: 280px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-  }
-
-  .post-actions-panel { padding: 0.6rem 1rem; display: flex; gap: 1rem; border-bottom: 1px solid #222; }
-  .action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.85rem; }
-
-  .comment-input-section { padding: 0.8rem 1rem; display: flex; gap: 0.5rem; align-items: center; background: #16161a; }
-  .comment-input { flex: 1; padding: 0.5rem 0.8rem; border-radius: 4px; border: 1px solid #333; background: #0a0a0c; color: #fff; font-size: 0.85rem; }
-
-  /* CONTACT US FORM STYLING */
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: 0 auto; }
-  .contact-form input, .contact-form textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    background: #0a0a0c;
-    color: #fff;
-    font-size: 0.9rem;
-  }
-  .contact-form textarea { resize: vertical; min-height: 120px; }
-  
-  /* Footer & Legal Disclaimers */
-  footer { background: #000; padding: 2.5rem 1rem 1.5rem 1rem; border-top: 1px solid #222; font-size: 0.85rem; color: var(--text-muted); position: relative; }
-  .footer-legal-container { max-width: 1000px; margin: 0 auto 1.5rem auto; text-align: left; background: #0a0a0c; border: 1px solid #1a1a1e; border-radius: 6px; padding: 1.2rem; line-height: 1.5; font-size: 0.78rem; color: #8a8a93; }
-  .footer-legal-container h4 { color: #d0d0d5; font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
-  .footer-legal-container p { margin-bottom: 0.8rem; }
-  .footer-legal-container p:last-child { margin-bottom: 0; }
-  
-  .hidden-admin-link { color: #222; text-decoration: none; font-size: 0.75rem; margin-top: 1rem; display: inline-block; cursor: pointer; }
-  .hidden-admin-link:hover { color: #555; }
-
-  /* Admin Modal & Analytics Dashboard */
-  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-  .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 850px; max-height: 85vh; overflow-y: auto; border: 1px solid #333; }
-  .close-btn { font-size: 1.5rem; cursor: pointer; color: var(--text-muted); float: right; }
-  
-  .admin-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
-  .stat-card { background: #0a0a0c; border: 1px solid #222; border-radius: 6px; padding: 0.8rem; text-align: center; }
-  .stat-card .val { font-size: 1.5rem; font-weight: 900; color: var(--accent); }
-  .stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
-
-  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-  th, td { border: 1px solid #333; padding: 0.6rem; text-align: left; font-size: 0.8rem; }
-  th { background: #111; color: var(--accent); }
-
-  /* FIXED MOBILE BREAKPOINT FOR RADAR MAP & ARCADE GAME */
-  @media (max-width: 800px) {
-    .interactive-duo-container {
-      flex-direction: column !important;
-      gap: 1.5rem !important;
-    }
-    
-    .duo-block {
-      width: 100% !important;
-      min-height: 320px !important;
-    }
-
-    .map-wrapper {
-      min-height: 320px !important;
-      height: 320px !important;
-    }
-
-    #map {
-      min-height: 320px !important;
-      height: 100% !important;
-      width: 100% !important;
-    }
-
-    .game-wrapper {
-      width: 100% !important;
-      min-height: 360px !important;
-    }
-
-    .game-canvas-container {
-      height: 230px !important;
-      width: 100% !important;
-    }
-
-    .network-layout { flex-direction: column; }
-    .team-directory { width: 100%; }
-  }
-</style>
-</head>
+/* MOBILE RESPONSIVE BREAKPOINT */ 
+@media (max-width: 800px) {
+  .interactive-duo-container { flex-direction: column !important; gap: 1.5rem !important; } 
+  .duo-block { width: 100%!important; min-height: 300px !important; } 
+  .map-wrapper { min-height: 300px !important; height: 300px !important; }
+  #map { min-height: 300px !important; height: 100% !important; width: 100% !important; } 
+  .game-wrapper { width: 100% !important; min-height: 360px !important; } 
+  .game-canvas-container { height: 250px !important; width: 100%!important; } 
+  .network-layout { flex-direction: column; } 
+  .team-directory { width: 100%; } 
+} 
+</style> 
+</head> 
 <body>
+<!-- Header Navigation --> 
+<header> 
+<div class="nav-container"> 
+<a href="#" class="logo-wrapper"> 
+<span class="logo">Bowl<span>Strike</span>.com</span> 
+</a> 
+<nav> 
+<a href="#news">News</a> 
+<a href="#locator">Radar & Game</a> 
+<a href="#network">Network</a> 
+<a href="#community">Highlights Feed</a> 
+<a href="#proshop">Pro Shop</a> 
+<a href="#contact">Contact</a> 
+</nav> 
+</div> 
+</header> 
 
-  <!-- Header Navigation -->
-  <header>
-    <div class="nav-container">
-      <a href="#" class="logo-wrapper">
-        <span class="logo">Bowl<span>Strike</span>.com</span>
-      </a>
-      <nav>
-        <a href="#news">News</a>
-        <a href="#locator">Radar & Game</a>
-        <a href="#network">Network</a>
-        <a href="#community">Feed</a>
-        <a href="#contact">Contact Us</a>
-      </nav>
-    </div>
-  </header>
+<!-- Hero Banner --> 
+<section class="hero-banner"> 
+<div><div class="hero-logo-wrapper"> 
+<span class="hero-logo">Bowl<span>Strike</span>.com</span> 
+</div> 
+</div><p>National Tenpin Social Network — SBA News, Bowler Profiles & Equipment Radar</p> 
+</section> 
 
-  <!-- Hero Banner -->
-  <section class="hero-banner">
-    <div>
-      <div class="hero-logo-wrapper">
-        <span class="hero-logo">Bowl<span>Strike</span>.com</span>
+<div class="container"> 
+<!-- LIVE NATIONAL NEWS FEED --> 
+<section id="news"> 
+<div class="section-title"> 
+<span><i class="fa-solid fa-newspaper" style="color:var(--primary);"></i> Live National SBA News</span> 
+<span style="font-size:0.75rem; color:var(--success); font-weight:normal;" id="news-status"><i class="fa-solid fa-arrows-rotate"></i> Auto-Updating Live</span> 
+</div> 
+<div class="news-grid" id="news-grid-container"> 
+<div class="card news-card"> 
+<h3><a href="https://www.pba.com/news" target="_blank" rel="noopener noreferrer">PBA Tour Title Matches & Championship Bracket Live Coverage</a></h3> 
+<p>Real-time tournament updates, oil pattern breakdown analysis, and national PBA tour points updates.</p> 
+<div class="news-meta"><span>PBA.com</span><span>Auto-Updated</span></div> 
+</div> 
+<div class="card news-card"> 
+<h3><a href="https://bowl.com/news" target="_blank" rel="noopener noreferrer">USBC Championship Update: New Equipment Hardness Guidelines</a></h3> 
+<p>USBC technical specifications and bowling ball hardness regulations for all sanctioned national events.</p> 
+<div class="news-meta"><span>USBC</span><span>Auto-Updated</span></div> 
+</div> 
+<div class="card news-card"> 
+<h3><a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener noreferrer">World Bowling Rankings: Global Tenpin Tour Leaders Announced</a></h3> 
+<p>International tenpin news covering global ranking shifts and upcoming major open events.</p> 
+<div class="news-meta"><span>BowlingDigital</span><span>Auto-Updated</span></div> 
+</div></div> 
+</section> 
+
+<div class="red-divider"></div> 
+
+<!-- SIDE-BY-SIDE: Live GPS Map Radar & Bowling Game Block --> 
+<section id="locator"> 
+<h2 class="section-title"><span>Live GPS Alley Radar & Official Tenpin Challenge</span></h2> 
+<div class="interactive-duo-container"> 
+<!-- BLOCK 1: Radar Display --> 
+<div class="duo-block"> 
+<div class="map-wrapper"> 
+<div class="my-location-panel card"> 
+<div style="font-size:0.68rem; color:var(--text-muted); text-transform:uppercase;">📍 Live Stream</div> 
+<div class="ml-coords" id="myCoords">Acquiring...</div> 
+<div style="font-size:0.72rem; color:var(--success);" id="gpsStatus">Connecting...</div> 
+</div> 
+<div id="map"></div> 
+</div> 
+</div> 
+
+<!-- BLOCK 2: Professional Single-Player Bowling Game Block --> 
+<div class="duo-block card game-wrapper"> 
+<div style="width:100%; display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;"> 
+<span style="font-weight:bold; font-size:0.88rem; color:#222;"><i class="fa-solid fa-bowling-ball" style="color:#0088ff;"></i> Solo Bowler - Frame <span id="currentFrameDisplay">1</span>/10</span> 
+<div style="font-size:0.85rem; font-weight:bold; color:var(--primary);"> 
+Total Score: <strong id="p1-score" style="color:#222; font-size:1.1rem;">0</strong> 
+</div> 
+</div> 
+<!-- Official 10-Frame Scorecard Header --> 
+<div class="bowling-scorecard"> 
+<div class="scorecard-grid" id="scorecardGrid"> 
+<!-- Dynamically populated 10 frame blocks --> 
+</div></div> 
+<div class="game-canvas-container"> 
+<div id="gutterOverlay" class="gutter-overlay">GUTTER BALL!</div><canvas id="bowlingCanvas"></canvas> 
+</div> 
+
+<!-- GAME CONTROLS & SOUND TOGGLE BUTTON --> 
+<div class="game-controls"> 
+<!-- Position Aim Controls --> 
+<div style="display:flex; gap:4px; align-items:center;"> 
+<span style="font-size:0.72rem; color:var(--text-muted); font-weight:bold;">Aim:</span> 
+<button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.5rem;" onclick="moveBall(-12)"><i class="fa-solid fa-chevron-left"></i> Left</button> 
+<button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.5rem;" onclick="moveBall(12)">Right <i class="fa-solid fa-chevron-right"></i></button> 
+</div> 
+<div style="display:flex; gap:4px; align-items:center;"> 
+<!-- Audio Mute Toggle Button -->
+<button class="btn btn-secondary" id="soundToggleBtn" style="font-size:0.72rem; padding:0.3rem 0.5rem;" onclick="toggleGameSound()" title="Turn sound effects on or off"><i class="fa-solid fa-volume-high"></i> Sound: ON</button>
+<button class="btn btn-secondary" style="font-size:0.72rem; padding:0.3rem 0.5rem;" onclick="resetBowlingGame()"><i class="fa-solid fa-rotate-left"></i> Reset</button> 
+<button class="btn" style="font-size:0.75rem; padding:0.4rem 0.8rem; background:linear-gradient(180deg, #0088ff 0%, #0055cc 100%);" id="rollBtn" onclick="rollBowlingBall()"><i class="fa-solid fa-play"></i> ROLL BALL</button> 
+</div> 
+</div> 
+</div> 
+</div> 
+</section> 
+
+<!-- SECTION: BOWLER NETWORK PROFILES & YOUR TEAM --> 
+<section id="network"> 
+<h2 class="section-title"><span>Network Profiles & Your Team</span></h2> 
+<div class="network-layout"> 
+<div class="main-profiles-container"> 
+<div class="card profile-card"> 
+<div class="profile-photo-container"> 
+<img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="PinSmasher99 Profile" loading="lazy" /> 
+</div> 
+<div class="profile-details"> 
+<div class="profile-name">PinSmasher99</div> 
+<div style="font-size:0.85rem; color:var(--primary); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div> 
+<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Striking in Orlando area. High game 279, league average 215. Storm Nova arsenal.</p> 
+<button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Upload Photo</button> 
+</div> 
+</div> 
+<div class="card profile-card"> 
+<div class="profile-photo-container"> 
+<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="ApexSpinner Profile" loading="lazy" /> 
+</div> 
+<div class="profile-details"> 
+<div class="profile-name">ApexSpinner</div> 
+<div style="font-size:0.85rem; color:var(--primary); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div> 
+<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Sanctioned USBC bowler. High game 300 (x2), average 228. Roto Grip fan.</p> 
+<button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Connect</button> 
+</div> 
+</div> 
+<div class="card profile-card"> 
+<div class="profile-photo-container"> 
+<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="StrikeQueen_FL Profile" loading="lazy" /> 
+</div> 
+<div class="profile-details"> 
+<div class="profile-name">StrikeQueen_FL</div> 
+<div style="font-size:0.85rem; color:var(--primary); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div> 
+<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Thursday Night Scratch League captain. High game 268, average 202. Brunswick defender.</p> 
+<button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Connect</button> 
+</div></div> 
+</div> 
+<div class="card team-directory"> 
+<h3 style="font-size:1.1rem; margin-bottom:0.8rem;"><i class="fa-solid fa-people-group" style="color:var(--primary)"></i> Your Team</h3> 
+<div class="team-player-card"> 
+<img src="https://i.pravatar.cc/150?u=mike" class="profile-thumb" alt="Mike" loading="lazy"> 
+<div style="flex:1;"><strong style="font-size:0.88rem;">Mike Strikes</strong><br> 
+<span style="font-size:0.75rem; color:var(--success);">🟢 Live on Lane 14</span> 
+</div> 
+<button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button> 
+</div> 
+<div class="team-player-card"> 
+<img src="https://i.pravatar.cc/150?u=dad" class="profile-thumb" alt="Dad" loading="lazy"> 
+<div style="flex:1;"> 
+<strong style="font-size:0.88rem;">Dad (PinCrusher)</strong><br> 
+<span style="font-size:0.75rem; color:var(--success);">🟢 Live on Lane 2</span> 
+</div> 
+<button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button> 
+</div> 
+<div class="team-player-card"> 
+<img src="https://i.pravatar.cc/150?u=sarah" class="profile-thumb" alt="Sarah" loading="lazy"> 
+<div style="flex:1;"> 
+<strong style="font-size:0.88rem;">Sarah Jones</strong><br> 
+<span style="font-size:0.75rem; color:var(--text-muted);">⚪ Offline (Bowlero Kissimmee)</span> 
+</div> 
+<button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Profile</button></div> 
+<div class="team-player-card"> 
+<img src="https://i.pravatar.cc/150?u=dave" class="profile-thumb" alt="Dave" loading="lazy"> 
+<div style="flex:1;"> 
+<strong style="font-size:0.88rem;">Dave "Hook" Miller</strong><br> 
+<span style="font-size:0.75rem; color:var(--success);">🟢 Practicing (Lane 22)</span> 
+</div> 
+<button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button> 
+</div> 
+</div> 
+</div> 
+</section> 
+
+<div class="red-divider"></div> 
+
+<!-- 50/50 SPLIT CONTAINER: HIGHLIGHT COMMUNITY FEED (LEFT) vs PRO SHOP & CONTACT (RIGHT) -->
+<div class="split-50-layout">
+  
+  <!-- LEFT COLUMN: HIGHLIGHT COMMUNITY FEED (COMPACT 50% FORMAT) -->
+  <section id="community"> 
+    <h2 class="section-title"><span><i class="fa-solid fa-photo-film" style="color:var(--primary);"></i> Highlight Feed</span></h2> 
+    <div class="community-feed"> 
+      <!-- Post 1 -->
+      <div class="card feed-post-card"> 
+        <div class="post-header"> 
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="PinSmasher99" loading="lazy"> 
+          <div> 
+            <strong style="font-size:0.88rem; color:#222;">@PinSmasher99</strong> 
+            <div style="font-size:0.72rem; color:var(--text-muted);">Bowlero Orlando — 10th Frame Double</div> 
+          </div> 
+        </div> 
+        <div class="post-media-container"> 
+          <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Bowling Alley Lanes Highlight" loading="lazy"> 
+        </div> 
+        <div class="post-actions-panel"> 
+          <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">34</span></button>
+          <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button> 
+        </div> 
+        <div class="comment-input-section"> 
+          <input type="text" class="comment-input" id="comment-input-1" placeholder="Write a comment..." />
+          <button class="btn" style="padding:0.4rem 0.7rem; font-size:0.75rem;" onclick="addComment(1)"><i class="fa-solid fa-paper-plane"></i></button> 
+        </div> 
+        <div id="comments-container-1" style="padding:0.4rem 0.8rem; font-size:0.8rem; color:var(--text-muted);"></div> 
       </div>
-    </div>
-    <p>National Tenpin Social Network — SBA News, Bowler Profiles & Highlights</p>
-  </section>
 
-  <div class="container">
+      <!-- Post 2 -->
+      <div class="card feed-post-card"> 
+        <div class="post-header"> 
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="ApexSpinner" loading="lazy"> 
+          <div> 
+            <strong style="font-size:0.88rem; color:#222;">@ApexSpinner</strong> 
+            <div style="font-size:0.72rem; color:var(--text-muted);">Roto Grip Hook Motion on Heavy Oil</div> 
+          </div> 
+        </div>
+        <div class="post-media-container"> 
+          <img src="https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=600&q=80" alt="Bowling Ball Hook Motion" loading="lazy"> 
+        </div> 
+        <div class="post-actions-panel"> 
+          <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">48</span></button> 
+          <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button> 
+        </div> 
+        <div class="comment-input-section"> 
+          <input type="text" class="comment-input" id="comment-input-2" placeholder="Write a comment..." /> 
+          <button class="btn" style="padding:0.4rem 0.7rem; font-size:0.75rem;" onclick="addComment(2)"><i class="fa-solid fa-paper-plane"></i></button> 
+        </div> 
+        <div id="comments-container-2" style="padding:0.4rem 0.8rem; font-size:0.8rem; color:var(--text-muted);"></div> 
+      </div> 
 
-    <!-- LIVE NATIONAL NEWS FEED -->
-    <section id="news">
-      <div class="section-title">
-        <span><i class="fa-solid fa-newspaper" style="color:var(--primary);"></i> Live National SBA News</span>
-        <span style="font-size:0.75rem; color:var(--success); font-weight:normal;" id="news-status"><i class="fa-solid fa-arrows-rotate"></i> Auto-Updating Live</span>
-      </div>
-      
-      <div class="news-grid" id="news-grid-container">
-        <div class="card news-card">
-          <h3><a href="https://www.pba.com/news" target="_blank" rel="noopener">PBA Tour Title Matches & Championship Bracket Live Coverage</a></h3>
-          <p>Real-time tournament updates, oil pattern breakdown analysis, and national PBA tour points updates.</p>
-          <div class="news-meta"><span>PBA.com</span><span>Auto-Updated</span></div>
-        </div>
+      <!-- Post 3 -->
+      <div class="card feed-post-card"> 
+        <div class="post-header"> 
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="StrikeQueen_FL" loading="lazy"> 
+          <div>
+            <strong style="font-size:0.88rem; color:#222;">@StrikeQueen_FL</strong> 
+            <div style="font-size:0.72rem; color:var(--text-muted);">Clutch Pin Action & 10-Pin Carry</div> 
+          </div> 
+        </div> 
+        <div class="post-media-container"> 
+          <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=600&q=80" alt="Bowling Pins Strike Action" loading="lazy"> 
+        </div> 
+        <div class="post-actions-panel"> 
+          <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">62</span></button> 
+          <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button> 
+        </div> 
+        <div class="comment-input-section"> 
+          <input type="text" class="comment-input" id="comment-input-3" placeholder="Write a comment..." /> 
+          <button class="btn" style="padding:0.4rem 0.7rem; font-size:0.75rem;" onclick="addComment(3)"><i class="fa-solid fa-paper-plane"></i></button> 
+        </div> 
+        <div id="comments-container-3" style="padding:0.4rem 0.8rem; font-size:0.8rem; color:var(--text-muted);"></div> 
+      </div> 
+    </div> 
+  </section> 
+
+  <!-- RIGHT COLUMN: THE PRO SHOP & CONTACT FORM -->
+  <div style="display:flex; flex-direction:column; gap:1.5rem;">
+    
+    <!-- THE PRO SHOP DIRECTORY -->
+    <section id="proshop">
+      <h2 class="section-title"><span><i class="fa-solid fa-store" style="color:var(--primary);"></i> The Pro Shop</span></h2>
+      <div class="pro-shop-container">
         
-        <div class="card news-card">
-          <h3><a href="https://bowl.com/news" target="_blank" rel="noopener">USBC Championship Update: New Equipment Hardness Guidelines</a></h3>
-          <p>USBC technical specifications and bowling ball hardness regulations for all sanctioned national events.</p>
-          <div class="news-meta"><span>USBC</span><span>Auto-Updated</span></div>
+        <!-- Retailer 1 -->
+        <div class="pro-shop-card">
+          <div class="pro-shop-item">
+            <div class="pro-shop-icon"><i class="fa-solid fa-bowling-ball"></i></div>
+            <div class="pro-shop-details">
+              <h4>BowlingBall.com</h4>
+              <p>Top online retailer for bowling balls, bags, shoes, and accessories with free shipping options.</p>
+              <a href="https://www.bowlingball.com" target="_blank" rel="noopener noreferrer" class="pro-shop-link">
+                Visit BowlingBall.com <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
         </div>
-        
-        <div class="card news-card">
-          <h3><a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener">World Bowling Rankings: Global Tenpin Tour Leaders Announced</a></h3>
-          <p>International tenpin news covering global ranking shifts and upcoming major open events.</p>
-          <div class="news-meta"><span>BowlingDigital</span><span>Auto-Updated</span></div>
+
+        <!-- Retailer 2 -->
+        <div class="pro-shop-card">
+          <div class="pro-shop-item">
+            <div class="pro-shop-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+            <div class="pro-shop-details">
+              <h4>Bowling.com</h4>
+              <p>Extensive catalog of performance equipment, bowling shoes, drilling tools, and apparel.</p>
+              <a href="https://www.bowling.com" target="_blank" rel="noopener noreferrer" class="pro-shop-link">
+                Visit Bowling.com <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
         </div>
+
+        <!-- Retailer 3 -->
+        <div class="pro-shop-card">
+          <div class="pro-shop-item">
+            <div class="pro-shop-icon"><i class="fa-solid fa-bullseye"></i></div>
+            <div class="pro-shop-details">
+              <h4>BowlersMart</h4>
+              <p>Nationwide pro shop operator offering high-performance bowling gear and expert reviews.</p>
+              <a href="https://www.bowlersmart.com" target="_blank" rel="noopener noreferrer" class="pro-shop-link">
+                Visit BowlersMart.com <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Retailer 4 -->
+        <div class="pro-shop-card">
+          <div class="pro-shop-item">
+            <div class="pro-shop-icon"><i class="fa-solid fa-wrench"></i></div>
+            <div class="pro-shop-details">
+              <h4>Buddies Pro Shop</h4>
+              <p>Specialized equipment retailer providing custom drilling services, wrist supports, and grips.</p>
+              <a href="https://www.buddiesproshop.com" target="_blank" rel="noopener noreferrer" class="pro-shop-link">
+                Visit BuddiesProShop.com <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terms Compliance Notice -->
+        <div class="compliance-note">
+          <i class="fa-solid fa-shield-halved"></i> <strong>Merchant Notice:</strong> External links open directly on official merchant websites. BowlStrike.com claims no direct affiliation with linked retailers unless explicitly stated.
+        </div>
+
       </div>
     </section>
 
-    <div class="red-divider"></div>
-
-    <!-- SIDE-BY-SIDE: Live GPS Map Radar & Bowling Game Block -->
-    <section id="locator">
-      <h2 class="section-title"><span>Live GPS Alley Radar & Official Tenpin Challenge</span></h2>
-      
-      <div class="interactive-duo-container">
-        
-        <!-- BLOCK 1: Radar Display -->
-        <div class="duo-block">
-          <div class="map-wrapper">
-            <div class="my-location-panel card">
-              <div style="font-size:0.68rem; color:var(--text-muted); text-transform:uppercase;">📍 Live Stream</div>
-              <div class="ml-coords" id="myCoords">Acquiring...</div>
-              <div style="font-size:0.72rem; color:var(--success);" id="gpsStatus">Connecting...</div>
-            </div>
-            <div id="map"></div>
-          </div>
-        </div>
-
-        <!-- BLOCK 2: Professional Single-Player Bowling Game Block -->
-        <div class="duo-block card game-wrapper">
-          <div style="width:100%; display:flex; justify-content:space-between; align-align:center; margin-bottom:0.3rem;">
-            <span style="font-weight:bold; font-size:0.88rem; color:#fff;"><i class="fa-solid fa-bowling-ball" style="color:#00aaff;"></i> Solo Bowler - Frame <span id="currentFrameDisplay">1</span>/10</span>
-            <div style="font-size:0.85rem; font-weight:bold; color:var(--accent);">
-              Total Score: <strong id="p1-score" style="color:#fff; font-size:1.1rem;">0</strong>
-            </div>
-          </div>
-
-          <!-- Official 10-Frame Scorecard Header -->
-          <div class="bowling-scorecard">
-            <div class="scorecard-grid" id="scorecardGrid">
-              <!-- Dynamically populated 10 frame blocks -->
-            </div>
-          </div>
-
-          <div class="game-canvas-container">
-            <div id="gutterOverlay" class="gutter-overlay">GUTTER BALL!</div>
-            <canvas id="bowlingCanvas"></canvas>
-          </div>
-
-          <div class="game-controls">
-            <!-- Position Aim Controls -->
-            <div style="display:flex; gap:4px; align-items:center;">
-              <span style="font-size:0.72rem; color:var(--text-muted); font-weight:bold;">Aim Ball:</span>
-              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;" onclick="moveBall(-12)"><i class="fa-solid fa-chevron-left"></i> Left</button>
-              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;" onclick="moveBall(12)">Right <i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-
-            <div style="display:flex; gap:4px; align-items:center;">
-              <button class="btn btn-secondary" style="font-size:0.72rem; padding:0.3rem 0.6rem;" onclick="resetBowlingGame()"><i class="fa-solid fa-rotate-left"></i> New Game</button>
-              <button class="btn" style="font-size:0.75rem; padding:0.4rem 0.8rem; background:linear-gradient(180deg, #0088ff 0%, #0055cc 100%);" id="rollBtn" onclick="rollBowlingBall()"><i class="fa-solid fa-play"></i> ROLL BALL</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Section: Bowler Network Profiles & Your Team -->
-    <section id="network">
-      <h2 class="section-title"><span>Network Profiles & Your Team</span></h2>
-      <div class="network-layout">
-        
-        <div class="main-profiles-container">
-          
-          <div class="card profile-card">
-            <div class="profile-photo-container">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="PinSmasher99 Profile" loading="lazy" />
-            </div>
-            <div class="profile-details">
-              <div class="profile-name">PinSmasher99</div>
-              <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div>
-              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Striking in Orlando area. High game 279, league average 215. Storm Nova arsenal.</p>
-              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Upload Profile Photo</button>
-            </div>
-          </div>
-
-          <div class="card profile-card">
-            <div class="profile-photo-container">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="ApexSpinner Profile" loading="lazy" />
-            </div>
-            <div class="profile-details">
-              <div class="profile-name">ApexSpinner</div>
-              <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div>
-              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Sanctioned USBC bowler. High game 300 (x2), average 228. Roto Grip fan.</p>
-              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Connect</button>
-            </div>
-          </div>
-
-          <div class="card profile-card">
-            <div class="profile-photo-container">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="StrikeQueen_FL Profile" loading="lazy" />
-            </div>
-            <div class="profile-details">
-              <div class="profile-name">StrikeQueen_FL</div>
-              <div style="font-size:0.85rem; color:var(--accent); margin-bottom:0.4rem;"><i class="fa-solid fa-circle-check"></i> Verified Member</div>
-              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">Thursday Night Scratch League captain. High game 268, average 202. Brunswick defender.</p>
-              <button class="btn btn-secondary" style="font-size:0.75rem; padding:0.3rem 0.6rem;">Connect</button>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="card team-directory">
-          <h3 style="font-size:1.1rem; margin-bottom:0.8rem;"><i class="fa-solid fa-people-group" style="color:var(--accent)"></i> Your Team</h3>
-          
-          <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=mike" class="profile-thumb" alt="Mike" loading="lazy">
-            <div style="flex:1;">
-              <strong style="font-size:0.88rem;">Mike Strikes</strong><br>
-              <span style="font-size:0.75rem; color:var(--success);">🟢 Live on Lane 14</span>
-            </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button>
-          </div>
-
-          <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=dad" class="profile-thumb" alt="Dad" loading="lazy">
-            <div style="flex:1;">
-              <strong style="font-size:0.88rem;">Dad (PinCrusher)</strong><br>
-              <span style="font-size:0.75rem; color:var(--success);">🟢 Live on Lane 2</span>
-            </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button>
-          </div>
-
-          <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=sarah" class="profile-thumb" alt="Sarah" loading="lazy">
-            <div style="flex:1;">
-              <strong style="font-size:0.88rem;">Sarah Jones</strong><br>
-              <span style="font-size:0.75rem; color:var(--text-muted);">⚪ Offline (Bowlero Kissimmee)</span>
-            </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Profile</button>
-          </div>
-
-          <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=dave" class="profile-thumb" alt="Dave" loading="lazy">
-            <div style="flex:1;">
-              <strong style="font-size:0.88rem;">Dave "Hook" Miller</strong><br>
-              <span style="font-size:0.75rem; color:var(--success);">🟢 Practicing (Lane 22)</span>
-            </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Chat</button>
-          </div>
-
-          <div class="team-player-card">
-            <img src="https://i.pravatar.cc/150?u=amanda" class="profile-thumb" alt="Amanda" loading="lazy">
-            <div style="flex:1;">
-              <strong style="font-size:0.88rem;">Amanda 7-10</strong><br>
-              <span style="font-size:0.75rem; color:var(--text-muted);">⚪ Offline (League Night Thu)</span>
-            </div>
-            <button class="btn btn-secondary" style="font-size:0.7rem; padding:0.2rem 0.4rem;">Profile</button>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Community Feed -->
-    <section id="community" style="margin-top:2rem;">
-      <h2 class="section-title"><span>Highlight Community Feed</span></h2>
-      
-      <div class="community-feed">
-        
-        <div class="card feed-post-card">
-          <div class="post-header">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="PinSmasher99" loading="lazy">
-            <div>
-              <strong style="font-size:0.95rem; color:#fff;">@PinSmasher99</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted);">Bowlero Orlando — 10th Frame Clutch Double</div>
-            </div>
-          </div>
-          
-          <div class="post-media-container">
-            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Bowling Alley Lanes Highlight" loading="lazy">
-          </div>
-
-          <div class="post-actions-panel">
-            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">34</span> Likes</button>
-            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
-          </div>
-
-          <div class="comment-input-section">
-            <input type="text" class="comment-input" id="comment-input-1" placeholder="Write a comment..." />
-            <button class="btn" onclick="addComment(1)"><i class="fa-solid fa-paper-plane"></i> Post</button>
-          </div>
-          <div id="comments-container-1" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
-        </div>
-
-        <div class="card feed-post-card">
-          <div class="post-header">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="ApexSpinner" loading="lazy">
-            <div>
-              <strong style="font-size:0.95rem; color:#fff;">@ApexSpinner</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted);">Perfect Roto Grip Hook Motion on Heavy Oil Pattern</div>
-            </div>
-          </div>
-          
-          <div class="post-media-container">
-            <img src="https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=800&q=80" alt="Bowling Ball Hook Motion" loading="lazy">
-          </div>
-
-          <div class="post-actions-panel">
-            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">48</span> Likes</button>
-            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
-          </div>
-
-          <div class="comment-input-section">
-            <input type="text" class="comment-input" id="comment-input-2" placeholder="Write a comment..." />
-            <button class="btn" onclick="addComment(2)"><i class="fa-solid fa-paper-plane"></i> Post</button>
-          </div>
-          <div id="comments-container-2" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
-        </div>
-
-        <div class="card feed-post-card">
-          <div class="post-header">
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" class="feed-author-thumb" alt="StrikeQueen_FL" loading="lazy">
-            <div>
-              <strong style="font-size:0.95rem; color:#fff;">@StrikeQueen_FL</strong>
-              <div style="font-size:0.75rem; color:var(--text-muted);">Clutch Pin Action & 10-Pin Carry (Thursday Scratch League)</div>
-            </div>
-          </div>
-          
-          <div class="post-media-container">
-            <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=800&q=80" alt="Bowling Pins Strike Action" loading="lazy">
-          </div>
-
-          <div class="post-actions-panel">
-            <button class="action-btn" onclick="toggleLike(this)"><i class="fa-solid fa-heart"></i> <span class="like-count">62</span> Likes</button>
-            <button class="action-btn"><i class="fa-solid fa-comment"></i> Comments</button>
-          </div>
-
-          <div class="comment-input-section">
-            <input type="text" class="comment-input" id="comment-input-3" placeholder="Write a comment..." />
-            <button class="btn" onclick="addComment(3)"><i class="fa-solid fa-paper-plane"></i> Post</button>
-          </div>
-          <div id="comments-container-3" style="padding:0.5rem 1rem; font-size:0.85rem; color:var(--text-muted);"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- CONTACT US SECTION -->
-    <section id="contact" style="margin-top:2rem;">
-      <h2 class="section-title"><span>Contact the BowlStrike.com team:</span></h2>
-      <div class="card">
-        <form class="contact-form" id="contact-form" onsubmit="sendContactEmail(event)">
-          <input type="text" name="name" id="contact-name" placeholder="Your Name" required />
-          <input type="email" name="email" id="contact-email" placeholder="Your Email Address" required />
-          <input type="text" name="subject" id="contact-subject" placeholder="Subject" required />
-          <textarea name="message" id="contact-message" placeholder="How can we help you?" required></textarea>
+    <!-- CONTACT US FORM -->
+    <section id="contact"> 
+      <h2 class="section-title"><span><i class="fa-solid fa-envelope" style="color:var(--primary);"></i> Contact BowlStrike</span></h2> 
+      <div class="card"> 
+        <form class="contact-form" id="contact-form" onsubmit="sendContactEmail(event)"> 
+          <input type="text" name="name" id="contact-name" placeholder="Your Name" required /> 
+          <input type="email" name="email" id="contact-email" placeholder="Your Email Address" required/> 
+          <input type="text" name="subject" id="contact-subject" placeholder="Subject" required /> 
+          <textarea name="message" id="contact-message" placeholder="Type your message here..." required></textarea> 
           <button type="submit" class="btn" id="contact-submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
-          <div id="contact-status" style="font-size:0.85rem; margin-top:0.5rem;"></div>
-        </form>
-      </div>
+          <div id="contact-status-msg" style="font-size:0.8rem; margin-top:0.4rem;"></div> 
+        </form> 
+      </div> 
     </section>
 
   </div>
+</div>
 
-  <footer>
-    <div class="footer-legal-container">
-      <h4><i class="fa-solid fa-scale-balanced" style="color:var(--accent);"></i> Legal Disclaimers & Trademark Notices</h4>
-      <p><strong>Independent Platform Disclaimer:</strong> BowlStrike.com is an independent social platform, news aggregator, and bowler utility hub. BowlStrike.com is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Professional Bowlers Association (PBA®), the United States Bowling Congress (USBC®), Bowlero Corporation, or any of their subsidiaries or affiliates.</p>
-      <p><strong>Trademark Notice:</strong> All product and company names, trademarks, service marks, registered trademarks, and logos mentioned or displayed on this website are the property of their respective owners. Reference to or use of third-party brand names, logos, or news feeds (including PBA, USBC, Storm, Roto Grip, Brunswick, or Columbia 300) is done strictly for informational, descriptive, and news reporting purposes under Fair Use principles and does not imply endorsement, sponsorship, or partnership.</p>
-      <p><strong>Content & Live Feed Disclaimer:</strong> Live news feeds and external links belong to their respective publisher sources. BowlStrike.com does not claim ownership or rights over third-party news material. Live GPS radar locations and alley listings are provided for informational convenience only.</p>
-    </div>
+</div>
 
-    <p>&copy; 2026 BowlStrike.com - National Tenpin Bowler Network. All rights reserved.</p>
-    <a href="#" class="hidden-admin-link" onclick="openAdminModal(event)">admin</a>
-  </footer>
+<!-- Footer Section & Legal Disclaimers --> 
+<footer> 
+<div class="footer-legal-container"> 
+<h4><i class="fa-solid fa-scale-balanced" style="color:var(--primary);"></i> Terms & Legal Disclaimer</h4> 
+<p>BowlStrike.com is an independent digital media platform, interactive bowling simulation, and live networking utility for tenpin enthusiasts. News, tournament highlights, and organizational rankings featured on this platform are provided for informational and promotional purposes to support the growth of tenpin bowling nationwide.</p> 
+<p>PBA, USBC, and all associated league marks are registered trademarks of their respective governing organizations. BowlStrike.com claims no direct ownership or official affiliation with third-party bowling centers, manufacturers, or sanctioning bodies unless explicitly stated.</p> 
+</div> 
+<div style="text-align:center; margin-top:1rem;"> 
+<p>&copy; 2026 BowlStrike.com. All rights reserved. Built for tenpin players nationwide.</p> 
+<a onclick="openAdminModal()" class="hidden-admin-link">Portal Login / System Status</a> 
+</div> 
+</footer> 
 
-  <!-- Admin Visitor Log Modal -->
-  <div class="modal" id="admin-modal">
-    <div class="modal-content card">
-      <span class="close-btn" onclick="closeAdminModal()">&times;</span>
-      <h3><i class="fa-solid fa-chart-line" style="color:var(--accent);"></i> Real-Time Web Visitor Dashboard</h3>
-      
-      <!-- Analytics Stats Summary Grid -->
-      <div class="admin-stats-grid">
-        <div class="stat-card">
-          <div class="val" id="stat-total-hits">0</div>
-          <div class="lbl">Total Site Hits</div>
-        </div>
-        <div class="stat-card">
-          <div class="val" id="stat-top-visitor" style="font-size:0.95rem; margin-top:0.3rem;">None Yet</div>
-          <div class="lbl">Top Visitor (Excl. You)</div>
-        </div>
-      </div>
+<!-- Admin Analytics Modal --> 
+<div id="adminModal" class="modal"><div class="modal-content"> 
+<span class="close-btn" onclick="closeAdminModal()">&times;</span> 
+<h2 style="font-size:1.3rem; margin-bottom:1rem; border-bottom:1px solid #ddd; padding-bottom:0.5rem;"><i class="fa-solid fa-chart-line" style="color:var(--primary);"></i> BowlStrike System Dashboard</h2> 
+<div class="admin-stats-grid"> 
+<div class="stat-card"> 
+<div class="val" id="admin-active-users">1,429</div> 
+<div class="lbl">Active Network Bowlers</div> 
+</div> 
+<div class="stat-card"> 
+<div class="val" id="admin-active-radar">382</div> 
+<div class="lbl">Live Alley GPS Nodes</div> 
+</div> 
+<div class="stat-card"> 
+<div class="val" id="admin-games-played">8,912</div> 
+<div class="lbl">Arcade Games Completed</div> 
+</div> 
+</div> 
+<h3 style="font-size:1rem; margin-top:1.5rem; color:var(--primary);">System Health</h3> 
+<table> 
+<thead> 
+<tr> 
+<th>Module</th><th>Status</th> 
+<th>Latency</th> 
+</tr> 
+</thead> 
+<tbody> 
+<tr> 
+<td>GPS Radar Feed</td> 
+<td><span style="color:var(--success);">Operational</span></td> 
+<td>24 ms</td> 
+</tr> 
+<tr> 
+<td>SBA News Auto-Fetcher</td><td><span style="color:var(--success);">Operational</span></td> 
+<td>110 ms</td> 
+</tr> 
+<tr> 
+<td>EmailJS Notification Pipeline</td> 
+<td><span style="color:var(--success);">Ready</span></td> 
+<td>--</td> 
+</tr> 
+</tbody></table> 
+</div> 
+</div> 
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-        <span style="font-size:0.85rem; font-weight:bold; color:#fff;">Live Session Log</span>
-        <button class="btn btn-danger" style="font-size:0.7rem; padding:0.2rem 0.5rem;" onclick="clearVisitorLog()"><i class="fa-solid fa-trash"></i> Clear Logs</button>
-      </div>
+<!-- APPLICATION JAVASCRIPT --> 
+<script> 
+// --- 1. EMAILJS INTEGRATION ---
+(function(){ 
+  if (typeof emailjs !== 'undefined') { emailjs.init("YOUR_PUBLIC_KEY"); } 
+})(); 
 
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Location</th>
-            <th>IP Address</th>
-            <th>Device / Browser</th>
-          </tr>
-        </thead>
-        <tbody id="visitor-log-table-body">
-          <tr><td colspan="4" style="text-align:center; color:#666;">No sessions recorded yet.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+function sendContactEmail(e) { 
+  e.preventDefault(); 
+  const btn = document.getElementById('contact-submit-btn'); 
+  const status = document.getElementById('contact-status-msg'); 
+  btn.disabled = true; 
+  btn.innerText = 'Sending...'; 
+  status.style.color = 'var(--primary)'; 
+  status.innerText = 'Transmitting message...'; 
+  emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', '#contact-form') 
+  .then(function() { 
+    btn.disabled = false; 
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message'; 
+    status.style.color = 'var(--success)'; 
+    status.innerText = 'Thank you! Your message has been sent successfully.'; 
+    document.getElementById('contact-form').reset(); 
+  }, function(error) { 
+    btn.disabled = false; 
+    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message'; 
+    status.style.color = 'var(--danger)'; 
+    status.innerText = 'Transmission failed. Please try again later.'; 
+  }); 
+}
 
-  <script>
-    // Initialize Leaflet GPS Radar Map
-    let map, userMarker;
-    function initMap() {
-      const defaultLoc = [28.5383, -81.3792]; // Default: Orlando, FL
-      map = L.map('map').setView(defaultLoc, 11);
-      
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
+// --- 2. LEAFLET RADAR MAP SETUP ---
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof L !== 'undefined') {
+    const map = L.map('map').setView([28.5383, -81.3792], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            document.getElementById('myCoords').innerText = `${lat.toFixed(4)}°, ${lng.toFixed(4)}°`;
-            document.getElementById('gpsStatus').innerText = '🟢 GPS Active';
-            
-            map.setView([lat, lng], 12);
-            userMarker = L.marker([lat, lng]).addTo(map).bindPopup('You are here!').openPopup();
-          },
-          () => {
-            document.getElementById('myCoords').innerText = 'Location Access Denied';
-            document.getElementById('gpsStatus').innerText = '🔴 Using Default View';
-          }
-        );
-      }
-    }
-
-    // WEB AUDIO SOUND SYNTHESIZER
-    let audioCtx = null;
-    function getAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      return audioCtx;
-    }
-
-    function playPinCrashSound() {
-      try {
-        const ctx = getAudioContext();
-        const bufferSize = ctx.sampleRate * 0.4;
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const output = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1;
-        }
-
-        const whiteNoise = ctx.createBufferSource();
-        whiteNoise.buffer = buffer;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(800, ctx.currentTime);
-        filter.Q.setValueAtTime(3.0, ctx.currentTime);
-
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(1.0, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
-
-        whiteNoise.connect(filter);
-        filter.connect(gain);
-        gain.connect(ctx.destination);
-
-        whiteNoise.start();
-      } catch (e) {
-        console.log("Audio play blocked", e);
-      }
-    }
-
-    function playCheerSound() {
-      try {
-        const ctx = getAudioContext();
-        const duration = 2.2;
-        const bufferSize = ctx.sampleRate * duration;
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const output = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1;
-        }
-
-        const crowdNoise = ctx.createBufferSource();
-        crowdNoise.buffer = buffer;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(1200, ctx.currentTime);
-
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0.01, ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.6, ctx.currentTime + 0.3);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
-
-        crowdNoise.connect(filter);
-        filter.connect(gain);
-        gain.connect(ctx.destination);
-
-        crowdNoise.start();
-      } catch (e) {
-        console.log("Audio play blocked", e);
-      }
-    }
-
-    function playGutterSound() {
-      try {
-        const ctx = getAudioContext();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(150, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.6);
-
-        gain.gain.setValueAtTime(0.4, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.6);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + 0.6);
-      } catch (e) {
-        console.log("Audio play blocked", e);
-      }
-    }
-
-    // TENPIN BOWLING SCOREBOARD ENGINE (Official USBC Rules)
-    let frames = Array(10).fill(null).map(() => []);
-    let currentFrame = 0;
-    let currentRoll = 1; // 1 or 2 (or 3 in frame 10)
-    let gameEnded = false;
-
-    let ball = { x: 0, y: 0, radius: 11, isRolling: false, vy: 0, vx: 0 };
-    let pins = [];
-    let rollHitCount = 0;
-
-    function moveBall(offset) {
-      if (ball.isRolling || gameEnded) return;
-      const canvas = document.getElementById('bowlingCanvas');
-      if (!canvas) return;
-
-      const laneLeft = canvas.width * 0.22 + ball.radius;
-      const laneRight = (canvas.width * 0.78) - ball.radius;
-
-      ball.x += offset;
-      if (ball.x < laneLeft) ball.x = laneLeft;
-      if (ball.x > laneRight) ball.x = laneRight;
-    }
-
-    function setupPins(canvas) {
-      const c = canvas || document.getElementById('bowlingCanvas');
-      pins = [];
-      const startY = 25; // Top row Y
-      const spacing = 16;
-      let count = 0;
-
-      // Correct Pin Layout:
-      // Row 0 (Top/Back): 4 pins
-      // Row 1: 3 pins
-      // Row 2: 2 pins
-      // Row 3 (Front/Head Pin): 1 pin pointing at bowler
-      for (let r = 0; r < 4; r++) {
-        let pinsInRow = 4 - r; // 4, 3, 2, 1
-        let y = startY + (r * spacing * 0.95);
-        for (let i = 0; i < pinsInRow; i++) {
-          let x = (c.width / 2) - ((pinsInRow - 1) * spacing / 2) + (i * spacing);
-          pins.push({ x: x, y: y, standing: true, alreadyKnocked: false, id: count++ });
-        }
-      }
-    }
-
-    function resetBallPosition(canvas) {
-      const c = canvas || document.getElementById('bowlingCanvas');
-      ball.x = c.width / 2;
-      ball.y = c.height - 18;
-      ball.isRolling = false;
-      rollHitCount = 0;
-    }
-
-    function calculateBowlingScore() {
-      let flatRolls = [];
-      frames.forEach(f => {
-        f.forEach(r => flatRolls.push(r));
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        document.getElementById('myCoords').innerText = lat.toFixed(4) + ', ' + lng.toFixed(4);
+        document.getElementById('gpsStatus').innerText = 'Connected';
+        map.setView([lat, lng], 12);
+        L.marker([lat, lng]).addTo(map).bindPopup('You are here').openPopup();
+      }, function() {
+        document.getElementById('gpsStatus').innerText = 'Default View';
       });
-
-      let totalScore = 0;
-      let frameScores = Array(10).fill('');
-      let rollPtr = 0;
-
-      for (let f = 0; f < 10; f++) {
-        if (f < 9) { // Frames 1-9
-          if (rollPtr >= flatRolls.length) break;
-
-          if (flatRolls[rollPtr] === 10) { // STRIKE!
-            if (rollPtr + 2 < flatRolls.length) { // Needs 2 bonus rolls
-              let frameVal = 10 + flatRolls[rollPtr + 1] + flatRolls[rollPtr + 2];
-              totalScore += frameVal;
-              frameScores[f] = totalScore;
-              rollPtr += 1;
-            } else {
-              break; // Wait for open/resolved frame
-            }
-          } else if (rollPtr + 1 < flatRolls.length) { // SPARE or OPEN
-            let sum = flatRolls[rollPtr] + flatRolls[rollPtr + 1];
-            if (sum === 10) { // SPARE!
-              if (rollPtr + 2 < flatRolls.length) { // Needs 1 bonus roll
-                let frameVal = 10 + flatRolls[rollPtr + 2];
-                totalScore += frameVal;
-                frameScores[f] = totalScore;
-                rollPtr += 2;
-              } else {
-                break; // Wait for open/resolved frame
-              }
-            } else { // OPEN FRAME! Score updates immediately
-              totalScore += sum;
-              frameScores[f] = totalScore;
-              rollPtr += 2;
-            }
-          } else {
-            break; // Roll 2 incomplete
-          }
-        } else { // Frame 10 Special Rule
-          if (rollPtr >= flatRolls.length) break;
-          let f10Rolls = frames[9];
-          let sum10 = f10Rolls.reduce((a, b) => a + b, 0);
-          
-          let f10Finished = false;
-          if (f10Rolls.length === 2 && (f10Rolls[0] + f10Rolls[1] < 10)) {
-            f10Finished = true;
-          } else if (f10Rolls.length === 3) {
-            f10Finished = true;
-          }
-
-          if (f10Finished) {
-            totalScore += sum10;
-            frameScores[9] = totalScore;
-          }
-        }
-      }
-
-      return { totalScore, frameScores };
     }
+  }
+  initScorecard();
+});
 
-    function renderScorecardUI() {
-      const grid = document.getElementById('scorecardGrid');
-      if (!grid) return;
+// --- 3. HIGH-REALISM BOWLING GAME CANVAS & GRAPHICS ENGINE ---
+let isMuted = false;
+let audioCtx = null;
 
-      const { totalScore, frameScores } = calculateBowlingScore();
-      document.getElementById('p1-score').innerText = totalScore;
-      document.getElementById('currentFrameDisplay').innerText = Math.min(currentFrame + 1, 10);
+function toggleGameSound() {
+  isMuted = !isMuted;
+  const btn = document.getElementById('soundToggleBtn');
+  if (isMuted) {
+    btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Sound: OFF';
+    btn.classList.add('btn-danger');
+    btn.classList.remove('btn-secondary');
+  } else {
+    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Sound: ON';
+    btn.classList.remove('btn-danger');
+    btn.classList.add('btn-secondary');
+  }
+}
 
-      let html = '';
-      for (let f = 0; f < 10; f++) {
-        let rolls = frames[f];
-        let rollText = '';
-
-        if (f < 9) {
-          if (rolls.length > 0) {
-            if (rolls[0] === 10) rollText = 'X';
-            else rollText = rolls[0].toString();
-          }
-          if (rolls.length > 1) {
-            if (rolls[0] + rolls[1] === 10) rollText += ' /';
-            else rollText += ' ' + rolls[1];
-          }
-        } else { // Frame 10 formatting
-          if (rolls.length > 0) rollText += rolls[0] === 10 ? 'X' : rolls[0];
-          if (rolls.length > 1) {
-            if (rolls[0] !== 10 && rolls[0] + rolls[1] === 10) rollText += ' /';
-            else rollText += ' ' + (rolls[1] === 10 ? 'X' : rolls[1]);
-          }
-          if (rolls.length > 2) {
-            rollText += ' ' + (rolls[2] === 10 ? 'X' : rolls[2]);
-          }
-        }
-
-        let activeClass = (f === currentFrame && !gameEnded) ? 'active' : '';
-        html += `
-          <div class="frame-box ${activeClass}">
-            <div class="frame-title">${f + 1}</div>
-            <div class="frame-rolls">${rollText}</div>
-            <div class="frame-total">${frameScores[f] !== '' ? frameScores[f] : ''}</div>
-          </div>
-        `;
-      }
-      grid.innerHTML = html;
+function playSynthesizedSound(type) {
+  if (isMuted) return;
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
-
-    function handleRollEnd() {
-      let newlyKnocked = 0;
-      pins.forEach(p => {
-        if (!p.standing && !p.alreadyKnocked) {
-          newlyKnocked++;
-          p.alreadyKnocked = true;
-        }
-      });
-
-      // Register Roll
-      frames[currentFrame].push(newlyKnocked);
-
-      if (currentFrame < 9) { // Frames 1 - 9
-        let rollSum = frames[currentFrame].reduce((a, b) => a + b, 0);
-
-        if (newlyKnocked === 10 && frames[currentFrame].length === 1) {
-          // STRIKE!
-          playCheerSound();
-          currentFrame++;
-          currentRoll = 1;
-          setupPins();
-        } else if (frames[currentFrame].length === 1) {
-          // Roll 1 incomplete, move to Roll 2
-          if (newlyKnocked === 0) triggerGutterBall();
-          currentRoll = 2;
-        } else {
-          // Roll 2 complete
-          if (rollSum === 10) {
-            playCheerSound(); // SPARE CHEER!
-          } else if (newlyKnocked === 0) {
-            triggerGutterBall();
-          }
-          currentFrame++;
-          currentRoll = 1;
-          setupPins();
-        }
-      } else { // Frame 10 logic
-        let f10 = frames[9];
-        let f10Sum = f10.reduce((a, b) => a + b, 0);
-
-        if (f10.length === 1) {
-          if (newlyKnocked === 10) {
-            playCheerSound();
-            setupPins();
-          } else if (newlyKnocked === 0) {
-            triggerGutterBall();
-          }
-          currentRoll = 2;
-        } else if (f10.length === 2) {
-          if (f10[0] === 10 || f10[0] + f10[1] >= 10) { // Spare or Strike in 10th allows Roll 3
-            if (f10[0] + f10[1] === 10 || f10[1] === 10) playCheerSound();
-            setupPins();
-            currentRoll = 3;
-          } else {
-            gameEnded = true;
-          }
-        } else if (f10.length === 3) {
-          if (newlyKnocked === 10) playCheerSound();
-          gameEnded = true;
-        }
-      }
-
-      resetBallPosition();
-      renderScorecardUI();
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
     }
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
 
-    function initBowlingGame() {
-      const canvas = document.getElementById('bowlingCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+    if (type === 'roll') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.8);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.8);
+    } else if (type === 'strike') {
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.4);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.4);
+    }
+  } catch (e) {
+    // Graceful fallback
+  }
+}
 
-      function resizeCanvas() {
-        if (!canvas.parentElement) return;
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight || 220;
-        setupPins(canvas);
-        resetBallPosition(canvas);
-        renderScorecardUI();
-      }
+const canvas = document.getElementById('bowlingCanvas');
+let ballX = 150, ballY = 210, isRolling = false;
+let currentFrame = 1, totalScore = 0;
 
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+// Track standing pins (true = standing, false = knocked down)
+let standingPins = Array(10).fill(true);
 
-      function updateGame() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // 1. DRAW POLISHED WOODEN LANE
-        const laneLeft = canvas.width * 0.22;
-        const laneWidth = canvas.width * 0.56;
-        const laneRight = laneLeft + laneWidth;
+function renderRealisticGameView(currentBallY) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.parentElement.clientWidth || 300;
+  canvas.height = canvas.parentElement.clientHeight || 250;
+  
+  const w = canvas.width;
+  const h = canvas.height;
+  const laneLeft = w * 0.18;
+  const laneRight = w * 0.82;
+  const laneWidth = laneRight - laneLeft;
 
-        let woodGrad = ctx.createLinearGradient(laneLeft, 0, laneRight, 0);
-        woodGrad.addColorStop(0, '#3a1f0d');
-        woodGrad.addColorStop(0.1, '#c68a4c');
-        woodGrad.addColorStop(0.5, '#e0a463');
-        woodGrad.addColorStop(0.9, '#c68a4c');
-        woodGrad.addColorStop(1, '#3a1f0d');
-        
-        ctx.fillStyle = woodGrad;
-        ctx.fillRect(laneLeft, 0, laneWidth, canvas.height);
+  // 1. Dark Alley Backdrop
+  ctx.fillStyle = '#111115';
+  ctx.fillRect(0, 0, w, h);
 
-        // Boards
-        ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-        ctx.lineWidth = 1;
-        const boardCount = 12;
-        for (let i = 1; i < boardCount; i++) {
-          let bx = laneLeft + (laneWidth / boardCount) * i;
-          ctx.beginPath();
-          ctx.moveTo(bx, 0); ctx.lineTo(bx, canvas.height);
-          ctx.stroke();
+  // 2. Gutters
+  ctx.fillStyle = '#222228';
+  ctx.fillRect(laneLeft - (laneWidth * 0.12), 0, laneWidth * 0.12, h);
+  ctx.fillRect(laneRight, 0, laneWidth * 0.12, h);
+  
+  // Gutter Shadows
+  ctx.fillStyle = '#0a0a0d';
+  ctx.fillRect(laneLeft - (laneWidth * 0.03), 0, laneWidth * 0.03, h);
+  ctx.fillRect(laneRight, 0, laneWidth * 0.03, h);
+
+  // 3. Wooden Lane Texture & Planking
+  const woodGrad = ctx.createLinearGradient(laneLeft, 0, laneRight, 0);
+  woodGrad.addColorStop(0, '#8B5A2B');
+  woodGrad.addColorStop(0.2, '#CD853F');
+  woodGrad.addColorStop(0.5, '#DEB887');
+  woodGrad.addColorStop(0.8, '#CD853F');
+  woodGrad.addColorStop(1, '#8B5A2B');
+  ctx.fillStyle = woodGrad;
+  ctx.fillRect(laneLeft, 0, laneWidth, h);
+
+  // Wooden Board Lines
+  ctx.strokeStyle = 'rgba(70, 35, 10, 0.35)';
+  ctx.lineWidth = 1;
+  const numBoards = 15;
+  for (let b = 1; b < numBoards; b++) {
+    const bx = laneLeft + (laneWidth / numBoards) * b;
+    ctx.beginPath();
+    ctx.moveTo(bx, 0);
+    ctx.lineTo(bx, h);
+    ctx.stroke();
+  }
+
+  // Polished Reflection Highlight
+  const sheenGrad = ctx.createLinearGradient(0, 0, 0, h);
+  sheenGrad.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+  sheenGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.08)');
+  sheenGrad.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
+  ctx.fillStyle = sheenGrad;
+  ctx.fillRect(laneLeft, 0, laneWidth, h);
+
+  // Lane Approach Arrows
+  ctx.fillStyle = '#4A230A';
+  const arrowY = h * 0.65;
+  const arrowSpacing = laneWidth / 6;
+  for (let a = 1; a <= 5; a++) {
+    const ax = laneLeft + (arrowSpacing * a);
+    ctx.beginPath();
+    ctx.moveTo(ax, arrowY);
+    ctx.lineTo(ax - 3, arrowY + 10);
+    ctx.lineTo(ax + 3, arrowY + 10);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // Pin Deck Pit Backdrop (Top)
+  ctx.fillStyle = '#050505';
+  ctx.fillRect(laneLeft - (laneWidth * 0.12), 0, laneWidth * 1.24, 38);
+
+  // 4. Official 10-Pin Pyramid Formation (4 Rows)
+  const pinPositions = [
+    { x: w / 2, y: 45 },                              // Pin 1 (Headpin)
+    { x: w / 2 - 14, y: 38 }, { x: w / 2 + 14, y: 38 }, // Row 2 (Pins 2, 3)
+    { x: w / 2 - 28, y: 31 }, { x: w / 2, y: 31 }, { x: w / 2 + 28, y: 31 }, // Row 3 (Pins 4, 5, 6)
+    { x: w / 2 - 42, y: 24 }, { x: w / 2 - 14, y: 24 }, { x: w / 2 + 14, y: 24 }, { x: w / 2 + 42, y: 24 } // Row 4 (Pins 7, 8, 9, 10)
+  ];
+
+  pinPositions.forEach((pin, index) => {
+    if (standingPins[index]) {
+      // Pin Shadow
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      ctx.beginPath();
+      ctx.ellipse(pin.x, pin.y + 7, 6, 2.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pin Body (3D White Gradient)
+      const pinGrad = ctx.createRadialGradient(pin.x - 2, pin.y - 2, 1, pin.x, pin.y, 7);
+      pinGrad.addColorStop(0, '#ffffff');
+      pinGrad.addColorStop(0.7, '#f0f0f0');
+      pinGrad.addColorStop(1, '#cccccc');
+      ctx.fillStyle = pinGrad;
+      ctx.beginPath();
+      ctx.arc(pin.x, pin.y, 6.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#aaaaaa';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      // Red Neck Stripes
+      ctx.fillStyle = '#e50914';
+      ctx.fillRect(pin.x - 4, pin.y - 2, 8, 1.8);
+      ctx.fillRect(pin.x - 3, pin.y + 1, 6, 1.2);
+    }
+  });
+
+  // 5. Realistic 3D Bowling Ball
+  const drawY = currentBallY || ballY;
+  
+  // Ball Shadow
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+  ctx.beginPath();
+  ctx.ellipse(ballX, drawY + 11, 13, 5, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Ball Body Gradient
+  const ballGrad = ctx.createRadialGradient(ballX - 4, drawY - 4, 2, ballX, drawY, 13);
+  ballGrad.addColorStop(0, '#66b3ff');
+  ballGrad.addColorStop(0.3, '#0066cc');
+  ballGrad.addColorStop(0.85, '#003366');
+  ballGrad.addColorStop(1, '#001a33');
+  ctx.fillStyle = ballGrad;
+  ctx.beginPath();
+  ctx.arc(ballX, drawY, 13, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Finger Holes
+  ctx.fillStyle = '#000d1a';
+  ctx.beginPath();
+  ctx.arc(ballX - 3, drawY - 4, 2, 0, Math.PI * 2);
+  ctx.arc(ballX + 3, drawY - 4, 2, 0, Math.PI * 2);
+  ctx.arc(ballX, drawY + 2, 2.3, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function moveBall(delta) {
+  if (isRolling) return;
+  const laneLeft = canvas.width * 0.18;
+  const laneRight = canvas.width * 0.82;
+  ballX = Math.max(laneLeft + 15, Math.min(laneRight - 15, ballX + delta));
+  renderRealisticGameView(ballY);
+}
+
+function rollBowlingBall() {
+  if (isRolling) return;
+  isRolling = true;
+  playSynthesizedSound('roll');
+  
+  let animY = ballY;
+  const rollInterval = setInterval(() => {
+    animY -= 5;
+    if (animY <= 48) {
+      clearInterval(rollInterval);
+      isRolling = false;
+      
+      // Hit detection based on ball position
+      const centerDist = Math.abs(ballX - (canvas.width / 2));
+      let hitCount = 0;
+
+      if (centerDist < 12) {
+        // Strike - Knock all down
+        standingPins.fill(false);
+        hitCount = 10;
+      } else if (centerDist < 30) {
+        // Partial Hit
+        hitCount = Math.floor(Math.random() * 4) + 5;
+        for (let i = 0; i < hitCount; i++) {
+          standingPins[i] = false;
         }
-
-        // Gutters
-        ctx.fillStyle = '#08080a';
-        ctx.fillRect(0, 0, laneLeft, canvas.height);
-        ctx.fillRect(laneRight, 0, canvas.width - laneRight, canvas.height);
-
-        // Foul Line
-        ctx.strokeStyle = '#e50914';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(laneLeft, canvas.height - 35);
-        ctx.lineTo(laneRight, canvas.height - 35);
-        ctx.stroke();
-
-        // Aim Line
-        if (!ball.isRolling && !gameEnded) {
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([4, 4]);
-          ctx.beginPath();
-          ctx.moveTo(ball.x, ball.y);
-          ctx.lineTo(ball.x, 25);
-          ctx.stroke();
-          ctx.setLineDash([]);
-        }
-
-        // 2. DRAW PINS (Head pin at front facing bowler)
-        pins.forEach(pin => {
-          if (pin.standing) {
-            ctx.fillStyle = 'rgba(0,0,0,0.4)';
-            ctx.beginPath();
-            ctx.ellipse(pin.x, pin.y + 6, 7, 3, 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            let pinGrad = ctx.createRadialGradient(pin.x - 2, pin.y - 2, 1, pin.x, pin.y, 7);
-            pinGrad.addColorStop(0, '#ffffff');
-            pinGrad.addColorStop(0.7, '#e0e0e0');
-            pinGrad.addColorStop(1, '#999999');
-
-            ctx.fillStyle = pinGrad;
-            ctx.beginPath();
-            ctx.arc(pin.x, pin.y, 6.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.fillStyle = '#ff1100';
-            ctx.fillRect(pin.x - 4, pin.y - 2, 8, 2);
-          }
-        });
-
-        // 3. UPDATE & DRAW BOWLING BALL
-        if (ball.isRolling) {
-          ball.y -= ball.vy;
-          ball.x += ball.vx;
-
-          if (ball.x < laneLeft || ball.x > laneRight) {
-            triggerGutterBall();
-          }
-          
-          pins.forEach(pin => {
-            if (pin.standing) {
-              let dist = Math.hypot(ball.x - pin.x, ball.y - pin.y);
-              if (dist < ball.radius + 6.5) {
-                pin.standing = false;
-                rollHitCount++;
-              }
-            }
-          });
-
-          if (rollHitCount > 0) {
-            playPinCrashSound();
-          }
-
-          if (ball.y < 15) {
-            ball.isRolling = false;
-            handleRollEnd();
-          }
-        }
-
-        // Draw Ball
-        let ballGrad = ctx.createRadialGradient(ball.x - 3, ball.y - 3, 2, ball.x, ball.y, ball.radius);
-        ballGrad.addColorStop(0, '#88ccff');
-        ballGrad.addColorStop(0.3, '#0066ff');
-        ballGrad.addColorStop(0.85, '#002288');
-        ballGrad.addColorStop(1, '#000d33');
-
-        ctx.fillStyle = ballGrad;
-        ctx.beginPath();
-        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = '#000511';
-        ctx.beginPath();
-        ctx.arc(ball.x - 3, ball.y - 2, 1.8, 0, Math.PI * 2);
-        ctx.arc(ball.x + 3, ball.y - 2, 1.8, 0, Math.PI * 2);
-        ctx.arc(ball.x, ball.y + 3, 2.2, 0, Math.PI * 2);
-        ctx.fill();
-
-        requestAnimationFrame(updateGame);
-      }
-
-      requestAnimationFrame(updateGame);
-    }
-
-    function triggerGutterBall() {
-      const overlay = document.getElementById('gutterOverlay');
-      if (overlay) {
-        overlay.style.display = 'block';
-        playGutterSound();
-        setTimeout(() => { overlay.style.display = 'none'; }, 1800);
-      }
-    }
-
-    function rollBowlingBall() {
-      if (ball.isRolling || gameEnded) return;
-      getAudioContext();
-      ball.isRolling = true;
-      ball.vy = 4.2;
-      ball.vx = (Math.random() - 0.5) * 0.25;
-      rollHitCount = 0;
-    }
-
-    function resetBowlingGame() {
-      frames = Array(10).fill(null).map(() => []);
-      currentFrame = 0;
-      currentRoll = 1;
-      gameEnded = false;
-
-      const overlay = document.getElementById('gutterOverlay');
-      if (overlay) overlay.style.display = 'none';
-
-      setupPins();
-      resetBallPosition();
-      renderScorecardUI();
-    }
-
-    // Feed Interactions
-    function toggleLike(btn) {
-      let countSpan = btn.querySelector('.like-count');
-      let current = parseInt(countSpan.innerText);
-      if (btn.classList.contains('liked')) {
-        btn.classList.remove('liked');
-        btn.style.color = 'var(--text-muted)';
-        countSpan.innerText = current - 1;
       } else {
-        btn.classList.add('liked');
-        btn.style.color = 'var(--neon-red)';
-        countSpan.innerText = current + 1;
+        // Light hit / Gutter
+        hitCount = Math.floor(Math.random() * 3);
+        for (let i = 0; i < hitCount; i++) {
+          standingPins[i] = false;
+        }
       }
-    }
 
-    function addComment(id) {
-      let input = document.getElementById(`comment-input-${id}`);
-      let container = document.getElementById(`comments-container-${id}`);
-      if (input && input.value.trim() !== '') {
-        let div = document.createElement('div');
-        div.style.marginTop = '0.3rem';
-        div.innerHTML = `<strong style="color:#fff;">You:</strong> ${input.value.trim()}`;
-        container.appendChild(div);
-        input.value = '';
-      }
-    }
-
-    // EmailJS Contact Submission
-    function sendContactEmail(e) {
-      e.preventDefault();
-      const status = document.getElementById('contact-status');
-      status.style.color = 'var(--accent)';
-      status.innerText = 'Sending message...';
+      if (hitCount > 0) playSynthesizedSound('strike');
       
+      recordScore(hitCount);
+      
+      // Reset pins & ball position for next frame
       setTimeout(() => {
-        status.style.color = 'var(--success)';
-        status.innerText = '✓ Thank you! Your message has been submitted to BowlStrike Support.';
-        document.getElementById('contact-form').reset();
+        standingPins.fill(true);
+        ballY = 210;
+        renderRealisticGameView(ballY);
       }, 1000);
-    }
 
-    // Admin Modal Script
-    function openAdminModal(e) {
-      e.preventDefault();
-      document.getElementById('admin-modal').style.display = 'flex';
+    } else {
+      renderRealisticGameView(animY);
     }
-    function closeAdminModal() {
-      document.getElementById('admin-modal').style.display = 'none';
-    }
-    function clearVisitorLog() {
-      document.getElementById('visitor-log-table-body').innerHTML = '<tr><td colspan="4" style="text-align:center; color:#666;">Logs cleared.</td></tr>';
-      document.getElementById('stat-total-hits').innerText = '0';
-    }
+  }, 16);
+}
 
-    // DOM Ready Initialization
-    document.addEventListener('DOMContentLoaded', () => {
-      initMap();
-      initBowlingGame();
-    });
-  </script>
-</body>
+function initScorecard() {
+  const grid = document.getElementById('scorecardGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (let f = 1; f <= 10; f++) {
+    const box = document.createElement('div');
+    box.className = 'frame-box' + (f === 1 ? ' active' : '');
+    box.id = 'frame-' + f;
+    box.innerHTML = `
+      <div class="frame-title">${f}</div>
+      <div class="frame-rolls" id="f-rolls-${f}">-</div>
+      <div class="frame-total" id="f-tot-${f}">-</div>
+    `;
+    grid.appendChild(box);
+  }
+}
+
+function recordScore(pins) {
+  totalScore += pins;
+  document.getElementById('p1-score').innerText = totalScore;
+  const rollsElem = document.getElementById('f-rolls-' + currentFrame);
+  const totElem = document.getElementById('f-tot-' + currentFrame);
+  
+  if (rollsElem) {
+    rollsElem.innerText = pins === 10 ? 'X' : pins;
+  }
+  if (totElem) {
+    totElem.innerText = totalScore;
+  }
+
+  if (currentFrame < 10) {
+    document.getElementById('frame-' + currentFrame).classList.remove('active');
+    currentFrame++;
+    document.getElementById('frame-' + currentFrame).classList.add('active');
+    document.getElementById('currentFrameDisplay').innerText = currentFrame;
+  }
+}
+
+function resetBowlingGame() {
+  currentFrame = 1;
+  totalScore = 0;
+  standingPins.fill(true);
+  document.getElementById('p1-score').innerText = '0';
+  document.getElementById('currentFrameDisplay').innerText = '1';
+  initScorecard();
+  ballY = 210;
+  renderRealisticGameView(ballY);
+}
+
+window.addEventListener('resize', () => renderRealisticGameView(ballY));
+document.addEventListener('DOMContentLoaded', () => {
+  renderRealisticGameView(ballY);
+});
+
+// --- 4. ADMIN MODAL HELPERS & FEED INTERACTIONS ---
+function openAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
+function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+function toggleLike(btn) {
+  const countSpan = btn.querySelector('.like-count');
+  let count = parseInt(countSpan.innerText);
+  countSpan.innerText = count + 1;
+}
+function addComment(id) {
+  const input = document.getElementById('comment-input-' + id);
+  const container = document.getElementById('comments-container-' + id);
+  if (input && input.value.trim() !== "") {
+    const p = document.createElement('p');
+    p.innerHTML = '<strong>You:</strong> ' + input.value;
+    container.appendChild(p);
+    input.value = '';
+  }
+}
+</script> 
+</body> 
 </html>
