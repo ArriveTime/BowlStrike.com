@@ -4,3734 +4,2811 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BowlStrike.com | Tenpin Bowling Community, Alley Finder & Bowling Game</title>
+<title>BowlStrike.com | Bowling Community, Alley Finder & Bowling Game</title>
 
-<meta name="description" content="BowlStrike.com is a free tenpin bowling hub with official bowling news links, a nearby bowling-center finder, bowler community features, pro-shop links and a playable 10-frame bowling game.">
+<meta name="description" content="BowlStrike.com is a free bowling hub featuring bowling news, nearby bowling centers, a realistic bowling arcade game, bowling community features and pro shop resources.">
 
-<meta name="keywords" content="bowling, tenpin bowling, bowling game, bowling alley finder, PBA, USBC, bowling pro shop, bowling community">
+<meta name="keywords" content="bowling, bowling alley, bowling game, tenpin bowling, bowling news, PBA, USBC, bowling pro shop">
 
 <meta name="robots" content="index,follow">
-<meta name="author" content="BowlStrike.com">
 
-<link rel="canonical" href="https://bowlstrike.com/">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://bowlstrike.com/">
-<meta property="og:title" content="BowlStrike.com | Tenpin Bowling Community">
-<meta property="og:description" content="Bowling news links, nearby bowling-center finder, community features and a playable 10-frame bowling game.">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BowlStrike.com | Tenpin Bowling Community">
-<meta name="twitter:description" content="Bowling news links, nearby bowling-center finder, community features and a playable 10-frame bowling game.">
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
-:root{
-  --primary:#e50914;
-  --primary-dark:#b20710;
-  --accent:#ffb300;
-  --blue:#0879e8;
-  --bg:#f4f6f8;
-  --card:#fff;
-  --text:#222;
-  --muted:#60656d;
-  --border:#dfe3e8;
-  --success:#2e7d32;
-  --danger:#c62828;
-  --shadow:0 8px 24px rgba(0,0,0,.09)
-}
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0
-}
-
-html{
-  scroll-behavior:smooth
+box-sizing:border-box;
+margin:0;
+padding:0
 }
 
 body{
-  font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.55
-}
-
-button,input,textarea,select{
-  font:inherit
-}
-
-button,a{
-  touch-action:manipulation
-}
-
-a{
-  color:inherit
+font-family:Arial,Helvetica,sans-serif;
+background:#f3f4f6;
+color:#222
 }
 
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:#fff;
-  border-bottom:3px solid var(--primary);
-  box-shadow:0 2px 8px rgba(0,0,0,.08)
+background:white;
+border-bottom:4px solid #e50914;
+padding:15px;
+position:sticky;
+top:0;
+z-index:1000
 }
 
-.nav-container{
-  max-width:1200px;
-  margin:auto;
-  padding:.7rem 1rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem
-}
-
-.logo-wrapper{
-  text-decoration:none;
-  border:2px solid var(--primary);
-  border-radius:28px;
-  padding:.28rem .9rem;
-  background:#fff
+.header-inner{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center
 }
 
 .logo{
-  font-size:1.55rem;
-  font-weight:900;
-  letter-spacing:.5px
+font-size:30px;
+font-weight:900
 }
 
 .logo span{
-  color:var(--primary)
-}
-
-nav{
-  display:flex;
-  gap:.9rem;
-  flex-wrap:wrap;
-  justify-content:flex-end
+color:#e50914
 }
 
 nav a{
-  text-decoration:none;
-  font-weight:700;
-  font-size:.84rem;
-  color:#333
-}
-
-nav a:hover{
-  color:var(--primary)
+margin-left:18px;
+text-decoration:none;
+font-weight:bold;
+color:#333
 }
 
 .hero{
-  background:linear-gradient(135deg,#111 0%,#2a2a2a 55%,#8c080d 100%);
-  color:#fff;
-  text-align:center;
-  padding:2.3rem 1rem;
-  border-bottom:4px solid var(--primary)
+background:linear-gradient(135deg,#111,#333,#900);
+color:white;
+text-align:center;
+padding:55px 20px
 }
 
 .hero h1{
-  font-size:clamp(2.2rem,6vw,4.5rem);
-  line-height:1;
-  font-weight:900
+font-size:60px
 }
 
 .hero h1 span{
-  color:#ff3540
+color:#ff3038
 }
 
 .hero p{
-  margin:.75rem auto 0;
-  max-width:800px;
-  font-size:1.05rem;
-  color:#f1f1f1
+font-size:19px;
+margin-top:12px
 }
 
 .container{
-  max-width:1200px;
-  margin:auto;
-  padding:1.3rem 1rem 3rem
-}
-
-section{
-  scroll-margin-top:90px;
-  margin-bottom:1.7rem
+max-width:1200px;
+margin:auto;
+padding:25px 15px
 }
 
 .section-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem;
-  border-bottom:3px solid var(--primary);
-  padding-bottom:.45rem;
-  margin-bottom:1rem;
-  font-size:1.2rem;
-  font-weight:800
+font-size:24px;
+font-weight:bold;
+border-bottom:4px solid #e50914;
+padding-bottom:8px;
+margin-bottom:18px
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  box-shadow:var(--shadow)
-}
-
-.btn{
-  border:0;
-  border-radius:8px;
-  padding:.55rem .8rem;
-  background:var(--primary);
-  color:#fff;
-  font-weight:800;
-  cursor:pointer
-}
-
-.btn:hover{
-  filter:brightness(.92)
-}
-
-.btn:disabled{
-  opacity:.55;
-  cursor:not-allowed
-}
-
-.btn.secondary{
-  background:#eef1f4;
-  color:#222;
-  border:1px solid #cfd5dc
-}
-
-.btn.blue{
-  background:linear-gradient(#1592ff,#0664c5)
-}
-
-.btn.small{
-  padding:.35rem .55rem;
-  font-size:.78rem
-}
-
-.notice{
-  font-size:.8rem;
-  color:var(--muted)
+background:white;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+overflow:hidden
 }
 
 .news-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1rem
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px
 }
 
-.news-card{
-  padding:1rem
+.news{
+padding:20px
 }
 
-.news-card h3{
-  font-size:1rem;
-  margin-bottom:.45rem
+.news h3{
+margin-bottom:10px
 }
 
-.news-card h3 a{
-  color:#222;
-  text-decoration:none
+.news a{
+color:#e50914;
+font-weight:bold
 }
 
-.news-card h3 a:hover{
-  color:var(--primary)
-}
-
-.news-card p{
-  font-size:.86rem;
-  color:var(--muted)
-}
-
-.news-meta{
-  display:flex;
-  justify-content:space-between;
-  margin-top:.8rem;
-  font-size:.73rem;
-  color:var(--primary);
-  font-weight:800
-}
-
-.interactive-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1.2rem;
-  align-items:stretch
-}
-
-.map-card{
-  overflow:hidden;
-  position:relative;
-  min-height:535px
+.main-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px
 }
 
 .map-toolbar{
-  padding:.75rem;
-  display:flex;
-  gap:.5rem;
-  flex-wrap:wrap;
-  align-items:center;
-  border-bottom:1px solid var(--border)
+padding:12px;
+display:flex;
+gap:10px;
+align-items:center;
+flex-wrap:wrap
+}
+
+button{
+border:none;
+border-radius:7px;
+padding:10px 15px;
+font-weight:bold;
+cursor:pointer
+}
+
+.red{
+background:#e50914;
+color:white
+}
+
+.blue{
+background:#0879e8;
+color:white
+}
+
+.gray{
+background:#eee
 }
 
 #map{
-  height:445px;
-  width:100%;
-  background:#e8ebee
-}
-
-.gps-readout{
-  font-size:.78rem;
-  color:var(--muted);
-  margin-left:auto
-}
-
-.game-card{
-  padding:.8rem;
-  min-width:0
-}
-
-.game-top{
-  display:flex;
-  justify-content:space-between;
-  gap:.7rem;
-  align-items:center;
-  margin-bottom:.55rem;
-  font-size:.86rem;
-  font-weight:800
-}
-
-.scorecard{
-  overflow-x:auto;
-  margin-bottom:.55rem
-}
-
-.score-grid{
-  display:grid;
-  grid-template-columns:repeat(10,minmax(56px,1fr));
-  min-width:650px;
-  border:1px solid #bbb
-}
-
-.frame{
-  border-right:1px solid #bbb;
-  background:#fff;
-  min-height:60px
-}
-
-.frame:last-child{
-  border-right:0
-}
-
-.frame.active{
-  outline:3px solid var(--primary);
-  outline-offset:-3px
-}
-
-.frame-title{
-  text-align:center;
-  background:#222;
-  color:#fff;
-  font-size:.7rem;
-  padding:2px
-}
-
-.frame-rolls{
-  min-height:25px;
-  text-align:right;
-  padding:3px 5px;
-  font-weight:800;
-  font-size:.8rem;
-  letter-spacing:4px
-}
-
-.frame-total{
-  text-align:center;
-  font-weight:900;
-  font-size:.9rem;
-  border-top:1px solid #ddd;
-  padding:3px
-}
-
-.lane-shell{
-  height:350px;
-  border-radius:12px;
-  overflow:hidden;
-  background:#0c0c0e;
-  position:relative;
-  border:3px solid #252525
-}
-
-#bowlingCanvas{
-  width:100%;
-  height:100%;
-  display:block
-}
-
-.game-message{
-  position:absolute;
-  top:12px;
-  left:50%;
-  transform:translateX(-50%);
-  background:rgba(0,0,0,.82);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:20px;
-  padding:.35rem .8rem;
-  font-size:.8rem;
-  font-weight:900;
-  pointer-events:none;
-  opacity:0;
-  transition:.2s;
-  white-space:nowrap
-}
-
-.game-message.show{
-  opacity:1
-}
-
-.game-controls{
-  margin-top:.7rem;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:.55rem
-}
-
-.control-box{
-  background:#f5f6f7;
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:.55rem
-}
-
-.control-label{
-  font-size:.72rem;
-  font-weight:900;
-  color:#555;
-  display:flex;
-  justify-content:space-between
-}
-
-input[type=range]{
-  width:100%
-}
-
-.roll-row{
-  display:flex;
-  gap:.45rem;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-top:.55rem
-}
-
-.roll-row .btn.blue{
-  flex:1;
-  min-width:120px
-}
-
-.game-help{
-  font-size:.73rem;
-  color:var(--muted);
-  margin-top:.5rem
-}
-
-.network-layout{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:1rem
-}
-
-.profiles{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:.8rem
-}
-
-.profile{
-  padding:.8rem;
-  text-align:center
-}
-
-.profile img{
-  width:82px;
-  height:82px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #fff;
-  box-shadow:0 0 0 2px var(--primary)
-}
-
-.profile h3{
-  font-size:.95rem;
-  margin:.45rem 0 .2rem
-}
-
-.profile p{
-  font-size:.78rem;
-  color:var(--muted);
-  min-height:58px
-}
-
-.profile-actions{
-  display:flex;
-  gap:.35rem;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:.55rem
-}
-
-.team{
-  padding:.9rem
-}
-
-.team-item{
-  display:flex;
-  gap:.6rem;
-  align-items:center;
-  padding:.55rem 0;
-  border-bottom:1px solid #eee
-}
-
-.team-item:last-child{
-  border-bottom:0
-}
-
-.team-item img{
-  width:40px;
-  height:40px;
-  border-radius:50%
-}
-
-.team-item .who{
-  flex:1;
-  font-size:.8rem
-}
-
-.split{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:1.2rem
-}
-
-.feed{
-  display:grid;
-  gap:.9rem
-}
-
-.post{
-  overflow:hidden
-}
-
-.post-head{
-  display:flex;
-  align-items:center;
-  gap:.55rem;
-  padding:.7rem
-}
-
-.post-head img{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  object-fit:cover
-}
-
-.post-media{
-  width:100%;
-  height:210px;
-  object-fit:cover;
-  background:#ddd
-}
-
-.post-actions{
-  display:flex;
-  gap:.45rem;
-  padding:.55rem
-}
-
-.action{
-  border:0;
-  background:#f0f2f4;
-  border-radius:8px;
-  padding:.35rem .55rem;
-  cursor:pointer;
-  font-weight:800
-}
-
-.comment-row{
-  display:flex;
-  gap:.4rem;
-  padding:0 .55rem .55rem
-}
-
-.comment-row input{
-  flex:1;
-  border:1px solid #ccc;
-  border-radius:7px;
-  padding:.45rem
-}
-
-.comments{
-  padding:0 .65rem .65rem;
-  font-size:.78rem;
-  color:#555
-}
-
-.comments p{
-  margin-top:.25rem
-}
-
-.shop-list{
-  display:grid;
-  gap:.7rem
-}
-
-.shop{
-  padding:.8rem;
-  display:flex;
-  gap:.75rem
-}
-
-.shop-icon{
-  font-size:1.5rem;
-  color:var(--primary);
-  width:35px;
-  text-align:center
-}
-
-.shop h4{
-  font-size:.95rem
-}
-
-.shop p{
-  font-size:.78rem;
-  color:var(--muted);
-  margin:.2rem 0
-}
-
-.shop a{
-  font-size:.8rem;
-  color:var(--primary);
-  font-weight:800
-}
-
-.contact{
-  padding:1rem;
-  margin-top:1rem
-}
-
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:.55rem
-}
-
-.contact input,
-.contact textarea{
-  width:100%;
-  border:1px solid #cfd4da;
-  border-radius:8px;
-  padding:.65rem
-}
-
-.contact textarea{
-  grid-column:1/-1;
-  min-height:110px;
-  resize:vertical
-}
-
-.contact-actions{
-  grid-column:1/-1;
-  display:flex;
-  gap:.5rem;
-  flex-wrap:wrap
+width:100%;
+height:500px;
+background:#ddd
 }
 
 .status{
-  font-size:.8rem;
-  margin-top:.45rem
+font-size:13px;
+color:#666
+}
+
+/* BOWLING GAME */
+
+.game{
+padding:12px
+}
+
+.scorebar{
+display:flex;
+justify-content:space-between;
+font-weight:bold;
+margin-bottom:10px
+}
+
+.scorecard{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+border:1px solid #aaa;
+margin-bottom:10px
+}
+
+.frame{
+min-width:45px;
+border-right:1px solid #aaa;
+text-align:center
+}
+
+.frame:last-child{
+border-right:none
+}
+
+.frame-number{
+background:#222;
+color:white;
+font-size:11px;
+padding:3px
+}
+
+.frame-rolls{
+height:25px;
+font-weight:bold;
+padding:4px
+}
+
+.frame-score{
+height:25px;
+border-top:1px solid #ddd;
+font-weight:bold;
+padding:4px
+}
+
+.lane-wrap{
+position:relative;
+height:430px;
+background:#111;
+border-radius:12px;
+overflow:hidden
+}
+
+#lane{
+display:block;
+width:100%;
+height:100%
+}
+
+.message{
+position:absolute;
+top:15px;
+left:50%;
+transform:translateX(-50%);
+background:rgba(0,0,0,.85);
+color:white;
+padding:8px 18px;
+border-radius:20px;
+font-weight:bold;
+opacity:0;
+transition:.2s
+}
+
+.message.show{
+opacity:1
+}
+
+.controls{
+margin-top:12px
+}
+
+.control{
+margin-bottom:10px
+}
+
+.control label{
+display:flex;
+justify-content:space-between;
+font-weight:bold;
+font-size:13px
+}
+
+input[type=range]{
+width:100%
+}
+
+.game-buttons{
+display:flex;
+gap:8px
+}
+
+.game-buttons button{
+flex:1
+}
+
+/* BOWLING PHOTOS */
+
+.photos{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px
+}
+
+.photo-card img{
+width:100%;
+height:230px;
+object-fit:cover
+}
+
+.photo-card div{
+padding:15px
+}
+
+/* PRO SHOP */
+
+.shop-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px
+}
+
+.shop{
+padding:18px
+}
+
+.shop a{
+color:#e50914;
+font-weight:bold
 }
 
 footer{
-  background:#171717;
-  color:#ddd;
-  padding:1.4rem 1rem
+margin-top:30px;
+background:#171717;
+color:#ccc;
+padding:30px 20px;
+font-size:13px
 }
 
 .footer-inner{
-  max-width:1200px;
-  margin:auto
+max-width:1200px;
+margin:auto
 }
 
-.legal{
-  font-size:.78rem;
-  color:#bbb
+@media(max-width:850px){
+
+.main-grid{
+grid-template-columns:1fr
 }
 
-.footer-bottom{
-  text-align:center;
-  margin-top:1rem;
-  font-size:.78rem
+.news-grid,
+.photos,
+.shop-grid{
+grid-template-columns:1fr
 }
 
-.admin-link{
-  cursor:pointer;
-  text-decoration:underline;
-  color:#aaa
+nav{
+display:none
 }
 
-.modal{
-  display:none;
-  position:fixed;
-  z-index:2000;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  align-items:center;
-  justify-content:center;
-  padding:1rem
+.hero h1{
+font-size:44px
 }
 
-.modal.open{
-  display:flex
+.scorecard{
+overflow-x:auto
 }
 
-.modal-content{
-  background:#fff;
-  border-radius:14px;
-  max-width:620px;
-  width:100%;
-  max-height:90vh;
-  overflow:auto;
-  padding:1rem;
-  position:relative
 }
 
-.close{
-  position:absolute;
-  right:15px;
-  top:8px;
-  font-size:1.7rem;
-  cursor:pointer
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:.6rem;
-  margin:1rem 0
-}
-
-.stat{
-  background:#f3f5f7;
-  border-radius:10px;
-  padding:.8rem;
-  text-align:center
-}
-
-.stat strong{
-  font-size:1.4rem;
-  color:var(--primary);
-  display:block
-}
-
-.stat span{
-  font-size:.72rem;
-  color:#666
-}
-
-.upload-input{
-  display:none
-}
-
-.toast{
-  position:fixed;
-  bottom:18px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#111;
-  color:#fff;
-  padding:.65rem .9rem;
-  border-radius:8px;
-  z-index:3000;
-  opacity:0;
-  pointer-events:none;
-  transition:.2s
-}
-
-.toast.show{
-  opacity:1
-}
-
-@media(max-width:900px){
-  .interactive-grid,
-  .network-layout,
-  .split{
-    grid-template-columns:1fr
-  }
-
-  .profiles{
-    grid-template-columns:repeat(3,1fr)
-  }
-
-  nav{
-    display:none
-  }
-
-  .map-card{
-    min-height:470px
-  }
-
-  #map{
-    height:390px
-  }
-}
-
-@media(max-width:650px){
-  .news-grid,
-  .profiles{
-    grid-template-columns:1fr
-  }
-
-  .game-controls{
-    grid-template-columns:1fr
-  }
-
-  .contact-grid{
-    grid-template-columns:1fr
-  }
-
-  .contact textarea,
-  .contact-actions{
-    grid-column:1
-  }
-
-  .stats{
-    grid-template-columns:1fr
-  }
-
-  .hero{
-    padding:1.7rem .8rem
-  }
-
-  .container{
-    padding-left:.65rem;
-    padding-right:.65rem
-  }
-
-  .lane-shell{
-    height:320px
-  }
-}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="nav-container">
-    <a class="logo-wrapper" href="#top" aria-label="BowlStrike home">
-      <div class="logo">Bowl<span>Strike</span>.com</div>
-    </a>
 
-    <nav aria-label="Main navigation">
-      <a href="#news">News</a>
-      <a href="#locator">Alley Finder</a>
-      <a href="#game">Game</a>
-      <a href="#network">Bowlers</a>
-      <a href="#community">Highlights</a>
-      <a href="#proshop">Pro Shop</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
+<div class="header-inner">
+
+<div class="logo">
+Bowl<span>Strike</span>.com
+</div>
+
+<nav>
+<a href="#news">News</a>
+<a href="#finder">Alley Finder</a>
+<a href="#game">Game</a>
+<a href="#community">Bowling</a>
+<a href="#shop">Pro Shop</a>
+</nav>
+
+</div>
+
 </header>
 
-<main id="top">
-
 <section class="hero">
-  <h1>Bowl<span>Strike</span>.com</h1>
-  <p>Tenpin bowling news, nearby lanes, bowler community, equipment resources and a playable 10-frame bowling challenge.</p>
+
+<h1>
+Bowl<span>Strike</span>.com
+</h1>
+
+<p>
+Everything Bowling — News • Bowling Centers • Community • Equipment • Arcade Bowling
+</p>
+
 </section>
 
 <div class="container">
 
 <section id="news">
 
-  <div class="section-title">
-    <span>
-      <i class="fa-solid fa-newspaper" style="color:var(--primary)"></i>
-      Official Bowling News Sources
-    </span>
+<div class="section-title">
+Bowling News
+</div>
 
-    <span class="notice">
-      Direct links — no fake “live” feed
-    </span>
-  </div>
+<div class="news-grid">
 
-  <div class="news-grid">
+<div class="card news">
 
-    <article class="card news-card">
-      <h3>
-        <a href="https://www.pba.com/news" target="_blank" rel="noopener noreferrer">
-          Professional Bowlers Association News
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </h3>
+<h3>
+Professional Bowlers Association
+</h3>
 
-      <p>Visit the PBA's news page for professional tour coverage, events and announcements.</p>
+<p>
+Professional bowling news, tournaments and tour information.
+</p>
 
-      <div class="news-meta">
-        <span>PBA</span>
-        <span>Official source link</span>
-      </div>
-    </article>
+<br>
 
-    <article class="card news-card">
-      <h3>
-        <a href="https://bowl.com/news" target="_blank" rel="noopener noreferrer">
-          USBC News
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </h3>
+<a href="https://www.pba.com/news" target="_blank">
+Visit PBA News
+</a>
 
-      <p>Visit Bowl.com for USBC news, championships, rules, equipment information and bowling resources.</p>
+</div>
 
-      <div class="news-meta">
-        <span>USBC</span>
-        <span>Official source link</span>
-      </div>
-    </article>
+<div class="card news">
 
-    <article class="card news-card">
-      <h3>
-        <a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener noreferrer">
-          BowlingDigital
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </h3>
+<h3>
+USBC Bowling News
+</h3>
 
-      <p>International bowling coverage and tournament information from an external bowling news publication.</p>
+<p>
+Bowling championships, rules, events and industry information.
+</p>
 
-      <div class="news-meta">
-        <span>External publication</span>
-        <span>Opens new tab</span>
-      </div>
-    </article>
+<br>
 
-  </div>
+<a href="https://bowl.com/news" target="_blank">
+Visit Bowl.com
+</a>
 
-</section>
+</div>
 
-<section id="locator">
+<div class="card news">
 
-  <div class="section-title">
-    <span>Bowling Center Finder & Tenpin Challenge</span>
-    <span class="notice">Location is used only when you choose Find Nearby</span>
-  </div>
+<h3>
+BowlingDigital
+</h3>
 
-  <div class="interactive-grid">
+<p>
+International bowling news and tournament coverage.
+</p>
 
-    <div class="card map-card">
+<br>
 
-      <div class="map-toolbar">
+<a href="https://www.bowlingdigital.com/" target="_blank">
+Visit BowlingDigital
+</a>
 
-        <button class="btn small" id="findAlleysBtn">
-          <i class="fa-solid fa-location-crosshairs"></i>
-          Find Nearby Bowling
-        </button>
+</div>
 
-        <button class="btn secondary small" id="resetMapBtn">
-          Reset Map
-        </button>
-
-        <span class="gps-readout" id="gpsStatus">
-          Map ready
-        </span>
-
-      </div>
-
-      <div id="map" aria-label="Interactive bowling center map"></div>
-
-    </div>
-
-    <div class="card game-card" id="game">
-
-      <div class="game-top">
-
-        <span>
-          <i class="fa-solid fa-bowling-ball" style="color:var(--blue)"></i>
-          Solo Bowler — Frame
-          <span id="frameDisplay">1</span>/10
-        </span>
-
-        <span>
-          Score:
-          <strong id="scoreDisplay">0</strong>
-        </span>
-
-      </div>
-
-      <div class="scorecard">
-        <div class="score-grid" id="scoreGrid"></div>
-      </div>
-
-      <div class="lane-shell">
-
-        <canvas id="bowlingCanvas" aria-label="Bowling lane game"></canvas>
-
-        <div class="game-message" id="gameMessage">
-          STRIKE!
-        </div>
-
-      </div>
-
-      <div class="game-controls">
-
-        <div class="control-box">
-
-          <div class="control-label">
-            <span>Aim</span>
-            <span id="aimValue">Center</span>
-          </div>
-
-          <input id="aimControl" type="range" min="-100" max="100" value="0" aria-label="Aim left or right">
-
-          <div class="control-label">
-            <span>Hook</span>
-            <span id="hookValue">Straight</span>
-          </div>
-
-          <input id="hookControl" type="range" min="-100" max="100" value="0" aria-label="Hook left or right">
-
-        </div>
-
-        <div class="control-box">
-
-          <div class="control-label">
-            <span>Power</span>
-            <span id="powerValue">82%</span>
-          </div>
-
-          <input id="powerControl" type="range" min="45" max="100" value="82" aria-label="Bowling ball power">
-
-          <div class="roll-row">
-
-            <button class="btn secondary small" id="soundBtn">
-              <i class="fa-solid fa-volume-high"></i>
-              Sound
-            </button>
-
-            <button class="btn secondary small" id="resetGameBtn">
-              <i class="fa-solid fa-rotate-left"></i>
-              Reset
-            </button>
-
-            <button class="btn blue" id="rollBtn">
-              <i class="fa-solid fa-play"></i>
-              ROLL BALL
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <p class="game-help">
-        Set your starting line with Aim, add left/right Hook, choose Power, then roll. Pins remain down for the second ball. Strikes, spares and 10th-frame bonus balls use standard tenpin scoring.
-      </p>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
-<section id="network">
+<br><br>
 
-  <div class="section-title">
-    <span>Bowler Network & Your Team</span>
-    <span class="notice">This no-account version saves your choices only on this browser</span>
-  </div>
+<section id="finder">
 
-  <div class="network-layout">
+<div class="section-title">
+Nearby Bowling Center Finder & Bowling Arcade
+</div>
 
-    <div class="profiles">
+<div class="main-grid">
 
-      <article class="card profile">
+<div class="card">
 
-        <img id="profileImg1"
-             src="https://images.unsplash.com/photo-1551500333-8cf5df31f457?auto=format&fit=crop&w=500&q=82"
-             alt="Bowler at a bowling alley">
+<div class="map-toolbar">
 
-        <h3>PinSmasher99</h3>
+<button class="red" id="findButton">
+Find Bowling Near Me
+</button>
 
-        <p>
-          Orlando area bowler.
-          High game 279,
-          league average 215.
-        </p>
+<button class="gray" id="resetMap">
+Reset Map
+</button>
 
-        <div class="profile-actions">
+<span class="status" id="mapStatus">
+Map ready
+</span>
 
-          <label class="btn secondary small" for="photoUpload">
-            Upload Your Photo
-          </label>
+</div>
 
-          <input class="upload-input" id="photoUpload" type="file" accept="image/*">
+<div id="map"></div>
 
-        </div>
+</div>
 
-      </article>
+<div class="card game" id="game">
 
-      <article class="card profile">
+<div class="scorebar">
 
-        <img src="https://images.unsplash.com/photo-1557619419-b2419974a9e3?auto=format&fit=crop&w=500&q=82"
-             alt="Bowler preparing to bowl">
+<span>
+Frame
+<span id="frameNumber">1</span>
+of 10
+</span>
 
-        <h3>ApexSpinner</h3>
+<span>
+Score:
+<span id="totalScore">0</span>
+</span>
 
-        <p>
-          Sample community profile.
-          High game 300,
-          average 228.
-        </p>
+</div>
 
-        <div class="profile-actions">
+<div class="scorecard" id="scorecard"></div>
 
-          <button class="btn secondary small connect-btn" data-name="ApexSpinner">
-            Connect
-          </button>
+<div class="lane-wrap">
 
-        </div>
+<canvas id="lane"></canvas>
 
-      </article>
+<div class="message" id="message">
+STRIKE!
+</div>
 
-      <article class="card profile">
+</div>
 
-        <img src="https://images.unsplash.com/photo-1708491221559-08fe19561b32?auto=format&fit=crop&w=500&q=82"
-             alt="Woman bowling at a bowling alley">
+<div class="controls">
 
-        <h3>StrikeQueen_FL</h3>
+<div class="control">
 
-        <p>
-          Sample community profile.
-          High game 268,
-          average 202.
-        </p>
+<label>
+<span>Aim</span>
+<span id="aimText">Center</span>
+</label>
 
-        <div class="profile-actions">
+<input
+id="aim"
+type="range"
+min="-100"
+max="100"
+value="0"
+>
 
-          <button class="btn secondary small connect-btn" data-name="StrikeQueen_FL">
-            Connect
-          </button>
+</div>
 
-        </div>
+<div class="control">
 
-      </article>
+<label>
+<span>Hook</span>
+<span id="hookText">Straight</span>
+</label>
 
-    </div>
+<input
+id="hook"
+type="range"
+min="-100"
+max="100"
+value="0"
+>
 
-    <aside class="card team">
+</div>
 
-      <h3>
-        <i class="fa-solid fa-people-group" style="color:var(--primary)"></i>
-        Your Team
-      </h3>
+<div class="control">
 
-      <div id="teamList">
+<label>
+<span>Power</span>
+<span id="powerText">82%</span>
+</label>
 
-        <div class="team-item">
+<input
+id="power"
+type="range"
+min="45"
+max="100"
+value="82"
+>
 
-          <img src="https://i.pravatar.cc/150?u=mike" alt="">
+</div>
 
-          <div class="who">
-            <strong>Mike Strikes</strong>
-            <br>
-            <span class="notice">Sample teammate</span>
-          </div>
+<div class="game-buttons">
 
-          <button class="btn secondary small chat-btn" data-name="Mike Strikes">
-            Message
-          </button>
+<button class="gray" id="resetGame">
+Reset Game
+</button>
 
-        </div>
+<button class="blue" id="rollBall">
+ROLL BALL
+</button>
 
-        <div class="team-item">
+</div>
 
-          <img src="https://i.pravatar.cc/150?u=sarah" alt="">
+</div>
 
-          <div class="who">
-            <strong>Sarah Jones</strong>
-            <br>
-            <span class="notice">Sample teammate</span>
-          </div>
+</div>
 
-          <button class="btn secondary small chat-btn" data-name="Sarah Jones">
-            Message
-          </button>
-
-        </div>
-
-      </div>
-
-    </aside>
-
-  </div>
+</div>
 
 </section>
 
-<div class="split">
+<br><br>
 
 <section id="community">
 
-  <div class="section-title">
-    <span>
-      <i class="fa-solid fa-photo-film" style="color:var(--primary)"></i>
-      Highlight Feed
-    </span>
-  </div>
+<div class="section-title">
+Bowling Community
+</div>
 
-  <div class="feed">
+<div class="photos">
 
-    <article class="card post" data-post="1">
+<div class="card photo-card">
 
-      <div class="post-head">
-
-        <img src="https://images.unsplash.com/photo-1628139417027-c356ba05fe4f?auto=format&fit=crop&w=300&q=82" alt="">
-
-        <div>
-          <strong>@PinSmasher99</strong>
-          <div class="notice">Bowling night highlight</div>
-        </div>
-
-      </div>
-
-      <img class="post-media"
-           src="https://images.unsplash.com/photo-1551500333-8cf5df31f457?auto=format&fit=crop&w=1000&q=84"
-           alt="Person bowling on a bowling lane">
-
-      <div class="post-actions">
-
-        <button class="action like-btn" data-post="1">
-          <i class="fa-solid fa-heart"></i>
-          <span class="like-count">34</span>
-        </button>
-
-      </div>
-
-      <div class="comment-row">
-
-        <input id="comment1" placeholder="Write a comment...">
-
-        <button class="btn small comment-btn" data-post="1">
-          Post
-        </button>
-
-      </div>
-
-      <div class="comments" id="comments1"></div>
-
-    </article>
-
-    <article class="card post" data-post="2">
-
-      <div class="post-head">
-
-        <img src="https://images.unsplash.com/photo-1557619419-b2419974a9e3?auto=format&fit=crop&w=300&q=82" alt="">
-
-        <div>
-          <strong>@ApexSpinner</strong>
-          <div class="notice">Practice session</div>
-        </div>
-
-      </div>
-
-      <img class="post-media"
-           src="https://images.unsplash.com/photo-1708491221559-08fe19561b32?auto=format&fit=crop&w=1000&q=84"
-           alt="Bowler in action at a bowling alley">
-
-      <div class="post-actions">
-
-        <button class="action like-btn" data-post="2">
-          <i class="fa-solid fa-heart"></i>
-          <span class="like-count">48</span>
-        </button>
-
-      </div>
-
-      <div class="comment-row">
-
-        <input id="comment2" placeholder="Write a comment...">
-
-        <button class="btn small comment-btn" data-post="2">
-          Post
-        </button>
-
-      </div>
-
-      <div class="comments" id="comments2"></div>
-
-    </article>
-
-  </div>
-
-</section>
+<img
+src="https://images.unsplash.com/photo-1551500333-8cf5df31f457?auto=format&fit=crop&w=900&q=85"
+alt="Bowler bowling"
+>
 
 <div>
+<strong>Bowling Night</strong>
+<p>Share the excitement of bowling with friends and family.</p>
+</div>
 
-<section id="proshop">
+</div>
 
-  <div class="section-title">
-    <span>
-      <i class="fa-solid fa-store" style="color:var(--primary)"></i>
-      The Pro Shop
-    </span>
-  </div>
+<div class="card photo-card">
 
-  <div class="shop-list">
+<img
+src="https://images.unsplash.com/photo-1557619419-b2419974a9e3?auto=format&fit=crop&w=900&q=85"
+alt="Bowling"
+>
 
-    <article class="card shop">
+<div>
+<strong>League Bowling</strong>
+<p>Practice, compete and improve your bowling game.</p>
+</div>
 
-      <div class="shop-icon">
-        <i class="fa-solid fa-bowling-ball"></i>
-      </div>
+</div>
 
-      <div>
-        <h4>BowlingBall.com</h4>
-        <p>Bowling balls, bags, shoes and accessories.</p>
-        <a href="https://www.bowlingball.com" target="_blank" rel="noopener noreferrer">
-          Visit retailer
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
+<div class="card photo-card">
 
-    </article>
+<img
+src="https://images.unsplash.com/photo-1708491221559-08fe19561b32?auto=format&fit=crop&w=900&q=85"
+alt="Bowling alley"
+>
 
-    <article class="card shop">
+<div>
+<strong>Bowling Community</strong>
+<p>Bowling centers bring bowlers together.</p>
+</div>
 
-      <div class="shop-icon">
-        <i class="fa-solid fa-bag-shopping"></i>
-      </div>
+</div>
 
-      <div>
-        <h4>Bowling.com</h4>
-        <p>Bowling equipment, shoes, apparel and accessories.</p>
-        <a href="https://www.bowling.com" target="_blank" rel="noopener noreferrer">
-          Visit retailer
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-
-    </article>
-
-    <article class="card shop">
-
-      <div class="shop-icon">
-        <i class="fa-solid fa-bullseye"></i>
-      </div>
-
-      <div>
-        <h4>BowlersMart</h4>
-        <p>Bowling equipment and pro-shop products.</p>
-        <a href="https://www.bowlersmart.com" target="_blank" rel="noopener noreferrer">
-          Visit retailer
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-
-    </article>
-
-    <article class="card shop">
-
-      <div class="shop-icon">
-        <i class="fa-solid fa-wrench"></i>
-      </div>
-
-      <div>
-        <h4>Buddies Pro Shop</h4>
-        <p>Bowling equipment, grips and accessories.</p>
-        <a href="https://www.buddiesproshop.com" target="_blank" rel="noopener noreferrer">
-          Visit retailer
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
-      </div>
-
-    </article>
-
-  </div>
-
-  <p class="notice" style="margin-top:.5rem">
-    External merchant links are provided for convenience. BowlStrike.com does not claim affiliation unless expressly stated.
-  </p>
+</div>
 
 </section>
 
-<section id="contact">
+<br><br>
 
-  <div class="section-title">
-    <span>
-      <i class="fa-solid fa-envelope" style="color:var(--primary)"></i>
-      Contact / Feedback
-    </span>
-  </div>
+<section id="shop">
 
-  <div class="card contact">
+<div class="section-title">
+Bowling Pro Shop Resources
+</div>
 
-    <p class="notice" style="margin-bottom:.7rem">
-      No Firebase or paid mail service is required. This form prepares and copies your message so you can paste it into your preferred email service.
-    </p>
+<div class="shop-grid">
 
-    <div class="contact-grid">
+<div class="card shop">
 
-      <input id="contactName" placeholder="Your name">
+<h3>
+BowlingBall.com
+</h3>
 
-      <input id="contactEmail" type="email" placeholder="Your email">
+<p>
+Bowling balls, bags, shoes and accessories.
+</p>
 
-      <input id="contactSubject" style="grid-column:1/-1" placeholder="Subject">
+<br>
 
-      <textarea id="contactMessage" placeholder="Your message"></textarea>
+<a
+href="https://www.bowlingball.com"
+target="_blank"
+>
+Visit Store
+</a>
 
-      <div class="contact-actions">
+</div>
 
-        <button class="btn" id="copyMessageBtn">
-          <i class="fa-solid fa-copy"></i>
-          Copy Message
-        </button>
+<div class="card shop">
 
-        <button class="btn secondary" id="clearMessageBtn">
-          Clear
-        </button>
+<h3>
+Bowling.com
+</h3>
 
-      </div>
+<p>
+Bowling equipment, apparel, shoes and accessories.
+</p>
 
-    </div>
+<br>
 
-    <div class="status" id="contactStatus"></div>
+<a
+href="https://www.bowling.com"
+target="_blank"
+>
+Visit Store
+</a>
 
-  </div>
+</div>
+
+<div class="card shop">
+
+<h3>
+BowlersMart
+</h3>
+
+<p>
+Bowling equipment and pro-shop products.
+</p>
+
+<br>
+
+<a
+href="https://www.bowlersmart.com"
+target="_blank"
+>
+Visit Store
+</a>
+
+</div>
+
+<div class="card shop">
+
+<h3>
+Buddies Pro Shop
+</h3>
+
+<p>
+Bowling balls, accessories and equipment.
+</p>
+
+<br>
+
+<a
+href="https://www.buddiesproshop.com"
+target="_blank"
+>
+Visit Store
+</a>
+
+</div>
+
+</div>
 
 </section>
 
 </div>
-</div>
-</div>
-
-</main>
 
 <footer>
 
-  <div class="footer-inner">
+<div class="footer-inner">
 
-    <div class="legal">
-      <strong>Terms & Legal Disclaimer.</strong>
-      BowlStrike.com is an independent bowling information, entertainment and community website. The bowling game is a recreational simulation and is not an official scoring or competition system. PBA, USBC and third-party names and marks belong to their respective owners. External websites, retailers, map data and third-party services are outside BowlStrike.com's control. Nearby-place results depend on browser location permission and OpenStreetMap/Overpass data and may be incomplete or outdated. Community examples shown on this no-account version are demonstration content. Do not post sensitive personal information in browser-saved comments.
-    </div>
+<strong>
+BowlStrike.com
+</strong>
 
-    <div class="footer-bottom">
-      © 2026 BowlStrike.com. All rights reserved.
-      &nbsp;
-      <span class="admin-link" id="adminLink">
-        Local System Status
-      </span>
-    </div>
+<br><br>
 
-  </div>
+BowlStrike.com is an independent bowling information and entertainment website. The arcade bowling game is a recreational simulation. PBA, USBC, OpenStreetMap and other third-party names, trademarks and content belong to their respective owners. External links and bowling-center information are provided for convenience and may change. Nearby bowling-center results depend on browser location permission and available map data.
+
+<br><br>
+
+© 2026 BowlStrike.com. All rights reserved.
+
+</div>
 
 </footer>
 
-<div class="modal" id="messageModal" role="dialog" aria-modal="true">
-
-  <div class="modal-content">
-
-    <span class="close" data-close="messageModal">
-      &times;
-    </span>
-
-    <h2 id="messageTitle">
-      Message
-    </h2>
-
-    <p class="notice" style="margin:.4rem 0 .8rem">
-      Messages are stored only in this browser because this version has no database.
-    </p>
-
-    <textarea id="teamMessage" style="width:100%;min-height:130px;padding:.7rem;border:1px solid #ccc;border-radius:8px" placeholder="Type a message..."></textarea>
-
-    <div style="margin-top:.6rem">
-
-      <button class="btn" id="saveTeamMessage">
-        Save Message Locally
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="modal" id="adminModal" role="dialog" aria-modal="true">
-
-  <div class="modal-content">
-
-    <span class="close" data-close="adminModal">
-      &times;
-    </span>
-
-    <h2>
-      <i class="fa-solid fa-chart-line" style="color:var(--primary)"></i>
-      BowlStrike Local Status
-    </h2>
-
-    <p class="notice">
-      These are real values saved on this browser only — no invented network totals.
-    </p>
-
-    <div class="stats">
-
-      <div class="stat">
-        <strong id="statGames">0</strong>
-        <span>Games completed here</span>
-      </div>
-
-      <div class="stat">
-        <strong id="statHigh">0</strong>
-        <span>Local high score</span>
-      </div>
-
-      <div class="stat">
-        <strong id="statConnections">0</strong>
-        <span>Saved connections</span>
-      </div>
-
-    </div>
-
-    <p class="notice">
-      Firebase: removed
-      &nbsp; • &nbsp;
-      Database: none
-      &nbsp; • &nbsp;
-      Location: requested only by the Find Nearby button
-    </p>
-
-  </div>
-
-</div>
-
-<div class="toast" id="toast"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-'use strict';
 
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
-
-function toast(msg){
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.add('show');
-
-  setTimeout(() => {
-    t.classList.remove('show');
-  },2200);
-}
-
-function storeGet(k,fallback){
-  try{
-    const v = localStorage.getItem(k);
-    return v === null ? fallback : JSON.parse(v);
-  }catch{
-    return fallback;
-  }
-}
-
-function storeSet(k,v){
-  try{
-    localStorage.setItem(k,JSON.stringify(v));
-  }catch{}
-}
-
-/* MAP */
+/* ========================================
+   MAP
+======================================== */
 
 let map;
 let userMarker;
-let alleyLayer;
+let bowlingMarkers;
 
-function initMap(){
+function startMap(){
 
-  if(typeof L === 'undefined'){
-    $('#gpsStatus').textContent = 'Map library unavailable';
-    return;
-  }
+if(typeof L==="undefined"){
 
-  map = L.map('map').setView([39.5,-98.35],4);
+document.getElementById("mapStatus").textContent=
+"Map service could not load.";
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      maxZoom:19,
-      attribution:'© OpenStreetMap contributors'
-    }
-  ).addTo(map);
+return;
 
-  alleyLayer = L.layerGroup().addTo(map);
 }
 
-async function findNearbyBowling(){
-
-  if(!navigator.geolocation){
-    $('#gpsStatus').textContent='Location not supported';
-    return;
-  }
-
-  const btn=$('#findAlleysBtn');
-
-  btn.disabled=true;
-
-  $('#gpsStatus').textContent='Requesting location…';
-
-  navigator.geolocation.getCurrentPosition(
-
-    async pos=>{
-
-      const lat=pos.coords.latitude;
-      const lng=pos.coords.longitude;
-
-      if(userMarker){
-        userMarker.remove();
-      }
-
-      userMarker=L.marker([lat,lng])
-        .addTo(map)
-        .bindPopup('Your approximate location')
-        .openPopup();
-
-      map.setView([lat,lng],11);
-
-      alleyLayer.clearLayers();
-
-      $('#gpsStatus').textContent='Searching nearby bowling centers…';
-
-      const query=`[out:json][timeout:25];
-(
-  nwr["leisure"="bowling_alley"](around:50000,${lat},${lng});
-  nwr["sport"="10pin"](around:50000,${lat},${lng});
-  nwr["sport"="bowling"](around:50000,${lat},${lng});
-  nwr["name"~"bowling|bowl|lanes",i](around:50000,${lat},${lng});
+map=L.map("map").setView(
+[39.8283,-98.5795],
+4
 );
-out center tags;`;
 
-      const endpoints=[
-        'https://overpass-api.de/api/interpreter',
-        'https://overpass.kumi.systems/api/interpreter'
-      ];
+L.tileLayer(
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+maxZoom:19,
+attribution:"© OpenStreetMap contributors"
+}
+).addTo(map);
 
-      let data=null;
+bowlingMarkers=
+L.layerGroup().addTo(map);
 
-      for(const endpoint of endpoints){
-
-        try{
-
-          const res=await fetch(endpoint,{
-            method:'POST',
-            headers:{
-              'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'
-            },
-            body:'data='+encodeURIComponent(query)
-          });
-
-          if(!res.ok){
-            throw new Error('endpoint unavailable');
-          }
-
-          data=await res.json();
-          break;
-
-        }catch(e){
-
-          data=null;
-
-        }
-
-      }
-
-      if(!data){
-
-        btn.disabled=false;
-
-        $('#gpsStatus').textContent=
-          'Bowling-center search is temporarily unavailable — your map still works';
-
-        return;
-
-      }
-
-      const seen=new Set();
-
-      const places=[];
-
-      data.elements.forEach(el=>{
-
-        const a=el.lat??el.center?.lat;
-        const b=el.lon??el.center?.lon;
-
-        if(a==null||b==null){
-          return;
-        }
-
-        const name=(el.tags?.name||'Bowling center').trim();
-
-        const key=
-          name.toLowerCase()+
-          '|'+
-          a.toFixed(4)+
-          '|'+
-          b.toFixed(4);
-
-        if(seen.has(key)){
-          return;
-        }
-
-        seen.add(key);
-
-        const address=[
-          el.tags?.['addr:housenumber'],
-          el.tags?.['addr:street'],
-          el.tags?.['addr:city'],
-          el.tags?.['addr:state']
-        ]
-        .filter(Boolean)
-        .join(' ');
-
-        const phone=
-          el.tags?.phone||
-          el.tags?.['contact:phone'];
-
-        const website=
-          el.tags?.website||
-          el.tags?.['contact:website'];
-
-        places.push({
-          name,
-          address,
-          phone,
-          website,
-          lat:a,
-          lon:b,
-          distance:haversineKm(lat,lng,a,b)
-        });
-
-      });
-
-      places.sort((x,y)=>x.distance-y.distance);
-
-      const bounds=
-        L.latLngBounds([[lat,lng]]);
-
-      places
-      .slice(0,60)
-      .forEach(place=>{
-
-        let popup=
-          `<strong>${escapeHTML(place.name)}</strong>`;
-
-        if(place.address){
-          popup+=`<br>${escapeHTML(place.address)}`;
-        }
-
-        if(place.phone){
-          popup+=`<br>${escapeHTML(place.phone)}`;
-        }
-
-        if(
-          place.website &&
-          /^https?:\/\//i.test(place.website)
-        ){
-          popup+=
-            `<br><a href="${escapeAttr(place.website)}" target="_blank" rel="noopener noreferrer">Website</a>`;
-        }
-
-        popup+=
-          `<br>${place.distance.toFixed(1)} km away`;
-
-        popup+=
-          `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}" target="_blank" rel="noopener noreferrer">Directions</a>`;
-
-        L.marker([place.lat,place.lon])
-          .addTo(alleyLayer)
-          .bindPopup(popup);
-
-        bounds.extend([place.lat,place.lon]);
-
-      });
-
-      if(places.length){
-
-        map.fitBounds(
-          bounds.pad(.15),
-          {
-            maxZoom:13
-          }
-        );
-
-        $('#gpsStatus').textContent=
-          `${places.length} bowling location${places.length===1?'':'s'} found within about 50 km`;
-
-      }else{
-
-        $('#gpsStatus').textContent=
-          'No bowling centers were found in the map database within about 50 km';
-
-      }
-
-      btn.disabled=false;
-
-    },
-
-    ()=>{
-
-      btn.disabled=false;
-
-      $('#gpsStatus').textContent=
-        'Location permission not granted';
-
-    },
-
-    {
-      enableHighAccuracy:false,
-      timeout:12000,
-      maximumAge:300000
-    }
-
-  );
+setTimeout(function(){
+map.invalidateSize();
+},300);
 
 }
 
-function haversineKm(lat1,lon1,lat2,lon2){
+function distanceMiles(lat1,lon1,lat2,lon2){
 
-  const r=6371;
+const R=3958.8;
 
-  const toRad=d=>d*Math.PI/180;
+const toRad=
+value=>value*Math.PI/180;
 
-  const dLat=toRad(lat2-lat1);
-  const dLon=toRad(lon2-lon1);
+const dLat=
+toRad(lat2-lat1);
 
-  const a=
-    Math.sin(dLat/2)**2+
-    Math.cos(toRad(lat1))*
-    Math.cos(toRad(lat2))*
-    Math.sin(dLon/2)**2;
+const dLon=
+toRad(lon2-lon1);
 
-  return 2*r*Math.asin(Math.sqrt(a));
+const a=
+Math.sin(dLat/2)*
+Math.sin(dLat/2)+
+Math.cos(toRad(lat1))*
+Math.cos(toRad(lat2))*
+Math.sin(dLon/2)*
+Math.sin(dLon/2);
+
+const c=
+2*
+Math.atan2(
+Math.sqrt(a),
+Math.sqrt(1-a)
+);
+
+return R*c;
+
 }
 
-function escapeHTML(s){
-  return String(s).replace(
-    /[&<>"']/g,
-    c=>({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#39;'
-    }[c])
-  );
+function safeText(value){
+
+return String(value||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
 }
 
-function escapeAttr(s){
-  return escapeHTML(s);
-}
+async function searchBowling(lat,lng){
 
-/* BOWLING GAME */
+const status=
+document.getElementById("mapStatus");
 
-const canvas=$('#bowlingCanvas');
-const ctx=canvas.getContext('2d');
+status.textContent=
+"Searching for bowling centers...";
 
-let dpr=1;
-let W=600;
-let H=350;
+bowlingMarkers.clearLayers();
 
-let rolling=false;
-let muted=false;
-let audioCtx=null;
+const radius=80467;
 
-let frames=[];
-let currentFrame=0;
-let ballInFrame=0;
+const query=`
+[out:json][timeout:30];
+(
+node["leisure"="bowling_alley"](around:${radius},${lat},${lng});
+way["leisure"="bowling_alley"](around:${radius},${lat},${lng});
+relation["leisure"="bowling_alley"](around:${radius},${lat},${lng});
 
-let standing=
-  Array(10).fill(true);
+node["sport"="10pin"](around:${radius},${lat},${lng});
+way["sport"="10pin"](around:${radius},${lat},${lng});
+relation["sport"="10pin"](around:${radius},${lat},${lng});
 
-let gameOver=false;
+node["sport"="bowling"](around:${radius},${lat},${lng});
+way["sport"="bowling"](around:${radius},${lat},${lng});
+relation["sport"="bowling"](around:${radius},${lat},${lng});
+);
+out center tags;
+`;
 
-let animation={
-  active:false,
-  t:0,
-  path:null,
-  hitPins:[]
-};
-
-const pinNorm=[
-  {x:0,y:0},
-  {x:-.09,y:-.07},
-  {x:.09,y:-.07},
-  {x:-.18,y:-.14},
-  {x:0,y:-.14},
-  {x:.18,y:-.14},
-  {x:-.27,y:-.21},
-  {x:-.09,y:-.21},
-  {x:.09,y:-.21},
-  {x:.27,y:-.21}
+const servers=[
+"https://overpass-api.de/api/interpreter",
+"https://overpass.kumi.systems/api/interpreter"
 ];
 
-function resizeCanvas(){
+let data=null;
 
-  const r=
-    canvas.getBoundingClientRect();
+for(const server of servers){
 
-  dpr=
-    Math.min(
-      window.devicePixelRatio||1,
-      2
-    );
+try{
 
-  canvas.width=
-    Math.round(r.width*dpr);
+const response=
+await fetch(
+server,
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/x-www-form-urlencoded;charset=UTF-8"
+},
+body:
+"data="+
+encodeURIComponent(query)
+}
+);
 
-  canvas.height=
-    Math.round(r.height*dpr);
-
-  ctx.setTransform(
-    dpr,
-    0,
-    0,
-    dpr,
-    0,
-    0
-  );
-
-  W=r.width;
-  H=r.height;
-
-  drawReadyLane();
+if(!response.ok){
+throw new Error("Search server unavailable");
 }
 
-function laneEdges(y){
+data=
+await response.json();
 
-  const t=y/H;
+break;
 
-  const topL=W*.40;
-  const topR=W*.60;
+}catch(error){
 
-  const bottomL=W*.12;
-  const bottomR=W*.88;
+data=null;
 
-  return{
-    l:
-      topL+
-      (bottomL-topL)*t,
-
-    r:
-      topR+
-      (bottomR-topR)*t
-  };
 }
 
-function project(nx,ny){
-
-  const y=
-    H*(.20+ny*.75);
-
-  const e=
-    laneEdges(y);
-
-  return{
-    x:
-      (e.l+e.r)/2+
-      nx*(e.r-e.l)/2,
-
-    y
-  };
 }
 
-function drawPin(x,y,scale,down=false){
+if(!data){
 
-  ctx.save();
+status.textContent=
+"Bowling search is temporarily unavailable. The map is still working.";
 
-  ctx.translate(x,y);
+return;
 
-  ctx.scale(scale,scale);
-
-  if(down){
-    ctx.rotate(-1.15);
-    ctx.globalAlpha=.65;
-  }
-
-  ctx.fillStyle='rgba(0,0,0,.28)';
-
-  ctx.beginPath();
-
-  ctx.ellipse(
-    1,
-    8,
-    7,
-    2.5,
-    0,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fill();
-
-  const g=
-    ctx.createLinearGradient(
-      -5,
-      -14,
-      6,
-      12
-    );
-
-  g.addColorStop(
-    0,
-    '#fff'
-  );
-
-  g.addColorStop(
-    .55,
-    '#f7f7f7'
-  );
-
-  g.addColorStop(
-    1,
-    '#c9c9c9'
-  );
-
-  ctx.fillStyle=g;
-  ctx.strokeStyle='#aaa';
-  ctx.lineWidth=.8;
-
-  ctx.beginPath();
-
-  ctx.moveTo(-3,-14);
-
-  ctx.bezierCurveTo(
-    -6,-10,-5,-5,-3,-2
-  );
-
-  ctx.bezierCurveTo(
-    -8,5,-7,12,0,14
-  );
-
-  ctx.bezierCurveTo(
-    7,12,8,5,3,-2
-  );
-
-  ctx.bezierCurveTo(
-    5,-5,6,-10,3,-14
-  );
-
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.strokeStyle='#e50914';
-  ctx.lineWidth=2;
-
-  ctx.beginPath();
-
-  ctx.moveTo(-4,-5);
-  ctx.lineTo(4,-5);
-
-  ctx.moveTo(-4,-2);
-  ctx.lineTo(4,-2);
-
-  ctx.stroke();
-
-  ctx.restore();
 }
 
-function drawLane(ballPos){
+const locations=[];
 
-  ctx.clearRect(
-    0,
-    0,
-    W,
-    H
-  );
+const seen=
+new Set();
 
-  const bg=
-    ctx.createLinearGradient(
-      0,
-      0,
-      0,
-      H
-    );
+data.elements.forEach(function(item){
 
-  bg.addColorStop(
-    0,
-    '#08090b'
-  );
+const placeLat=
+item.lat||
+(item.center&&item.center.lat);
 
-  bg.addColorStop(
-    1,
-    '#1c1d20'
-  );
+const placeLng=
+item.lon||
+(item.center&&item.center.lon);
 
-  ctx.fillStyle=bg;
-
-  ctx.fillRect(
-    0,
-    0,
-    W,
-    H
-  );
-
-  const topY=H*.08;
-  const bottomY=H*.98;
-
-  const top=
-    laneEdges(topY);
-
-  const bottom=
-    laneEdges(bottomY);
-
-  ctx.fillStyle='#121318';
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    top.l-W*.06,
-    topY
-  );
-
-  ctx.lineTo(
-    top.l,
-    topY
-  );
-
-  ctx.lineTo(
-    bottom.l,
-    bottomY
-  );
-
-  ctx.lineTo(
-    bottom.l-W*.10,
-    bottomY
-  );
-
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    top.r,
-    topY
-  );
-
-  ctx.lineTo(
-    top.r+W*.06,
-    topY
-  );
-
-  ctx.lineTo(
-    bottom.r+W*.10,
-    bottomY
-  );
-
-  ctx.lineTo(
-    bottom.r,
-    bottomY
-  );
-
-  ctx.closePath();
-  ctx.fill();
-
-  const wood=
-    ctx.createLinearGradient(
-      0,
-      topY,
-      0,
-      bottomY
-    );
-
-  wood.addColorStop(
-    0,
-    '#d6a55d'
-  );
-
-  wood.addColorStop(
-    .45,
-    '#efc77e'
-  );
-
-  wood.addColorStop(
-    1,
-    '#c58a43'
-  );
-
-  ctx.fillStyle=wood;
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    top.l,
-    topY
-  );
-
-  ctx.lineTo(
-    top.r,
-    topY
-  );
-
-  ctx.lineTo(
-    bottom.r,
-    bottomY
-  );
-
-  ctx.lineTo(
-    bottom.l,
-    bottomY
-  );
-
-  ctx.closePath();
-  ctx.fill();
-
-  for(let i=1;i<39;i++){
-
-    const f=i/39;
-
-    ctx.strokeStyle=
-      i%5===0
-      ? 'rgba(83,48,17,.25)'
-      : 'rgba(83,48,17,.11)';
-
-    ctx.lineWidth=.6;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      top.l+
-      (top.r-top.l)*f,
-      topY
-    );
-
-    ctx.lineTo(
-      bottom.l+
-      (bottom.r-bottom.l)*f,
-      bottomY
-    );
-
-    ctx.stroke();
-  }
-
-  ctx.strokeStyle='rgba(255,255,255,.22)';
-  ctx.lineWidth=2;
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    bottom.l,
-    H*.87
-  );
-
-  ctx.lineTo(
-    bottom.r,
-    H*.87
-  );
-
-  ctx.stroke();
-
-  [-.45,-.3,-.15,0,.15,.3,.45]
-  .forEach(nx=>{
-
-    const p=
-      project(nx,.68);
-
-    ctx.fillStyle='#6c3b13';
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      p.x,
-      p.y-6
-    );
-
-    ctx.lineTo(
-      p.x-3,
-      p.y+3
-    );
-
-    ctx.lineTo(
-      p.x+3,
-      p.y+3
-    );
-
-    ctx.closePath();
-    ctx.fill();
-  });
-
-  ctx.fillStyle='#070707';
-
-  ctx.fillRect(
-    top.l-W*.025,
-    0,
-    (top.r-top.l)+W*.05,
-    H*.085
-  );
-
-  pinNorm
-  .slice()
-  .reverse()
-  .forEach((p,iRev)=>{
-
-    const i=9-iRev;
-
-    if(!standing[i]){
-      return;
-    }
-
-    const q=
-      project(
-        p.x,
-        .055+p.y*.12
-      );
-
-    drawPin(
-      q.x,
-      q.y,
-      clamp(W/600,.72,1.1)*.78
-    );
-  });
-
-  if(ballPos){
-
-    const e=
-      laneEdges(ballPos.y);
-
-    const x=
-      (e.l+e.r)/2+
-      ballPos.x*(e.r-e.l)/2;
-
-    const y=
-      ballPos.y;
-
-    const scale=
-      .35+
-      .85*(y/H);
-
-    ctx.fillStyle='rgba(0,0,0,.35)';
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-      x,
-      y+10*scale,
-      14*scale,
-      5*scale,
-      0,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-    const g=
-      ctx.createRadialGradient(
-        x-5*scale,
-        y-6*scale,
-        2,
-        x,
-        y,
-        16*scale
-      );
-
-    g.addColorStop(
-      0,
-      '#55b5ff'
-    );
-
-    g.addColorStop(
-      .35,
-      '#0879e8'
-    );
-
-    g.addColorStop(
-      1,
-      '#022c58'
-    );
-
-    ctx.fillStyle=g;
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      14*scale,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-
-    ctx.fillStyle='#021526';
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x-3*scale,
-      y-4*scale,
-      2*scale,
-      0,
-      Math.PI*2
-    );
-
-    ctx.arc(
-      x+3*scale,
-      y-4*scale,
-      2*scale,
-      0,
-      Math.PI*2
-    );
-
-    ctx.arc(
-      x,
-      y+2*scale,
-      2.2*scale,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fill();
-  }
+if(
+typeof placeLat!=="number"||
+typeof placeLng!=="number"
+){
+return;
 }
 
-function readyBallPosition(){
+const tags=
+item.tags||{};
 
-  const aim=
-    Number(
-      $('#aimControl')?.value||0
-    );
+const name=
+tags.name||
+"Bowling Center";
 
-  return{
-    x:
-      aim/100*.72,
+const key=
+name.toLowerCase()+
+"-"+
+placeLat.toFixed(4)+
+"-"+
+placeLng.toFixed(4);
 
-    y:
-      H*.88
-  };
+if(seen.has(key)){
+return;
+}
+
+seen.add(key);
+
+const miles=
+distanceMiles(
+lat,
+lng,
+placeLat,
+placeLng
+);
+
+locations.push({
+name:name,
+lat:placeLat,
+lng:placeLng,
+miles:miles,
+phone:
+tags.phone||
+tags["contact:phone"]||
+"",
+website:
+tags.website||
+tags["contact:website"]||
+"",
+street:
+[
+tags["addr:housenumber"],
+tags["addr:street"],
+tags["addr:city"],
+tags["addr:state"]
+]
+.filter(Boolean)
+.join(" ")
+});
+
+});
+
+locations.sort(function(a,b){
+return a.miles-b.miles;
+});
+
+const bounds=
+L.latLngBounds(
+[[lat,lng]]
+);
+
+locations
+.slice(0,75)
+.forEach(function(place){
+
+let popup=
+"<strong>"+
+safeText(place.name)+
+"</strong>";
+
+if(place.street){
+
+popup+=
+"<br>"+
+safeText(place.street);
+
+}
+
+if(place.phone){
+
+popup+=
+"<br>"+
+safeText(place.phone);
+
+}
+
+popup+=
+"<br>"+
+place.miles.toFixed(1)+
+" miles away";
+
+popup+=
+'<br><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+
+place.lat+
+","+
+place.lng+
+'">Directions</a>';
+
+const marker=
+L.marker(
+[place.lat,place.lng]
+)
+.addTo(bowlingMarkers)
+.bindPopup(popup);
+
+bounds.extend(
+marker.getLatLng()
+);
+
+});
+
+if(locations.length){
+
+map.fitBounds(
+bounds.pad(.15),
+{
+maxZoom:12
+}
+);
+
+status.textContent=
+locations.length+
+" bowling location"+
+(locations.length===1?"":"s")+
+" found within approximately 50 miles.";
+
+}else{
+
+status.textContent=
+"No bowling centers were found in the available map database within approximately 50 miles.";
+
+}
+
+}
+
+function findBowling(){
+
+const status=
+document.getElementById("mapStatus");
+
+if(!navigator.geolocation){
+
+status.textContent=
+"Your browser does not support location.";
+
+return;
+
+}
+
+status.textContent=
+"Finding your location...";
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+const lat=
+position.coords.latitude;
+
+const lng=
+position.coords.longitude;
+
+if(userMarker){
+userMarker.remove();
+}
+
+userMarker=
+L.marker(
+[lat,lng]
+)
+.addTo(map)
+.bindPopup(
+"Your approximate location"
+)
+.openPopup();
+
+map.setView(
+[lat,lng],
+11
+);
+
+searchBowling(
+lat,
+lng
+);
+
+},
+
+function(){
+
+status.textContent=
+"Location permission was not available. Please allow location access and try again.";
+
+},
+
+{
+enableHighAccuracy:false,
+timeout:15000,
+maximumAge:300000
+}
+
+);
+
+}
+
+/* ========================================
+   BOWLING GAME
+======================================== */
+
+const canvas=
+document.getElementById("lane");
+
+const ctx=
+canvas.getContext("2d");
+
+let canvasWidth=0;
+let canvasHeight=0;
+let pixelRatio=1;
+
+let rolling=false;
+
+let frame=1;
+
+let frameRolls=
+Array.from(
+{length:10},
+function(){
+return[];
+}
+);
+
+let standingPins=
+Array(10).fill(true);
+
+let score=0;
+
+const pinPositions=[
+{x:0,y:0},
+{x:-.11,y:.075},
+{x:.11,y:.075},
+{x:-.22,y:.15},
+{x:0,y:.15},
+{x:.22,y:.15},
+{x:-.33,y:.225},
+{x:-.11,y:.225},
+{x:.11,y:.225},
+{x:.33,y:.225}
+];
+
+function resizeLane(){
+
+const rect=
+canvas.getBoundingClientRect();
+
+pixelRatio=
+Math.min(
+window.devicePixelRatio||1,
+2
+);
+
+canvas.width=
+Math.round(
+rect.width*pixelRatio
+);
+
+canvas.height=
+Math.round(
+rect.height*pixelRatio
+);
+
+ctx.setTransform(
+pixelRatio,
+0,
+0,
+pixelRatio,
+0,
+0
+);
+
+canvasWidth=
+rect.width;
+
+canvasHeight=
+rect.height;
+
+drawReadyLane();
+
+}
+
+function laneWidthAt(y){
+
+const topWidth=
+canvasWidth*.24;
+
+const bottomWidth=
+canvasWidth*.82;
+
+const ratio=
+y/canvasHeight;
+
+return topWidth+
+(bottomWidth-topWidth)*
+ratio;
+
+}
+
+function lanePoint(horizontal,y){
+
+const width=
+laneWidthAt(y);
+
+return{
+x:
+canvasWidth/2+
+horizontal*
+width/2,
+y:y
+};
+
+}
+
+function drawLaneBase(){
+
+ctx.clearRect(
+0,
+0,
+canvasWidth,
+canvasHeight
+);
+
+/* Background */
+
+const background=
+ctx.createLinearGradient(
+0,
+0,
+0,
+canvasHeight
+);
+
+background.addColorStop(
+0,
+"#050505"
+);
+
+background.addColorStop(
+1,
+"#242424"
+);
+
+ctx.fillStyle=
+background;
+
+ctx.fillRect(
+0,
+0,
+canvasWidth,
+canvasHeight
+);
+
+/* Lane */
+
+const topY=
+canvasHeight*.07;
+
+const bottomY=
+canvasHeight*.98;
+
+const topWidth=
+laneWidthAt(topY);
+
+const bottomWidth=
+laneWidthAt(bottomY);
+
+const wood=
+ctx.createLinearGradient(
+0,
+topY,
+0,
+bottomY
+);
+
+wood.addColorStop(
+0,
+"#d6a45e"
+);
+
+wood.addColorStop(
+.5,
+"#f2cd87"
+);
+
+wood.addColorStop(
+1,
+"#bd7c34"
+);
+
+ctx.fillStyle=
+wood;
+
+ctx.beginPath();
+
+ctx.moveTo(
+canvasWidth/2-
+topWidth/2,
+topY
+);
+
+ctx.lineTo(
+canvasWidth/2+
+topWidth/2,
+topY
+);
+
+ctx.lineTo(
+canvasWidth/2+
+bottomWidth/2,
+bottomY
+);
+
+ctx.lineTo(
+canvasWidth/2-
+bottomWidth/2,
+bottomY
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+/* Gutters */
+
+ctx.fillStyle=
+"#111318";
+
+ctx.beginPath();
+
+ctx.moveTo(
+canvasWidth/2-
+topWidth/2-
+12,
+topY
+);
+
+ctx.lineTo(
+canvasWidth/2-
+topWidth/2,
+topY
+);
+
+ctx.lineTo(
+canvasWidth/2-
+bottomWidth/2,
+bottomY
+);
+
+ctx.lineTo(
+canvasWidth/2-
+bottomWidth/2-
+35,
+bottomY
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+ctx.beginPath();
+
+ctx.moveTo(
+canvasWidth/2+
+topWidth/2,
+topY
+);
+
+ctx.lineTo(
+canvasWidth/2+
+topWidth/2+
+12,
+topY
+);
+
+ctx.lineTo(
+canvasWidth/2+
+bottomWidth/2+
+35,
+bottomY
+);
+
+ctx.lineTo(
+canvasWidth/2+
+bottomWidth/2,
+bottomY
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+/* Boards */
+
+for(let i=1;i<39;i++){
+
+const fraction=
+i/39;
+
+const topX=
+canvasWidth/2-
+topWidth/2+
+topWidth*fraction;
+
+const bottomX=
+canvasWidth/2-
+bottomWidth/2+
+bottomWidth*fraction;
+
+ctx.strokeStyle=
+i%5===0
+?
+"rgba(80,45,15,.28)"
+:
+"rgba(80,45,15,.12)";
+
+ctx.lineWidth=1;
+
+ctx.beginPath();
+
+ctx.moveTo(
+topX,
+topY
+);
+
+ctx.lineTo(
+bottomX,
+bottomY
+);
+
+ctx.stroke();
+
+}
+
+/* Foul line */
+
+const foulY=
+canvasHeight*.84;
+
+const foulWidth=
+laneWidthAt(foulY);
+
+ctx.strokeStyle=
+"#4d2608";
+
+ctx.lineWidth=4;
+
+ctx.beginPath();
+
+ctx.moveTo(
+canvasWidth/2-
+foulWidth/2,
+foulY
+);
+
+ctx.lineTo(
+canvasWidth/2+
+foulWidth/2,
+foulY
+);
+
+ctx.stroke();
+
+/* Arrows */
+
+const arrowY=
+canvasHeight*.61;
+
+[
+-.5,
+-.33,
+-.17,
+0,
+.17,
+.33,
+.5
+]
+.forEach(function(value){
+
+const p=
+lanePoint(
+value,
+arrowY
+);
+
+ctx.fillStyle=
+"#6c3811";
+
+ctx.beginPath();
+
+ctx.moveTo(
+p.x,
+p.y-7
+);
+
+ctx.lineTo(
+p.x-4,
+p.y+5
+);
+
+ctx.lineTo(
+p.x+4,
+p.y+5
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+});
+
+}
+
+/* PINS */
+
+function drawPin(x,y,scale){
+
+ctx.save();
+
+ctx.translate(
+x,
+y
+);
+
+ctx.scale(
+scale,
+scale
+);
+
+ctx.fillStyle=
+"rgba(0,0,0,.25)";
+
+ctx.beginPath();
+
+ctx.ellipse(
+0,
+14,
+9,
+3,
+0,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+const gradient=
+ctx.createLinearGradient(
+-8,
+-18,
+8,
+18
+);
+
+gradient.addColorStop(
+0,
+"#ffffff"
+);
+
+gradient.addColorStop(
+.7,
+"#eeeeee"
+);
+
+gradient.addColorStop(
+1,
+"#bbbbbb"
+);
+
+ctx.fillStyle=
+gradient;
+
+ctx.strokeStyle=
+"#999";
+
+ctx.lineWidth=1;
+
+ctx.beginPath();
+
+ctx.moveTo(
+-4,
+-18
+);
+
+ctx.bezierCurveTo(
+-8,
+-12,
+-7,
+-5,
+-4,
+0
+);
+
+ctx.bezierCurveTo(
+-10,
+8,
+-9,
+16,
+0,
+18
+);
+
+ctx.bezierCurveTo(
+9,
+16,
+10,
+8,
+4,
+0
+);
+
+ctx.bezierCurveTo(
+7,
+-5,
+8,
+-12,
+4,
+-18
+);
+
+ctx.closePath();
+
+ctx.fill();
+
+ctx.stroke();
+
+/* red neck stripes */
+
+ctx.strokeStyle=
+"#e50914";
+
+ctx.lineWidth=2.4;
+
+ctx.beginPath();
+
+ctx.moveTo(
+-5,
+-7
+);
+
+ctx.lineTo(
+5,
+-7
+);
+
+ctx.moveTo(
+-5,
+-3
+);
+
+ctx.lineTo(
+5,
+-3
+);
+
+ctx.stroke();
+
+ctx.restore();
+
+}
+
+function drawPins(){
+
+standingPins.forEach(
+function(standing,index){
+
+if(!standing){
+return;
+}
+
+const pin=
+pinPositions[index];
+
+const rackY=
+canvasHeight*.13+
+pin.y*
+canvasHeight*.22;
+
+const p=
+lanePoint(
+pin.x,
+rackY
+);
+
+const scale=
+Math.max(
+.55,
+canvasWidth/700
+);
+
+drawPin(
+p.x,
+p.y,
+scale
+);
+
+});
+
+}
+
+/* BALL */
+
+function drawBall(horizontal,y){
+
+const p=
+lanePoint(
+horizontal,
+y
+);
+
+const size=
+10+
+(y/canvasHeight)*13;
+
+ctx.save();
+
+ctx.fillStyle=
+"rgba(0,0,0,.3)";
+
+ctx.beginPath();
+
+ctx.ellipse(
+p.x,
+p.y+size*.72,
+size*.9,
+size*.28,
+0,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+const gradient=
+ctx.createRadialGradient(
+p.x-size*.35,
+p.y-size*.35,
+2,
+p.x,
+p.y,
+size
+);
+
+gradient.addColorStop(
+0,
+"#5bc0ff"
+);
+
+gradient.addColorStop(
+.35,
+"#0879e8"
+);
+
+gradient.addColorStop(
+1,
+"#01274c"
+);
+
+ctx.fillStyle=
+gradient;
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+/* Finger holes */
+
+ctx.fillStyle=
+"#001526";
+
+ctx.beginPath();
+
+ctx.arc(
+p.x-size*.22,
+p.y-size*.25,
+size*.11,
+0,
+Math.PI*2
+);
+
+ctx.arc(
+p.x+size*.22,
+p.y-size*.25,
+size*.11,
+0,
+Math.PI*2
+);
+
+ctx.arc(
+p.x,
+p.y+size*.08,
+size*.12,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+ctx.restore();
+
+}
+
+function getAim(){
+
+return Number(
+document.getElementById("aim").value
+)/100;
+
 }
 
 function drawReadyLane(){
 
-  if(!rolling&&!gameOver){
+drawLaneBase();
 
-    drawLane(
-      readyBallPosition()
-    );
+drawPins();
 
-  }else{
+/* This ball is ALWAYS visible before the throw */
 
-    drawLane();
+if(!rolling){
 
-  }
+drawBall(
+getAim()*.72,
+canvasHeight*.91
+);
+
 }
 
-function resetGame(){
-
-  frames=
-    Array.from(
-      {length:10},
-      ()=>({
-        rolls:[],
-        score:null
-      })
-    );
-
-  currentFrame=0;
-  ballInFrame=0;
-
-  standing=
-    Array(10).fill(true);
-
-  gameOver=false;
-  rolling=false;
-
-  animation={
-    active:false,
-    t:0,
-    path:null,
-    hitPins:[]
-  };
-
-  $('#frameDisplay').textContent='1';
-  $('#scoreDisplay').textContent='0';
-  $('#rollBtn').disabled=false;
-
-  renderScorecard();
-  drawReadyLane();
-
-  showMessage(
-    'New game',
-    900
-  );
 }
 
-function renderScorecard(){
+/* SCORECARD */
 
-  const grid=
-    $('#scoreGrid');
+function buildScorecard(){
 
-  grid.innerHTML='';
+const box=
+document.getElementById("scorecard");
 
-  frames.forEach((f,i)=>{
+box.innerHTML="";
 
-    const box=
-      document.createElement('div');
+for(let i=0;i<10;i++){
 
-    box.className=
-      'frame'+
-      (
-        i===currentFrame&&!gameOver
-        ? ' active'
-        : ''
-      );
+const frameBox=
+document.createElement("div");
 
-    const rolls=
-      formatFrameRolls(
-        i,
-        f.rolls
-      );
+frameBox.className=
+"frame";
 
-    box.innerHTML=
-      `<div class="frame-title">${i+1}</div>
-       <div class="frame-rolls">${rolls||'&nbsp;'}</div>
-       <div class="frame-total">${f.score??'&nbsp;'}</div>`;
+frameBox.innerHTML=
+'<div class="frame-number">'+
+(i+1)+
+'</div>'+
+'<div class="frame-rolls" id="rolls-'+
+i+
+'"></div>'+
+'<div class="frame-score" id="score-'+
+i+
+'"></div>';
 
-    grid.appendChild(box);
-  });
+box.appendChild(
+frameBox
+);
+
 }
 
-function formatFrameRolls(i,r){
-
-  if(!r.length){
-    return '';
-  }
-
-  if(i<9){
-
-    if(r[0]===10){
-      return 'X';
-    }
-
-    const a=
-      r[0]===0
-      ? '-'
-      : r[0];
-
-    const b=
-      r.length>1
-      ? (
-          r[0]+r[1]===10
-          ? '/'
-          : r[1]===0
-          ? '-'
-          : r[1]
-        )
-      : '';
-
-    return`${a} ${b}`;
-  }
-
-  return r
-  .map((v,j)=>{
-
-    if(v===10){
-      return 'X';
-    }
-
-    if(
-      j>0&&
-      v<10&&
-      r[j-1]<10&&
-      r[j-1]+v===10
-    ){
-      return '/';
-    }
-
-    return v===0
-      ? '-'
-      : v;
-  })
-  .join(' ');
 }
 
-function allRolls(){
-  return frames.flatMap(
-    f=>f.rolls
-  );
+function displayRolls(){
+
+for(let i=0;i<10;i++){
+
+const rolls=
+frameRolls[i];
+
+let text="";
+
+if(i<9){
+
+if(rolls[0]===10){
+
+text="X";
+
+}else{
+
+if(
+rolls.length>0
+){
+
+text+=
+rolls[0]===0
+?
+"-"
+:
+rolls[0];
+
 }
 
-function scoreFrames(){
+if(
+rolls.length>1
+){
 
-  const rolls=
-    allRolls();
+text+=" ";
 
-  let ri=0;
-  let total=0;
+if(
+rolls[0]+
+rolls[1]===10
+){
 
-  for(let f=0;f<10;f++){
+text+="/";
 
-    if(ri>=rolls.length){
-      frames[f].score=null;
-      continue;
-    }
+}else{
 
-    if(rolls[ri]===10){
+text+=
+rolls[1]===0
+?
+"-"
+:
+rolls[1];
 
-      if(
-        rolls[ri+1]!==undefined&&
-        rolls[ri+2]!==undefined
-      ){
-
-        total+=
-          10+
-          rolls[ri+1]+
-          rolls[ri+2];
-
-        frames[f].score=total;
-
-      }else{
-
-        frames[f].score=null;
-      }
-
-      ri+=1;
-
-    }else{
-
-      if(rolls[ri+1]===undefined){
-
-        frames[f].score=null;
-        break;
-      }
-
-      const sum=
-        rolls[ri]+
-        rolls[ri+1];
-
-      if(sum===10){
-
-        if(rolls[ri+2]!==undefined){
-
-          total+=
-            10+
-            rolls[ri+2];
-
-          frames[f].score=total;
-
-        }else{
-
-          frames[f].score=null;
-        }
-
-      }else{
-
-        total+=sum;
-
-        frames[f].score=total;
-      }
-
-      ri+=2;
-    }
-  }
-
-  const known=
-    [...frames]
-    .reverse()
-    .find(f=>f.score!==null);
-
-  $('#scoreDisplay').textContent=
-    known
-    ? known.score
-    : 0;
-
-  renderScorecard();
 }
 
-function recordRoll(pins){
-
-  const f=
-    frames[currentFrame];
-
-  f.rolls.push(pins);
-
-  if(currentFrame<9){
-
-    if(
-      f.rolls[0]===10||
-      f.rolls.length===2
-    ){
-
-      currentFrame++;
-      ballInFrame=0;
-      standing.fill(true);
-
-    }else{
-
-      ballInFrame=1;
-    }
-
-  }else{
-
-    const r=f.rolls;
-
-    if(r.length===1){
-
-      if(r[0]===10){
-        standing.fill(true);
-      }
-
-    }else if(r.length===2){
-
-      if(r[0]===10){
-
-        if(r[1]===10){
-          standing.fill(true);
-        }
-
-      }else if(r[0]+r[1]===10){
-
-        standing.fill(true);
-
-      }else{
-
-        finishGame();
-      }
-
-    }else if(r.length>=3){
-
-      finishGame();
-    }
-  }
-
-  scoreFrames();
-
-  $('#frameDisplay').textContent=
-    gameOver
-    ? '10'
-    : currentFrame+1;
 }
 
-function finishGame(){
-
-  gameOver=true;
-
-  $('#rollBtn').disabled=true;
-
-  setTimeout(()=>{
-
-    scoreFrames();
-
-    const final=
-      frames[9].score??
-      Number($('#scoreDisplay').textContent)||
-      0;
-
-    let games=
-      storeGet('bs_games',0)+1;
-
-    let high=
-      Math.max(
-        storeGet('bs_high',0),
-        final
-      );
-
-    storeSet(
-      'bs_games',
-      games
-    );
-
-    storeSet(
-      'bs_high',
-      high
-    );
-
-    showMessage(
-      `Game complete — ${final}`,
-      3000
-    );
-
-  },400);
 }
 
-function simulateHit(aim,hook,power){
+}else{
 
-  const start=
-    aim/100*.72;
+text=
+rolls.map(
+function(value,index){
 
-  const curve=
-    hook/100*.48;
-
-  const end=
-    clamp(
-      start+curve,
-      -1.05,
-      1.05
-    );
-
-  const path=t=>{
-
-    const eased=
-      t*t*(3-2*t);
-
-    return(
-      start*(1-eased)+
-      end*eased+
-      curve*
-      Math.sin(Math.PI*t)*
-      .17
-    );
-  };
-
-  const remaining=
-    standing
-    .map((v,i)=>v?i:-1)
-    .filter(i=>i>=0);
-
-  if(Math.abs(end)>.92){
-
-    return{
-      pins:[],
-      path,
-      gutter:true
-    };
-  }
-
-  const pocket=
-    Math.abs(
-      end-
-      (
-        hook>=0
-        ? .11
-        : -.11
-      )
-    );
-
-  let target;
-
-  if(
-    pocket<.075&&
-    power>68
-  ){
-
-    target=10;
-
-  }else if(pocket<.16){
-
-    target=
-      7+
-      Math.floor(
-        Math.random()*3
-      );
-
-  }else if(pocket<.29){
-
-    target=
-      4+
-      Math.floor(
-        Math.random()*4
-      );
-
-  }else if(pocket<.46){
-
-    target=
-      2+
-      Math.floor(
-        Math.random()*4
-      );
-
-  }else{
-
-    target=
-      Math.floor(
-        Math.random()*3
-      );
-  }
-
-  target=
-    Math.min(
-      target,
-      remaining.length
-    );
-
-  const pinX=
-    pinNorm.map(
-      p=>p.x
-    );
-
-  remaining.sort(
-    (a,b)=>
-      Math.abs(
-        pinX[a]-
-        end*.30
-      )
-      -
-      Math.abs(
-        pinX[b]-
-        end*.30
-      )
-  );
-
-  let hit=
-    remaining.slice(
-      0,
-      target
-    );
-
-  if(target===10){
-    hit=remaining.slice();
-  }
-
-  return{
-    pins:hit,
-    path,
-    gutter:false
-  };
+if(value===10){
+return"X";
 }
 
-function rollBall(){
-
-  if(
-    rolling||
-    gameOver
-  ){
-    return;
-  }
-
-  rolling=true;
-
-  $('#rollBtn').disabled=true;
-
-  playSound('roll');
-
-  const aim=
-    Number(
-      $('#aimControl').value
-    );
-
-  const hook=
-    Number(
-      $('#hookControl').value
-    );
-
-  const power=
-    Number(
-      $('#powerControl').value
-    );
-
-  const result=
-    simulateHit(
-      aim,
-      hook,
-      power
-    );
-
-  const start=
-    performance.now();
-
-  const duration=
-    clamp(
-      1500-
-      (power-45)*10,
-      850,
-      1500
-    );
-
-  function step(now){
-
-    const t=
-      clamp(
-        (now-start)/duration,
-        0,
-        1
-      );
-
-    const y=
-      H*(.88-(.78*t));
-
-    drawLane({
-      x:
-        result.path(t),
-
-      y
-    });
-
-    if(t<1){
-
-      requestAnimationFrame(step);
-
-    }else{
-
-      result.pins.forEach(i=>{
-        standing[i]=false;
-      });
-
-      drawLane();
-
-      const pins=
-        result.pins.length;
-
-      if(
-        result.gutter||
-        pins===0
-      ){
-
-        showMessage(
-          result.gutter
-          ? 'GUTTER BALL'
-          : 'MISS',
-          1200
-        );
-
-        playSound('miss');
-
-      }else if(pins===10){
-
-        showMessage(
-          'STRIKE!',
-          1400
-        );
-
-        playSound('hit');
-
-      }else{
-
-        showMessage(
-          `${pins} PIN${pins===1?'':'S'}`,
-          1000
-        );
-
-        playSound('hit');
-      }
-
-      recordRoll(pins);
-
-      setTimeout(()=>{
-
-        rolling=false;
-
-        if(!gameOver){
-          $('#rollBtn').disabled=false;
-        }
-
-        drawReadyLane();
-
-      },650);
-    }
-  }
-
-  requestAnimationFrame(step);
+if(
+index>0&&
+rolls[index-1]!==10&&
+rolls[index-1]+value===10
+){
+return"/";
 }
 
-function showMessage(msg,ms=1000){
+return value===0
+?
+"-"
+:
+String(value);
 
-  const e=
-    $('#gameMessage');
+}
+).join(" ");
 
-  e.textContent=msg;
-
-  e.classList.add('show');
-
-  setTimeout(
-    ()=>e.classList.remove('show'),
-    ms
-  );
 }
 
-function playSound(type){
+document.getElementById(
+"rolls-"+i
+).textContent=text;
 
-  if(muted){
-    return;
-  }
-
-  try{
-
-    if(!audioCtx){
-
-      audioCtx=
-        new(
-          window.AudioContext||
-          window.webkitAudioContext
-        )();
-    }
-
-    if(audioCtx.state==='suspended'){
-      audioCtx.resume();
-    }
-
-    const o=
-      audioCtx.createOscillator();
-
-    const g=
-      audioCtx.createGain();
-
-    o.connect(g);
-
-    g.connect(
-      audioCtx.destination
-    );
-
-    o.type=
-      type==='roll'
-      ? 'triangle'
-      : 'square';
-
-    o.frequency.setValueAtTime(
-      type==='roll'
-      ? 95
-      : type==='miss'
-      ? 70
-      : 260,
-      audioCtx.currentTime
-    );
-
-    o.frequency.exponentialRampToValueAtTime(
-      type==='roll'
-      ? 42
-      : 85,
-      audioCtx.currentTime+.35
-    );
-
-    g.gain.setValueAtTime(
-      type==='roll'
-      ? .08
-      : .16,
-      audioCtx.currentTime
-    );
-
-    g.gain.exponentialRampToValueAtTime(
-      .001,
-      audioCtx.currentTime+.38
-    );
-
-    o.start();
-
-    o.stop(
-      audioCtx.currentTime+.4
-    );
-
-  }catch{}
 }
 
-/* LOCAL COMMUNITY FEATURES */
-
-function initLocalCommunity(){
-
-  const connections=
-    storeGet(
-      'bs_connections',
-      []
-    );
-
-  $$('.connect-btn')
-  .forEach(btn=>{
-
-    if(
-      connections.includes(
-        btn.dataset.name
-      )
-    ){
-
-      btn.textContent='Connected';
-      btn.disabled=true;
-    }
-
-    btn.addEventListener(
-      'click',
-      ()=>{
-
-        const arr=
-          storeGet(
-            'bs_connections',
-            []
-          );
-
-        if(
-          !arr.includes(
-            btn.dataset.name
-          )
-        ){
-          arr.push(
-            btn.dataset.name
-          );
-        }
-
-        storeSet(
-          'bs_connections',
-          arr
-        );
-
-        btn.textContent='Connected';
-        btn.disabled=true;
-
-        toast(
-          `${btn.dataset.name} saved to your local connections`
-        );
-      }
-    );
-  });
-
-  $$('.like-btn')
-  .forEach(btn=>{
-
-    const id=
-      btn.dataset.post;
-
-    const base=
-      Number(
-        btn
-        .querySelector('.like-count')
-        .textContent
-      );
-
-    const liked=
-      storeGet(
-        'bs_like_'+id,
-        false
-      );
-
-    btn
-    .querySelector('.like-count')
-    .textContent=
-      base+
-      (liked?1:0);
-
-    if(liked){
-      btn.style.color='var(--primary)';
-    }
-
-    btn.addEventListener(
-      'click',
-      ()=>{
-
-        const was=
-          storeGet(
-            'bs_like_'+id,
-            false
-          );
-
-        storeSet(
-          'bs_like_'+id,
-          !was
-        );
-
-        btn
-        .querySelector('.like-count')
-        .textContent=
-          base+
-          (!was?1:0);
-
-        btn.style.color=
-          !was
-          ? 'var(--primary)'
-          : '';
-      }
-    );
-  });
-
-  [1,2].forEach(
-    renderComments
-  );
 }
 
-function renderComments(id){
+/* STANDARD SCORING */
 
-  const box=
-    $('#comments'+id);
+function calculateScore(){
 
-  const items=
-    storeGet(
-      'bs_comments_'+id,
-      []
-    );
+const rolls=[];
 
-  box.innerHTML='';
+frameRolls.forEach(
+function(frameData){
 
-  items.forEach(txt=>{
+frameData.forEach(
+function(value){
 
-    const p=
-      document.createElement('p');
+rolls.push(value);
 
-    const b=
-      document.createElement('strong');
+});
 
-    b.textContent='You: ';
+});
 
-    p.appendChild(b);
+let rollIndex=0;
+let runningScore=0;
 
-    p.appendChild(
-      document.createTextNode(txt)
-    );
+for(let frameIndex=0;
+frameIndex<10;
+frameIndex++){
 
-    box.appendChild(p);
-  });
+const scoreBox=
+document.getElementById(
+"score-"+frameIndex
+);
+
+scoreBox.textContent="";
+
+if(
+rollIndex>=rolls.length
+){
+continue;
 }
 
-function addComment(id){
+/* strike */
 
-  const inp=
-    $('#comment'+id);
+if(
+rolls[rollIndex]===10
+){
 
-  const txt=
-    inp.value.trim();
+if(
+rolls[rollIndex+1]!==undefined&&
+rolls[rollIndex+2]!==undefined
+){
 
-  if(!txt){
-    return;
-  }
+runningScore+=
+10+
+rolls[rollIndex+1]+
+rolls[rollIndex+2];
 
-  const arr=
-    storeGet(
-      'bs_comments_'+id,
-      []
-    );
+scoreBox.textContent=
+runningScore;
 
-  arr.push(
-    txt.slice(
-      0,
-      300
-    )
-  );
-
-  storeSet(
-    'bs_comments_'+id,
-    arr.slice(-20)
-  );
-
-  inp.value='';
-
-  renderComments(id);
 }
 
-let currentMessageName='';
+rollIndex+=1;
 
-function openMessage(name){
-
-  currentMessageName=name;
-
-  $('#messageTitle').textContent=
-    'Message '+name;
-
-  $('#teamMessage').value='';
-
-  $('#messageModal')
-  .classList.add('open');
 }
 
-function initPhotoUpload(){
+/* normal frame or spare */
 
-  $('#photoUpload')
-  .addEventListener(
-    'change',
-    e=>{
+else{
 
-      const f=
-        e.target.files?.[0];
-
-      if(!f){
-        return;
-      }
-
-      if(
-        !f.type.startsWith('image/')
-      ){
-
-        return toast(
-          'Please choose an image file'
-        );
-      }
-
-      if(
-        f.size>
-        3*1024*1024
-      ){
-
-        return toast(
-          'Please choose an image under 3 MB'
-        );
-      }
-
-      const reader=
-        new FileReader();
-
-      reader.onload=()=>{
-
-        $('#profileImg1').src=
-          reader.result;
-
-        try{
-
-          localStorage.setItem(
-            'bs_profile_photo',
-            reader.result
-          );
-
-        }catch{}
-
-        toast(
-          'Photo saved on this browser'
-        );
-      };
-
-      reader.readAsDataURL(f);
-    }
-  );
-
-  const saved=
-    localStorage.getItem(
-      'bs_profile_photo'
-    );
-
-  if(saved){
-    $('#profileImg1').src=saved;
-  }
+if(
+rolls[rollIndex+1]===undefined
+){
+break;
 }
 
-/* CONTACT */
+const frameTotal=
+rolls[rollIndex]+
+rolls[rollIndex+1];
 
-function contactText(){
+if(frameTotal===10){
 
-  return`BowlStrike.com Message
+if(
+rolls[rollIndex+2]!==undefined
+){
 
-Name: ${$('#contactName').value.trim()}
-Email: ${$('#contactEmail').value.trim()}
-Subject: ${$('#contactSubject').value.trim()}
+runningScore+=
+10+
+rolls[rollIndex+2];
 
-${$('#contactMessage').value.trim()}`;
+scoreBox.textContent=
+runningScore;
+
 }
 
-async function copyContact(){
+}else{
 
-  const msg=
-    contactText();
+runningScore+=
+frameTotal;
 
-  if(
-    !$('#contactMessage')
-    .value
-    .trim()
-  ){
+scoreBox.textContent=
+runningScore;
 
-    $('#contactStatus').textContent=
-      'Please enter a message first.';
-
-    return;
-  }
-
-  try{
-
-    await navigator.clipboard.writeText(msg);
-
-    $('#contactStatus').textContent=
-      'Message copied. Paste it into your email service.';
-
-    $('#contactStatus').style.color=
-      'var(--success)';
-
-  }catch{
-
-    $('#contactStatus').textContent=
-      'Copy was blocked by the browser. Select and copy the message manually.';
-
-    $('#contactStatus').style.color=
-      'var(--danger)';
-  }
 }
 
-/* INIT */
+rollIndex+=2;
+
+}
+
+}
+
+score=
+runningScore;
+
+document.getElementById(
+"totalScore"
+).textContent=
+score;
+
+}
+
+/* GAME PHYSICS */
+
+function choosePins(
+aim,
+hook,
+power
+){
+
+const remaining=
+standingPins
+.map(
+function(value,index){
+return value?index:-1;
+}
+)
+.filter(
+function(index){
+return index>=0;
+}
+);
+
+const finish=
+aim+
+hook*.38;
+
+if(
+Math.abs(finish)>.92
+){
+
+return{
+pins:[],
+gutter:true,
+finish:finish
+};
+
+}
+
+const ideal=
+hook>=0
+?
+.10
+:
+-.10;
+
+const accuracy=
+Math.abs(
+finish-ideal
+);
+
+let number=0;
+
+if(
+accuracy<.065&&
+power>=70
+){
+
+number=
+remaining.length===10
+?
+10
+:
+remaining.length;
+
+}else if(
+accuracy<.15
+){
+
+number=
+Math.min(
+remaining.length,
+7+
+Math.floor(
+Math.random()*3
+)
+);
+
+}else if(
+accuracy<.30
+){
+
+number=
+Math.min(
+remaining.length,
+4+
+Math.floor(
+Math.random()*4
+)
+);
+
+}else if(
+accuracy<.48
+){
+
+number=
+Math.min(
+remaining.length,
+2+
+Math.floor(
+Math.random()*4
+)
+);
+
+}else{
+
+number=
+Math.min(
+remaining.length,
+Math.floor(
+Math.random()*3
+)
+);
+
+}
+
+const sorted=
+remaining.slice();
+
+sorted.sort(
+function(a,b){
+
+return(
+Math.abs(
+pinPositions[a].x-
+finish*.32
+)
+-
+Math.abs(
+pinPositions[b].x-
+finish*.32
+)
+);
+
+}
+);
+
+return{
+pins:
+sorted.slice(
+0,
+number
+),
+gutter:false,
+finish:finish
+};
+
+}
+
+function animateBall(){
+
+if(rolling){
+return;
+}
+
+rolling=true;
+
+document.getElementById(
+"rollBall"
+).disabled=true;
+
+const aim=
+Number(
+document.getElementById(
+"aim"
+).value
+)/100*.72;
+
+const hook=
+Number(
+document.getElementById(
+"hook"
+).value
+)/100;
+
+const power=
+Number(
+document.getElementById(
+"power"
+).value
+);
+
+const result=
+choosePins(
+aim,
+hook,
+power
+);
+
+const startTime=
+performance.now();
+
+const duration=
+Math.max(
+800,
+1450-
+(power-45)*9
+);
+
+function animation(now){
+
+const progress=
+Math.min(
+1,
+(now-startTime)/
+duration
+);
+
+const eased=
+progress*
+progress*
+(3-2*progress);
+
+const curve=
+hook*
+Math.sin(
+Math.PI*progress
+)*
+.14;
+
+const horizontal=
+aim*
+(1-eased)+
+result.finish*
+eased+
+curve;
+
+const y=
+canvasHeight*.91-
+progress*
+canvasHeight*.77;
+
+drawLaneBase();
+
+drawPins();
+
+drawBall(
+horizontal,
+y
+);
+
+if(progress<1){
+
+requestAnimationFrame(
+animation
+);
+
+}else{
+
+finishRoll(
+result
+);
+
+}
+
+}
+
+requestAnimationFrame(
+animation
+);
+
+}
+
+function finishRoll(result){
+
+result.pins.forEach(
+function(index){
+
+standingPins[index]=false;
+
+}
+);
+
+const pinsDown=
+result.pins.length;
+
+if(result.gutter){
+
+showGameMessage(
+"GUTTER BALL"
+);
+
+}else if(
+pinsDown===10
+){
+
+showGameMessage(
+"STRIKE!"
+);
+
+}else{
+
+showGameMessage(
+pinsDown+
+" PIN"+
+(pinsDown===1?"":"S")
+);
+
+}
+
+saveRoll(
+pinsDown
+);
+
+setTimeout(
+function(){
+
+rolling=false;
+
+document.getElementById(
+"rollBall"
+).disabled=false;
+
+drawReadyLane();
+
+},
+650
+);
+
+}
+
+function saveRoll(pins){
+
+const index=
+frame-1;
+
+const current=
+frameRolls[index];
+
+current.push(pins);
+
+/* Frames 1 through 9 */
+
+if(frame<10){
+
+if(
+current[0]===10||
+current.length===2
+){
+
+frame++;
+
+standingPins=
+Array(10).fill(true);
+
+}
+
+}
+
+/* Tenth frame */
+
+else{
+
+if(current.length===1){
+
+if(current[0]===10){
+
+standingPins=
+Array(10).fill(true);
+
+}
+
+}
+
+else if(current.length===2){
+
+if(current[0]===10){
+
+if(current[1]===10){
+
+standingPins=
+Array(10).fill(true);
+
+}
+
+}
+
+else if(
+current[0]+
+current[1]===10
+){
+
+standingPins=
+Array(10).fill(true);
+
+}
+
+else{
+
+endGame();
+
+}
+
+}
+
+else if(current.length>=3){
+
+endGame();
+
+}
+
+}
+
+displayRolls();
+
+calculateScore();
+
+document.getElementById(
+"frameNumber"
+).textContent=
+Math.min(
+frame,
+10
+);
+
+}
+
+function endGame(){
+
+document.getElementById(
+"rollBall"
+).disabled=true;
+
+showGameMessage(
+"GAME COMPLETE"
+);
+
+}
+
+function resetBowlingGame(){
+
+frame=1;
+
+frameRolls=
+Array.from(
+{length:10},
+function(){
+return[];
+}
+);
+
+standingPins=
+Array(10).fill(true);
+
+score=0;
+
+rolling=false;
+
+document.getElementById(
+"frameNumber"
+).textContent="1";
+
+document.getElementById(
+"totalScore"
+).textContent="0";
+
+document.getElementById(
+"rollBall"
+).disabled=false;
+
+buildScorecard();
+
+drawReadyLane();
+
+showGameMessage(
+"NEW GAME"
+);
+
+}
+
+function showGameMessage(text){
+
+const element=
+document.getElementById(
+"message"
+);
+
+element.textContent=
+text;
+
+element.classList.add(
+"show"
+);
+
+setTimeout(
+function(){
+
+element.classList.remove(
+"show"
+);
+
+},
+1200
+);
+
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
 
 document.addEventListener(
-  'DOMContentLoaded',
-  ()=>{
+"DOMContentLoaded",
+function(){
 
-    initMap();
+startMap();
 
-    resizeCanvas();
+buildScorecard();
 
-    resetGame();
+resizeLane();
 
-    initLocalCommunity();
+document.getElementById(
+"findButton"
+).addEventListener(
+"click",
+findBowling
+);
 
-    initPhotoUpload();
+document.getElementById(
+"resetMap"
+).addEventListener(
+"click",
+function(){
 
-    $('#findAlleysBtn')
-    .addEventListener(
-      'click',
-      findNearbyBowling
-    );
+if(bowlingMarkers){
+bowlingMarkers.clearLayers();
+}
 
-    $('#resetMapBtn')
-    .addEventListener(
-      'click',
-      ()=>{
+if(userMarker){
 
-        alleyLayer?.clearLayers();
+userMarker.remove();
 
-        if(userMarker){
+userMarker=null;
 
-          userMarker.remove();
+}
 
-          userMarker=null;
-        }
+if(map){
 
-        map?.setView(
-          [39.5,-98.35],
-          4
-        );
+map.setView(
+[39.8283,-98.5795],
+4
+);
 
-        $('#gpsStatus').textContent=
-          'Map reset';
-      }
-    );
+}
 
-    $('#rollBtn')
-    .addEventListener(
-      'click',
-      rollBall
-    );
+document.getElementById(
+"mapStatus"
+).textContent=
+"Map reset";
 
-    $('#resetGameBtn')
-    .addEventListener(
-      'click',
-      resetGame
-    );
+}
+);
 
-    $('#soundBtn')
-    .addEventListener(
-      'click',
-      ()=>{
+document.getElementById(
+"rollBall"
+).addEventListener(
+"click",
+animateBall
+);
 
-        muted=!muted;
+document.getElementById(
+"resetGame"
+).addEventListener(
+"click",
+resetBowlingGame
+);
 
-        $('#soundBtn').innerHTML=
-          muted
-          ? '<i class="fa-solid fa-volume-xmark"></i> Muted'
-          : '<i class="fa-solid fa-volume-high"></i> Sound';
-      }
-    );
+document.getElementById(
+"aim"
+).addEventListener(
+"input",
+function(){
 
-    const updateLabels=()=>{
+const value=
+Number(this.value);
 
-      const aim=
-        Number(
-          $('#aimControl').value
-        );
+document.getElementById(
+"aimText"
+).textContent=
+value===0
+?
+"Center"
+:
+value<0
+?
+"Left"
+:
+"Right";
 
-      $('#aimValue').textContent=
-        aim===0
-        ? 'Center'
-        : aim<0
-        ? 'Left'
-        : 'Right';
+drawReadyLane();
 
-      const h=
-        Number(
-          $('#hookControl').value
-        );
+}
+);
 
-      $('#hookValue').textContent=
-        h===0
-        ? 'Straight'
-        : h<0
-        ? 'Left hook'
-        : 'Right hook';
+document.getElementById(
+"hook"
+).addEventListener(
+"input",
+function(){
 
-      $('#powerValue').textContent=
-        $('#powerControl').value+'%';
+const value=
+Number(this.value);
 
-      drawReadyLane();
-    };
+document.getElementById(
+"hookText"
+).textContent=
+value===0
+?
+"Straight"
+:
+value<0
+?
+"Left Hook"
+:
+"Right Hook";
 
-    [
-      'aimControl',
-      'hookControl',
-      'powerControl'
-    ]
-    .forEach(id=>
-      $('#'+id)
-      .addEventListener(
-        'input',
-        updateLabels
-      )
-    );
+}
+);
 
-    updateLabels();
+document.getElementById(
+"power"
+).addEventListener(
+"input",
+function(){
 
-    $$('.comment-btn')
-    .forEach(
-      b=>
-        b.addEventListener(
-          'click',
-          ()=>addComment(
-            b.dataset.post
-          )
-        )
-    );
+document.getElementById(
+"powerText"
+).textContent=
+this.value+
+"%";
 
-    $$('.chat-btn')
-    .forEach(
-      b=>
-        b.addEventListener(
-          'click',
-          ()=>openMessage(
-            b.dataset.name
-          )
-        )
-    );
+}
+);
 
-    $('#saveTeamMessage')
-    .addEventListener(
-      'click',
-      ()=>{
-
-        const txt=
-          $('#teamMessage')
-          .value
-          .trim();
-
-        if(!txt){
-          return;
-        }
-
-        const arr=
-          storeGet(
-            'bs_messages',
-            []
-          );
-
-        arr.push({
-          to:
-            currentMessageName,
-
-          text:
-            txt.slice(
-              0,
-              500
-            ),
-
-          time:
-            new Date().toISOString()
-        });
-
-        storeSet(
-          'bs_messages',
-          arr.slice(-30)
-        );
-
-        $('#messageModal')
-        .classList.remove('open');
-
-        toast(
-          'Message saved locally'
-        );
-      }
-    );
-
-    $('#copyMessageBtn')
-    .addEventListener(
-      'click',
-      copyContact
-    );
-
-    $('#clearMessageBtn')
-    .addEventListener(
-      'click',
-      ()=>{
-
-        [
-          'contactName',
-          'contactEmail',
-          'contactSubject',
-          'contactMessage'
-        ]
-        .forEach(
-          id=>
-            $('#'+id).value=''
-        );
-
-        $('#contactStatus').textContent='';
-      }
-    );
-
-    $('#adminLink')
-    .addEventListener(
-      'click',
-      ()=>{
-
-        $('#statGames').textContent=
-          storeGet(
-            'bs_games',
-            0
-          );
-
-        $('#statHigh').textContent=
-          storeGet(
-            'bs_high',
-            0
-          );
-
-        $('#statConnections').textContent=
-          storeGet(
-            'bs_connections',
-            []
-          ).length;
-
-        $('#adminModal')
-        .classList.add('open');
-      }
-    );
-
-    $$('[data-close]')
-    .forEach(
-      x=>
-        x.addEventListener(
-          'click',
-          ()=>
-            $('#'+x.dataset.close)
-            .classList.remove('open')
-        )
-    );
-
-    $$('.modal')
-    .forEach(
-      m=>
-        m.addEventListener(
-          'click',
-          e=>{
-
-            if(e.target===m){
-              m.classList.remove('open');
-            }
-          }
-        )
-    );
-  }
+}
 );
 
 window.addEventListener(
-  'resize',
-  resizeCanvas
+"resize",
+function(){
+
+resizeLane();
+
+if(map){
+
+setTimeout(
+function(){
+map.invalidateSize();
+},
+100
 );
+
+}
+
+}
+);
+
 </script>
 
 </body>
