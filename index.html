@@ -24,24 +24,11 @@
 <meta name="twitter:title" content="BowlStrike.com | Tenpin Bowling Community">
 <meta name="twitter:description" content="Bowling news links, nearby bowling-center finder, community features and a playable 10-frame bowling game.">
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9coqIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""
-  defer>
-</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
 
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 :root{
@@ -50,46 +37,42 @@
   --accent:#ffb300;
   --blue:#0879e8;
   --bg:#f4f6f8;
-  --card:#ffffff;
-  --text:#222222;
+  --card:#fff;
+  --text:#222;
   --muted:#60656d;
   --border:#dfe3e8;
   --success:#2e7d32;
   --danger:#c62828;
-  --shadow:0 8px 24px rgba(0,0,0,.09);
+  --shadow:0 8px 24px rgba(0,0,0,.09)
 }
 
 *{
   box-sizing:border-box;
   margin:0;
-  padding:0;
+  padding:0
 }
 
 html{
-  scroll-behavior:smooth;
+  scroll-behavior:smooth
 }
 
 body{
   font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
   background:var(--bg);
   color:var(--text);
-  line-height:1.55;
+  line-height:1.55
 }
 
-button,
-input,
-textarea,
-select{
-  font:inherit;
+button,input,textarea,select{
+  font:inherit
 }
 
-button,
-a{
-  touch-action:manipulation;
+button,a{
+  touch-action:manipulation
 }
 
 a{
-  color:inherit;
+  color:inherit
 }
 
 header{
@@ -98,7 +81,7 @@ header{
   z-index:1000;
   background:#fff;
   border-bottom:3px solid var(--primary);
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  box-shadow:0 2px 8px rgba(0,0,0,.08)
 }
 
 .nav-container{
@@ -108,7 +91,7 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:1rem;
+  gap:1rem
 }
 
 .logo-wrapper{
@@ -116,35 +99,35 @@ header{
   border:2px solid var(--primary);
   border-radius:28px;
   padding:.28rem .9rem;
-  background:#fff;
+  background:#fff
 }
 
 .logo{
   font-size:1.55rem;
   font-weight:900;
-  letter-spacing:.5px;
+  letter-spacing:.5px
 }
 
 .logo span{
-  color:var(--primary);
+  color:var(--primary)
 }
 
 nav{
   display:flex;
   gap:.9rem;
   flex-wrap:wrap;
-  justify-content:flex-end;
+  justify-content:flex-end
 }
 
 nav a{
   text-decoration:none;
   font-weight:700;
   font-size:.84rem;
-  color:#333;
+  color:#333
 }
 
 nav a:hover{
-  color:var(--primary);
+  color:var(--primary)
 }
 
 .hero{
@@ -152,35 +135,35 @@ nav a:hover{
   color:#fff;
   text-align:center;
   padding:2.3rem 1rem;
-  border-bottom:4px solid var(--primary);
+  border-bottom:4px solid var(--primary)
 }
 
 .hero h1{
   font-size:clamp(2.2rem,6vw,4.5rem);
   line-height:1;
-  font-weight:900;
+  font-weight:900
 }
 
 .hero h1 span{
-  color:#ff3540;
+  color:#ff3540
 }
 
 .hero p{
   margin:.75rem auto 0;
   max-width:800px;
   font-size:1.05rem;
-  color:#f1f1f1;
+  color:#f1f1f1
 }
 
 .container{
   max-width:1200px;
   margin:auto;
-  padding:1.3rem 1rem 3rem;
+  padding:1.3rem 1rem 3rem
 }
 
 section{
   scroll-margin-top:90px;
-  margin-bottom:1.7rem;
+  margin-bottom:1.7rem
 }
 
 .section-title{
@@ -192,14 +175,14 @@ section{
   padding-bottom:.45rem;
   margin-bottom:1rem;
   font-size:1.2rem;
-  font-weight:800;
+  font-weight:800
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:14px;
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow)
 }
 
 .btn{
@@ -209,65 +192,65 @@ section{
   background:var(--primary);
   color:#fff;
   font-weight:800;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .btn:hover{
-  filter:brightness(.92);
+  filter:brightness(.92)
 }
 
 .btn:disabled{
   opacity:.55;
-  cursor:not-allowed;
+  cursor:not-allowed
 }
 
 .btn.secondary{
   background:#eef1f4;
   color:#222;
-  border:1px solid #cfd5dc;
+  border:1px solid #cfd5dc
 }
 
 .btn.blue{
-  background:linear-gradient(#1592ff,#0664c5);
+  background:linear-gradient(#1592ff,#0664c5)
 }
 
 .btn.small{
   padding:.35rem .55rem;
-  font-size:.78rem;
+  font-size:.78rem
 }
 
 .notice{
   font-size:.8rem;
-  color:var(--muted);
+  color:var(--muted)
 }
 
 .news-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:1rem;
+  gap:1rem
 }
 
 .news-card{
-  padding:1rem;
+  padding:1rem
 }
 
 .news-card h3{
   font-size:1rem;
-  margin-bottom:.45rem;
+  margin-bottom:.45rem
 }
 
 .news-card h3 a{
   color:#222;
-  text-decoration:none;
+  text-decoration:none
 }
 
 .news-card h3 a:hover{
-  color:var(--primary);
+  color:var(--primary)
 }
 
 .news-card p{
   font-size:.86rem;
-  color:var(--muted);
+  color:var(--muted)
 }
 
 .news-meta{
@@ -276,20 +259,20 @@ section{
   margin-top:.8rem;
   font-size:.73rem;
   color:var(--primary);
-  font-weight:800;
+  font-weight:800
 }
 
 .interactive-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:1.2rem;
-  align-items:stretch;
+  align-items:stretch
 }
 
 .map-card{
   overflow:hidden;
   position:relative;
-  min-height:535px;
+  min-height:535px
 }
 
 .map-toolbar{
@@ -298,24 +281,24 @@ section{
   gap:.5rem;
   flex-wrap:wrap;
   align-items:center;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--border)
 }
 
 #map{
   height:445px;
   width:100%;
-  background:#e8ebee;
+  background:#e8ebee
 }
 
 .gps-readout{
   font-size:.78rem;
   color:var(--muted);
-  margin-left:auto;
+  margin-left:auto
 }
 
 .game-card{
   padding:.8rem;
-  min-width:0;
+  min-width:0
 }
 
 .game-top{
@@ -325,34 +308,34 @@ section{
   align-items:center;
   margin-bottom:.55rem;
   font-size:.86rem;
-  font-weight:800;
+  font-weight:800
 }
 
 .scorecard{
   overflow-x:auto;
-  margin-bottom:.55rem;
+  margin-bottom:.55rem
 }
 
 .score-grid{
   display:grid;
   grid-template-columns:repeat(10,minmax(56px,1fr));
   min-width:650px;
-  border:1px solid #bbb;
+  border:1px solid #bbb
 }
 
 .frame{
   border-right:1px solid #bbb;
   background:#fff;
-  min-height:60px;
+  min-height:60px
 }
 
 .frame:last-child{
-  border-right:0;
+  border-right:0
 }
 
 .frame.active{
   outline:3px solid var(--primary);
-  outline-offset:-3px;
+  outline-offset:-3px
 }
 
 .frame-title{
@@ -360,7 +343,7 @@ section{
   background:#222;
   color:#fff;
   font-size:.7rem;
-  padding:2px;
+  padding:2px
 }
 
 .frame-rolls{
@@ -369,7 +352,7 @@ section{
   padding:3px 5px;
   font-weight:800;
   font-size:.8rem;
-  letter-spacing:4px;
+  letter-spacing:4px
 }
 
 .frame-total{
@@ -377,7 +360,7 @@ section{
   font-weight:900;
   font-size:.9rem;
   border-top:1px solid #ddd;
-  padding:3px;
+  padding:3px
 }
 
 .lane-shell{
@@ -386,13 +369,13 @@ section{
   overflow:hidden;
   background:#0c0c0e;
   position:relative;
-  border:3px solid #252525;
+  border:3px solid #252525
 }
 
 #bowlingCanvas{
   width:100%;
   height:100%;
-  display:block;
+  display:block
 }
 
 .game-message{
@@ -410,25 +393,25 @@ section{
   pointer-events:none;
   opacity:0;
   transition:.2s;
-  white-space:nowrap;
+  white-space:nowrap
 }
 
 .game-message.show{
-  opacity:1;
+  opacity:1
 }
 
 .game-controls{
   margin-top:.7rem;
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:.55rem;
+  gap:.55rem
 }
 
 .control-box{
   background:#f5f6f7;
   border:1px solid var(--border);
   border-radius:9px;
-  padding:.55rem;
+  padding:.55rem
 }
 
 .control-label{
@@ -436,11 +419,11 @@ section{
   font-weight:900;
   color:#555;
   display:flex;
-  justify-content:space-between;
+  justify-content:space-between
 }
 
 input[type=range]{
-  width:100%;
+  width:100%
 }
 
 .roll-row{
@@ -448,35 +431,35 @@ input[type=range]{
   gap:.45rem;
   flex-wrap:wrap;
   align-items:center;
-  margin-top:.55rem;
+  margin-top:.55rem
 }
 
 .roll-row .btn.blue{
   flex:1;
-  min-width:120px;
+  min-width:120px
 }
 
 .game-help{
   font-size:.73rem;
   color:var(--muted);
-  margin-top:.5rem;
+  margin-top:.5rem
 }
 
 .network-layout{
   display:grid;
   grid-template-columns:2fr 1fr;
-  gap:1rem;
+  gap:1rem
 }
 
 .profiles{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:.8rem;
+  gap:.8rem
 }
 
 .profile{
   padding:.8rem;
-  text-align:center;
+  text-align:center
 }
 
 .profile img{
@@ -485,18 +468,18 @@ input[type=range]{
   border-radius:50%;
   object-fit:cover;
   border:3px solid #fff;
-  box-shadow:0 0 0 2px var(--primary);
+  box-shadow:0 0 0 2px var(--primary)
 }
 
 .profile h3{
   font-size:.95rem;
-  margin:.45rem 0 .2rem;
+  margin:.45rem 0 .2rem
 }
 
 .profile p{
   font-size:.78rem;
   color:var(--muted);
-  min-height:58px;
+  min-height:58px
 }
 
 .profile-actions{
@@ -504,11 +487,11 @@ input[type=range]{
   gap:.35rem;
   justify-content:center;
   flex-wrap:wrap;
-  margin-top:.55rem;
+  margin-top:.55rem
 }
 
 .team{
-  padding:.9rem;
+  padding:.9rem
 }
 
 .team-item{
@@ -516,64 +499,64 @@ input[type=range]{
   gap:.6rem;
   align-items:center;
   padding:.55rem 0;
-  border-bottom:1px solid #eee;
+  border-bottom:1px solid #eee
 }
 
 .team-item:last-child{
-  border-bottom:0;
+  border-bottom:0
 }
 
 .team-item img{
   width:40px;
   height:40px;
-  border-radius:50%;
+  border-radius:50%
 }
 
 .team-item .who{
   flex:1;
-  font-size:.8rem;
+  font-size:.8rem
 }
 
 .split{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:1.2rem;
+  gap:1.2rem
 }
 
 .feed{
   display:grid;
-  gap:.9rem;
+  gap:.9rem
 }
 
 .post{
-  overflow:hidden;
+  overflow:hidden
 }
 
 .post-head{
   display:flex;
   align-items:center;
   gap:.55rem;
-  padding:.7rem;
+  padding:.7rem
 }
 
 .post-head img{
   width:40px;
   height:40px;
   border-radius:50%;
-  object-fit:cover;
+  object-fit:cover
 }
 
 .post-media{
   width:100%;
   height:210px;
   object-fit:cover;
-  background:#ddd;
+  background:#ddd
 }
 
 .post-actions{
   display:flex;
   gap:.45rem;
-  padding:.55rem;
+  padding:.55rem
 }
 
 .action{
@@ -582,75 +565,75 @@ input[type=range]{
   border-radius:8px;
   padding:.35rem .55rem;
   cursor:pointer;
-  font-weight:800;
+  font-weight:800
 }
 
 .comment-row{
   display:flex;
   gap:.4rem;
-  padding:0 .55rem .55rem;
+  padding:0 .55rem .55rem
 }
 
 .comment-row input{
   flex:1;
   border:1px solid #ccc;
   border-radius:7px;
-  padding:.45rem;
+  padding:.45rem
 }
 
 .comments{
   padding:0 .65rem .65rem;
   font-size:.78rem;
-  color:#555;
+  color:#555
 }
 
 .comments p{
-  margin-top:.25rem;
+  margin-top:.25rem
 }
 
 .shop-list{
   display:grid;
-  gap:.7rem;
+  gap:.7rem
 }
 
 .shop{
   padding:.8rem;
   display:flex;
-  gap:.75rem;
+  gap:.75rem
 }
 
 .shop-icon{
   font-size:1.5rem;
   color:var(--primary);
   width:35px;
-  text-align:center;
+  text-align:center
 }
 
 .shop h4{
-  font-size:.95rem;
+  font-size:.95rem
 }
 
 .shop p{
   font-size:.78rem;
   color:var(--muted);
-  margin:.2rem 0;
+  margin:.2rem 0
 }
 
 .shop a{
   font-size:.8rem;
   color:var(--primary);
-  font-weight:800;
+  font-weight:800
 }
 
 .contact{
   padding:1rem;
-  margin-top:1rem;
+  margin-top:1rem
 }
 
 .contact-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:.55rem;
+  gap:.55rem
 }
 
 .contact input,
@@ -658,53 +641,53 @@ input[type=range]{
   width:100%;
   border:1px solid #cfd4da;
   border-radius:8px;
-  padding:.65rem;
+  padding:.65rem
 }
 
 .contact textarea{
   grid-column:1/-1;
   min-height:110px;
-  resize:vertical;
+  resize:vertical
 }
 
 .contact-actions{
   grid-column:1/-1;
   display:flex;
   gap:.5rem;
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
 
 .status{
   font-size:.8rem;
-  margin-top:.45rem;
+  margin-top:.45rem
 }
 
 footer{
   background:#171717;
   color:#ddd;
-  padding:1.4rem 1rem;
+  padding:1.4rem 1rem
 }
 
 .footer-inner{
   max-width:1200px;
-  margin:auto;
+  margin:auto
 }
 
 .legal{
   font-size:.78rem;
-  color:#bbb;
+  color:#bbb
 }
 
 .footer-bottom{
   text-align:center;
   margin-top:1rem;
-  font-size:.78rem;
+  font-size:.78rem
 }
 
 .admin-link{
   cursor:pointer;
   text-decoration:underline;
-  color:#aaa;
+  color:#aaa
 }
 
 .modal{
@@ -715,11 +698,11 @@ footer{
   background:rgba(0,0,0,.65);
   align-items:center;
   justify-content:center;
-  padding:1rem;
+  padding:1rem
 }
 
 .modal.open{
-  display:flex;
+  display:flex
 }
 
 .modal-content{
@@ -730,7 +713,7 @@ footer{
   max-height:90vh;
   overflow:auto;
   padding:1rem;
-  position:relative;
+  position:relative
 }
 
 .close{
@@ -738,36 +721,36 @@ footer{
   right:15px;
   top:8px;
   font-size:1.7rem;
-  cursor:pointer;
+  cursor:pointer
 }
 
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:.6rem;
-  margin:1rem 0;
+  margin:1rem 0
 }
 
 .stat{
   background:#f3f5f7;
   border-radius:10px;
   padding:.8rem;
-  text-align:center;
+  text-align:center
 }
 
 .stat strong{
   font-size:1.4rem;
   color:var(--primary);
-  display:block;
+  display:block
 }
 
 .stat span{
   font-size:.72rem;
-  color:#666;
+  color:#666
 }
 
 .upload-input{
-  display:none;
+  display:none
 }
 
 .toast{
@@ -782,71 +765,71 @@ footer{
   z-index:3000;
   opacity:0;
   pointer-events:none;
-  transition:.2s;
+  transition:.2s
 }
 
 .toast.show{
-  opacity:1;
+  opacity:1
 }
 
 @media(max-width:900px){
   .interactive-grid,
   .network-layout,
   .split{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .profiles{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr)
   }
 
   nav{
-    display:none;
+    display:none
   }
 
   .map-card{
-    min-height:470px;
+    min-height:470px
   }
 
   #map{
-    height:390px;
+    height:390px
   }
 }
 
 @media(max-width:650px){
   .news-grid,
   .profiles{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .game-controls{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .contact-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .contact textarea,
   .contact-actions{
-    grid-column:1;
+    grid-column:1
   }
 
   .stats{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .hero{
-    padding:1.7rem .8rem;
+    padding:1.7rem .8rem
   }
 
   .container{
     padding-left:.65rem;
-    padding-right:.65rem;
+    padding-right:.65rem
   }
 
   .lane-shell{
-    height:320px;
+    height:320px
   }
 }
 </style>
@@ -856,11 +839,8 @@ footer{
 
 <header>
   <div class="nav-container">
-
     <a class="logo-wrapper" href="#top" aria-label="BowlStrike home">
-      <div class="logo">
-        Bowl<span>Strike</span>.com
-      </div>
+      <div class="logo">Bowl<span>Strike</span>.com</div>
     </a>
 
     <nav aria-label="Main navigation">
@@ -872,23 +852,14 @@ footer{
       <a href="#proshop">Pro Shop</a>
       <a href="#contact">Contact</a>
     </nav>
-
   </div>
 </header>
 
 <main id="top">
 
 <section class="hero">
-
-  <h1>
-    Bowl<span>Strike</span>.com
-  </h1>
-
-  <p>
-    Tenpin bowling news, nearby lanes, bowler community,
-    equipment resources and a playable 10-frame bowling challenge.
-  </p>
-
+  <h1>Bowl<span>Strike</span>.com</h1>
+  <p>Tenpin bowling news, nearby lanes, bowler community, equipment resources and a playable 10-frame bowling challenge.</p>
 </section>
 
 <div class="container">
@@ -896,7 +867,6 @@ footer{
 <section id="news">
 
   <div class="section-title">
-
     <span>
       <i class="fa-solid fa-newspaper" style="color:var(--primary)"></i>
       Official Bowling News Sources
@@ -905,84 +875,56 @@ footer{
     <span class="notice">
       Direct links — no fake “live” feed
     </span>
-
   </div>
 
   <div class="news-grid">
 
     <article class="card news-card">
-
       <h3>
-        <a
-          href="https://www.pba.com/news"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://www.pba.com/news" target="_blank" rel="noopener noreferrer">
           Professional Bowlers Association News
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </h3>
 
-      <p>
-        Visit the PBA's news page for professional tour coverage,
-        events and announcements.
-      </p>
+      <p>Visit the PBA's news page for professional tour coverage, events and announcements.</p>
 
       <div class="news-meta">
         <span>PBA</span>
         <span>Official source link</span>
       </div>
-
     </article>
 
     <article class="card news-card">
-
       <h3>
-        <a
-          href="https://bowl.com/news"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://bowl.com/news" target="_blank" rel="noopener noreferrer">
           USBC News
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </h3>
 
-      <p>
-        Visit Bowl.com for USBC news, championships, rules,
-        equipment information and bowling resources.
-      </p>
+      <p>Visit Bowl.com for USBC news, championships, rules, equipment information and bowling resources.</p>
 
       <div class="news-meta">
         <span>USBC</span>
         <span>Official source link</span>
       </div>
-
     </article>
 
     <article class="card news-card">
-
       <h3>
-        <a
-          href="https://www.bowlingdigital.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener noreferrer">
           BowlingDigital
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </h3>
 
-      <p>
-        International bowling coverage and tournament information
-        from an external bowling news publication.
-      </p>
+      <p>International bowling coverage and tournament information from an external bowling news publication.</p>
 
       <div class="news-meta">
         <span>External publication</span>
         <span>Opens new tab</span>
       </div>
-
     </article>
 
   </div>
@@ -992,15 +934,8 @@ footer{
 <section id="locator">
 
   <div class="section-title">
-
-    <span>
-      Bowling Center Finder & Tenpin Challenge
-    </span>
-
-    <span class="notice">
-      Location is used only when you choose Find Nearby
-    </span>
-
+    <span>Bowling Center Finder & Tenpin Challenge</span>
+    <span class="notice">Location is used only when you choose Find Nearby</span>
   </div>
 
   <div class="interactive-grid">
@@ -1024,10 +959,7 @@ footer{
 
       </div>
 
-      <div
-        id="map"
-        aria-label="Interactive bowling center map">
-      </div>
+      <div id="map" aria-label="Interactive bowling center map"></div>
 
     </div>
 
@@ -1036,11 +968,7 @@ footer{
       <div class="game-top">
 
         <span>
-          <i
-            class="fa-solid fa-bowling-ball"
-            style="color:var(--blue)">
-          </i>
-
+          <i class="fa-solid fa-bowling-ball" style="color:var(--blue)"></i>
           Solo Bowler — Frame
           <span id="frameDisplay">1</span>/10
         </span>
@@ -1058,10 +986,7 @@ footer{
 
       <div class="lane-shell">
 
-        <canvas
-          id="bowlingCanvas"
-          aria-label="Bowling lane game">
-        </canvas>
+        <canvas id="bowlingCanvas" aria-label="Bowling lane game"></canvas>
 
         <div class="game-message" id="gameMessage">
           STRIKE!
@@ -1078,26 +1003,14 @@ footer{
             <span id="aimValue">Center</span>
           </div>
 
-          <input
-            id="aimControl"
-            type="range"
-            min="-100"
-            max="100"
-            value="0"
-            aria-label="Aim left or right">
+          <input id="aimControl" type="range" min="-100" max="100" value="0" aria-label="Aim left or right">
 
           <div class="control-label">
             <span>Hook</span>
             <span id="hookValue">Straight</span>
           </div>
 
-          <input
-            id="hookControl"
-            type="range"
-            min="-100"
-            max="100"
-            value="0"
-            aria-label="Hook left or right">
+          <input id="hookControl" type="range" min="-100" max="100" value="0" aria-label="Hook left or right">
 
         </div>
 
@@ -1108,41 +1021,23 @@ footer{
             <span id="powerValue">82%</span>
           </div>
 
-          <input
-            id="powerControl"
-            type="range"
-            min="45"
-            max="100"
-            value="82"
-            aria-label="Bowling ball power">
+          <input id="powerControl" type="range" min="45" max="100" value="82" aria-label="Bowling ball power">
 
           <div class="roll-row">
 
-            <button
-              class="btn secondary small"
-              id="soundBtn">
-
+            <button class="btn secondary small" id="soundBtn">
               <i class="fa-solid fa-volume-high"></i>
               Sound
-
             </button>
 
-            <button
-              class="btn secondary small"
-              id="resetGameBtn">
-
+            <button class="btn secondary small" id="resetGameBtn">
               <i class="fa-solid fa-rotate-left"></i>
               Reset
-
             </button>
 
-            <button
-              class="btn blue"
-              id="rollBtn">
-
+            <button class="btn blue" id="rollBtn">
               <i class="fa-solid fa-play"></i>
               ROLL BALL
-
             </button>
 
           </div>
@@ -1152,10 +1047,7 @@ footer{
       </div>
 
       <p class="game-help">
-        Set your starting line with Aim, add left/right Hook,
-        choose Power, then roll. Pins remain down for the second ball.
-        Strikes, spares and 10th-frame bonus balls use standard
-        tenpin scoring.
+        Set your starting line with Aim, add left/right Hook, choose Power, then roll. Pins remain down for the second ball. Strikes, spares and 10th-frame bonus balls use standard tenpin scoring.
       </p>
 
     </div>
@@ -1167,15 +1059,8 @@ footer{
 <section id="network">
 
   <div class="section-title">
-
-    <span>
-      Bowler Network & Your Team
-    </span>
-
-    <span class="notice">
-      This no-account version saves your choices only on this browser
-    </span>
-
+    <span>Bowler Network & Your Team</span>
+    <span class="notice">This no-account version saves your choices only on this browser</span>
   </div>
 
   <div class="network-layout">
@@ -1184,14 +1069,11 @@ footer{
 
       <article class="card profile">
 
-        <img
-          id="profileImg1"
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"
-          alt="Bowler profile">
+        <img id="profileImg1"
+             src="https://images.unsplash.com/photo-1551500333-8cf5df31f457?auto=format&fit=crop&w=500&q=82"
+             alt="Bowler at a bowling alley">
 
-        <h3>
-          PinSmasher99
-        </h3>
+        <h3>PinSmasher99</h3>
 
         <p>
           Orlando area bowler.
@@ -1201,19 +1083,11 @@ footer{
 
         <div class="profile-actions">
 
-          <label
-            class="btn secondary small"
-            for="photoUpload">
-
+          <label class="btn secondary small" for="photoUpload">
             Upload Your Photo
-
           </label>
 
-          <input
-            class="upload-input"
-            id="photoUpload"
-            type="file"
-            accept="image/*">
+          <input class="upload-input" id="photoUpload" type="file" accept="image/*">
 
         </div>
 
@@ -1221,13 +1095,10 @@ footer{
 
       <article class="card profile">
 
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80"
-          alt="ApexSpinner profile">
+        <img src="https://images.unsplash.com/photo-1557619419-b2419974a9e3?auto=format&fit=crop&w=500&q=82"
+             alt="Bowler preparing to bowl">
 
-        <h3>
-          ApexSpinner
-        </h3>
+        <h3>ApexSpinner</h3>
 
         <p>
           Sample community profile.
@@ -1237,12 +1108,8 @@ footer{
 
         <div class="profile-actions">
 
-          <button
-            class="btn secondary small connect-btn"
-            data-name="ApexSpinner">
-
+          <button class="btn secondary small connect-btn" data-name="ApexSpinner">
             Connect
-
           </button>
 
         </div>
@@ -1251,13 +1118,10 @@ footer{
 
       <article class="card profile">
 
-        <img
-          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80"
-          alt="StrikeQueen profile">
+        <img src="https://images.unsplash.com/photo-1708491221559-08fe19561b32?auto=format&fit=crop&w=500&q=82"
+             alt="Woman bowling at a bowling alley">
 
-        <h3>
-          StrikeQueen_FL
-        </h3>
+        <h3>StrikeQueen_FL</h3>
 
         <p>
           Sample community profile.
@@ -1267,12 +1131,8 @@ footer{
 
         <div class="profile-actions">
 
-          <button
-            class="btn secondary small connect-btn"
-            data-name="StrikeQueen_FL">
-
+          <button class="btn secondary small connect-btn" data-name="StrikeQueen_FL">
             Connect
-
           </button>
 
         </div>
@@ -1284,11 +1144,7 @@ footer{
     <aside class="card team">
 
       <h3>
-        <i
-          class="fa-solid fa-people-group"
-          style="color:var(--primary)">
-        </i>
-
+        <i class="fa-solid fa-people-group" style="color:var(--primary)"></i>
         Your Team
       </h3>
 
@@ -1296,60 +1152,32 @@ footer{
 
         <div class="team-item">
 
-          <img
-            src="https://i.pravatar.cc/150?u=mike"
-            alt="">
+          <img src="https://i.pravatar.cc/150?u=mike" alt="">
 
           <div class="who">
-
-            <strong>
-              Mike Strikes
-            </strong>
-
+            <strong>Mike Strikes</strong>
             <br>
-
-            <span class="notice">
-              Sample teammate
-            </span>
-
+            <span class="notice">Sample teammate</span>
           </div>
 
-          <button
-            class="btn secondary small chat-btn"
-            data-name="Mike Strikes">
-
+          <button class="btn secondary small chat-btn" data-name="Mike Strikes">
             Message
-
           </button>
 
         </div>
 
         <div class="team-item">
 
-          <img
-            src="https://i.pravatar.cc/150?u=sarah"
-            alt="">
+          <img src="https://i.pravatar.cc/150?u=sarah" alt="">
 
           <div class="who">
-
-            <strong>
-              Sarah Jones
-            </strong>
-
+            <strong>Sarah Jones</strong>
             <br>
-
-            <span class="notice">
-              Sample teammate
-            </span>
-
+            <span class="notice">Sample teammate</span>
           </div>
 
-          <button
-            class="btn secondary small chat-btn"
-            data-name="Sarah Jones">
-
+          <button class="btn secondary small chat-btn" data-name="Sarah Jones">
             Message
-
           </button>
 
         </div>
@@ -1367,16 +1195,10 @@ footer{
 <section id="community">
 
   <div class="section-title">
-
     <span>
-      <i
-        class="fa-solid fa-photo-film"
-        style="color:var(--primary)">
-      </i>
-
+      <i class="fa-solid fa-photo-film" style="color:var(--primary)"></i>
       Highlight Feed
     </span>
-
   </div>
 
   <div class="feed">
@@ -1385,65 +1207,39 @@ footer{
 
       <div class="post-head">
 
-        <img
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
-          alt="">
+        <img src="https://images.unsplash.com/photo-1628139417027-c356ba05fe4f?auto=format&fit=crop&w=300&q=82" alt="">
 
         <div>
-
-          <strong>
-            @PinSmasher99
-          </strong>
-
-          <div class="notice">
-            Bowling night highlight
-          </div>
-
+          <strong>@PinSmasher99</strong>
+          <div class="notice">Bowling night highlight</div>
         </div>
 
       </div>
 
-      <img
-        class="post-media"
-        src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
-        alt="Bowling lanes">
+      <img class="post-media"
+           src="https://images.unsplash.com/photo-1551500333-8cf5df31f457?auto=format&fit=crop&w=1000&q=84"
+           alt="Person bowling on a bowling lane">
 
       <div class="post-actions">
 
-        <button
-          class="action like-btn"
-          data-post="1">
-
+        <button class="action like-btn" data-post="1">
           <i class="fa-solid fa-heart"></i>
-
-          <span class="like-count">
-            34
-          </span>
-
+          <span class="like-count">34</span>
         </button>
 
       </div>
 
       <div class="comment-row">
 
-        <input
-          id="comment1"
-          placeholder="Write a comment...">
+        <input id="comment1" placeholder="Write a comment...">
 
-        <button
-          class="btn small comment-btn"
-          data-post="1">
-
+        <button class="btn small comment-btn" data-post="1">
           Post
-
         </button>
 
       </div>
 
-      <div
-        class="comments"
-        id="comments1">
-      </div>
+      <div class="comments" id="comments1"></div>
 
     </article>
 
@@ -1451,65 +1247,39 @@ footer{
 
       <div class="post-head">
 
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
-          alt="">
+        <img src="https://images.unsplash.com/photo-1557619419-b2419974a9e3?auto=format&fit=crop&w=300&q=82" alt="">
 
         <div>
-
-          <strong>
-            @ApexSpinner
-          </strong>
-
-          <div class="notice">
-            Practice session
-          </div>
-
+          <strong>@ApexSpinner</strong>
+          <div class="notice">Practice session</div>
         </div>
 
       </div>
 
-      <img
-        class="post-media"
-        src="https://images.unsplash.com/photo-1538388149542-5e24932d11a8?auto=format&fit=crop&w=800&q=80"
-        alt="Bowling">
+      <img class="post-media"
+           src="https://images.unsplash.com/photo-1708491221559-08fe19561b32?auto=format&fit=crop&w=1000&q=84"
+           alt="Bowler in action at a bowling alley">
 
       <div class="post-actions">
 
-        <button
-          class="action like-btn"
-          data-post="2">
-
+        <button class="action like-btn" data-post="2">
           <i class="fa-solid fa-heart"></i>
-
-          <span class="like-count">
-            48
-          </span>
-
+          <span class="like-count">48</span>
         </button>
 
       </div>
 
       <div class="comment-row">
 
-        <input
-          id="comment2"
-          placeholder="Write a comment...">
+        <input id="comment2" placeholder="Write a comment...">
 
-        <button
-          class="btn small comment-btn"
-          data-post="2">
-
+        <button class="btn small comment-btn" data-post="2">
           Post
-
         </button>
 
       </div>
 
-      <div
-        class="comments"
-        id="comments2">
-      </div>
+      <div class="comments" id="comments2"></div>
 
     </article>
 
@@ -1522,16 +1292,10 @@ footer{
 <section id="proshop">
 
   <div class="section-title">
-
     <span>
-      <i
-        class="fa-solid fa-store"
-        style="color:var(--primary)">
-      </i>
-
+      <i class="fa-solid fa-store" style="color:var(--primary)"></i>
       The Pro Shop
     </span>
-
   </div>
 
   <div class="shop-list">
@@ -1543,26 +1307,12 @@ footer{
       </div>
 
       <div>
-
-        <h4>
-          BowlingBall.com
-        </h4>
-
-        <p>
-          Bowling balls, bags, shoes and accessories.
-        </p>
-
-        <a
-          href="https://www.bowlingball.com"
-          target="_blank"
-          rel="noopener noreferrer">
-
+        <h4>BowlingBall.com</h4>
+        <p>Bowling balls, bags, shoes and accessories.</p>
+        <a href="https://www.bowlingball.com" target="_blank" rel="noopener noreferrer">
           Visit retailer
-
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
         </a>
-
       </div>
 
     </article>
@@ -1574,26 +1324,12 @@ footer{
       </div>
 
       <div>
-
-        <h4>
-          Bowling.com
-        </h4>
-
-        <p>
-          Bowling equipment, shoes, apparel and accessories.
-        </p>
-
-        <a
-          href="https://www.bowling.com"
-          target="_blank"
-          rel="noopener noreferrer">
-
+        <h4>Bowling.com</h4>
+        <p>Bowling equipment, shoes, apparel and accessories.</p>
+        <a href="https://www.bowling.com" target="_blank" rel="noopener noreferrer">
           Visit retailer
-
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
         </a>
-
       </div>
 
     </article>
@@ -1605,26 +1341,12 @@ footer{
       </div>
 
       <div>
-
-        <h4>
-          BowlersMart
-        </h4>
-
-        <p>
-          Bowling equipment and pro-shop products.
-        </p>
-
-        <a
-          href="https://www.bowlersmart.com"
-          target="_blank"
-          rel="noopener noreferrer">
-
+        <h4>BowlersMart</h4>
+        <p>Bowling equipment and pro-shop products.</p>
+        <a href="https://www.bowlersmart.com" target="_blank" rel="noopener noreferrer">
           Visit retailer
-
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
         </a>
-
       </div>
 
     </article>
@@ -1636,39 +1358,20 @@ footer{
       </div>
 
       <div>
-
-        <h4>
-          Buddies Pro Shop
-        </h4>
-
-        <p>
-          Bowling equipment, grips and accessories.
-        </p>
-
-        <a
-          href="https://www.buddiesproshop.com"
-          target="_blank"
-          rel="noopener noreferrer">
-
+        <h4>Buddies Pro Shop</h4>
+        <p>Bowling equipment, grips and accessories.</p>
+        <a href="https://www.buddiesproshop.com" target="_blank" rel="noopener noreferrer">
           Visit retailer
-
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
         </a>
-
       </div>
 
     </article>
 
   </div>
 
-  <p
-    class="notice"
-    style="margin-top:.5rem">
-
-    External merchant links are provided for convenience.
-    BowlStrike.com does not claim affiliation unless expressly stated.
-
+  <p class="notice" style="margin-top:.5rem">
+    External merchant links are provided for convenience. BowlStrike.com does not claim affiliation unless expressly stated.
   </p>
 
 </section>
@@ -1676,78 +1379,44 @@ footer{
 <section id="contact">
 
   <div class="section-title">
-
     <span>
-      <i
-        class="fa-solid fa-envelope"
-        style="color:var(--primary)">
-      </i>
-
+      <i class="fa-solid fa-envelope" style="color:var(--primary)"></i>
       Contact / Feedback
     </span>
-
   </div>
 
   <div class="card contact">
 
-    <p
-      class="notice"
-      style="margin-bottom:.7rem">
-
-      No Firebase or paid mail service is required.
-      This form prepares and copies your message so you can paste it
-      into your preferred email service.
-
+    <p class="notice" style="margin-bottom:.7rem">
+      No Firebase or paid mail service is required. This form prepares and copies your message so you can paste it into your preferred email service.
     </p>
 
     <div class="contact-grid">
 
-      <input
-        id="contactName"
-        placeholder="Your name">
+      <input id="contactName" placeholder="Your name">
 
-      <input
-        id="contactEmail"
-        type="email"
-        placeholder="Your email">
+      <input id="contactEmail" type="email" placeholder="Your email">
 
-      <input
-        id="contactSubject"
-        style="grid-column:1/-1"
-        placeholder="Subject">
+      <input id="contactSubject" style="grid-column:1/-1" placeholder="Subject">
 
-      <textarea
-        id="contactMessage"
-        placeholder="Your message">
-      </textarea>
+      <textarea id="contactMessage" placeholder="Your message"></textarea>
 
       <div class="contact-actions">
 
-        <button
-          class="btn"
-          id="copyMessageBtn">
-
+        <button class="btn" id="copyMessageBtn">
           <i class="fa-solid fa-copy"></i>
           Copy Message
-
         </button>
 
-        <button
-          class="btn secondary"
-          id="clearMessageBtn">
-
+        <button class="btn secondary" id="clearMessageBtn">
           Clear
-
         </button>
 
       </div>
 
     </div>
 
-    <div
-      class="status"
-      id="contactStatus">
-    </div>
+    <div class="status" id="contactStatus"></div>
 
   </div>
 
@@ -1764,97 +1433,44 @@ footer{
   <div class="footer-inner">
 
     <div class="legal">
-
-      <strong>
-        Terms & Legal Disclaimer.
-      </strong>
-
-      BowlStrike.com is an independent bowling information,
-      entertainment and community website.
-
-      The bowling game is a recreational simulation and is not an
-      official scoring or competition system.
-
-      PBA, USBC and third-party names and marks belong to their
-      respective owners.
-
-      External websites, retailers, map data and third-party services
-      are outside BowlStrike.com's control.
-
-      Nearby-place results depend on browser location permission and
-      OpenStreetMap/Overpass data and may be incomplete or outdated.
-
-      Community examples shown on this no-account version are
-      demonstration content.
-
-      Do not post sensitive personal information in browser-saved comments.
-
+      <strong>Terms & Legal Disclaimer.</strong>
+      BowlStrike.com is an independent bowling information, entertainment and community website. The bowling game is a recreational simulation and is not an official scoring or competition system. PBA, USBC and third-party names and marks belong to their respective owners. External websites, retailers, map data and third-party services are outside BowlStrike.com's control. Nearby-place results depend on browser location permission and OpenStreetMap/Overpass data and may be incomplete or outdated. Community examples shown on this no-account version are demonstration content. Do not post sensitive personal information in browser-saved comments.
     </div>
 
     <div class="footer-bottom">
-
-      © 2026 BowlStrike.com.
-      All rights reserved.
-
+      © 2026 BowlStrike.com. All rights reserved.
       &nbsp;
-
-      <span
-        class="admin-link"
-        id="adminLink">
-
+      <span class="admin-link" id="adminLink">
         Local System Status
-
       </span>
-
     </div>
 
   </div>
 
 </footer>
 
-<div
-  class="modal"
-  id="messageModal"
-  role="dialog"
-  aria-modal="true">
+<div class="modal" id="messageModal" role="dialog" aria-modal="true">
 
   <div class="modal-content">
 
-    <span
-      class="close"
-      data-close="messageModal">
-
+    <span class="close" data-close="messageModal">
       &times;
-
     </span>
 
     <h2 id="messageTitle">
       Message
     </h2>
 
-    <p
-      class="notice"
-      style="margin:.4rem 0 .8rem">
-
-      Messages are stored only in this browser
-      because this version has no database.
-
+    <p class="notice" style="margin:.4rem 0 .8rem">
+      Messages are stored only in this browser because this version has no database.
     </p>
 
-    <textarea
-      id="teamMessage"
-      style="width:100%;min-height:130px;padding:.7rem;border:1px solid #ccc;border-radius:8px"
-      placeholder="Type a message...">
-    </textarea>
+    <textarea id="teamMessage" style="width:100%;min-height:130px;padding:.7rem;border:1px solid #ccc;border-radius:8px" placeholder="Type a message..."></textarea>
 
     <div style="margin-top:.6rem">
 
-      <button
-        class="btn"
-        id="saveTeamMessage">
-
+      <button class="btn" id="saveTeamMessage">
         Save Message Locally
-
       </button>
 
     </div>
@@ -1863,159 +1479,89 @@ footer{
 
 </div>
 
-<div
-  class="modal"
-  id="adminModal"
-  role="dialog"
-  aria-modal="true">
+<div class="modal" id="adminModal" role="dialog" aria-modal="true">
 
   <div class="modal-content">
 
-    <span
-      class="close"
-      data-close="adminModal">
-
+    <span class="close" data-close="adminModal">
       &times;
-
     </span>
 
     <h2>
-
-      <i
-        class="fa-solid fa-chart-line"
-        style="color:var(--primary)">
-      </i>
-
+      <i class="fa-solid fa-chart-line" style="color:var(--primary)"></i>
       BowlStrike Local Status
-
     </h2>
 
     <p class="notice">
-
-      These are real values saved on this browser only —
-      no invented network totals.
-
+      These are real values saved on this browser only — no invented network totals.
     </p>
 
     <div class="stats">
 
       <div class="stat">
-
-        <strong id="statGames">
-          0
-        </strong>
-
-        <span>
-          Games completed here
-        </span>
-
+        <strong id="statGames">0</strong>
+        <span>Games completed here</span>
       </div>
 
       <div class="stat">
-
-        <strong id="statHigh">
-          0
-        </strong>
-
-        <span>
-          Local high score
-        </span>
-
+        <strong id="statHigh">0</strong>
+        <span>Local high score</span>
       </div>
 
       <div class="stat">
-
-        <strong id="statConnections">
-          0
-        </strong>
-
-        <span>
-          Saved connections
-        </span>
-
+        <strong id="statConnections">0</strong>
+        <span>Saved connections</span>
       </div>
 
     </div>
 
     <p class="notice">
-
       Firebase: removed
       &nbsp; • &nbsp;
       Database: none
       &nbsp; • &nbsp;
       Location: requested only by the Find Nearby button
-
     </p>
 
   </div>
 
 </div>
 
-<div
-  class="toast"
-  id="toast">
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
 'use strict';
 
-const $ = selector => document.querySelector(selector);
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const clamp = (n,min,max) => Math.max(min,Math.min(max,n));
 
-const $$ = selector =>
-  [...document.querySelectorAll(selector)];
-
-const clamp = (number,min,max) =>
-  Math.max(min,Math.min(max,number));
-
-function toast(message){
-
-  const element = $('#toast');
-
-  element.textContent = message;
-
-  element.classList.add('show');
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
 
   setTimeout(() => {
-    element.classList.remove('show');
+    t.classList.remove('show');
   },2200);
-
 }
 
-function storeGet(key,fallback){
-
+function storeGet(k,fallback){
   try{
-
-    const value = localStorage.getItem(key);
-
-    return value === null
-      ? fallback
-      : JSON.parse(value);
-
+    const v = localStorage.getItem(k);
+    return v === null ? fallback : JSON.parse(v);
   }catch{
-
     return fallback;
-
   }
-
 }
 
-function storeSet(key,value){
-
+function storeSet(k,v){
   try{
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(value)
-    );
-
+    localStorage.setItem(k,JSON.stringify(v));
   }catch{}
-
 }
 
-
-/* =========================================================
-   MAP
-   ========================================================= */
+/* MAP */
 
 let map;
 let userMarker;
@@ -2024,18 +1570,11 @@ let alleyLayer;
 function initMap(){
 
   if(typeof L === 'undefined'){
-
-    $('#gpsStatus').textContent =
-      'Map library unavailable';
-
+    $('#gpsStatus').textContent = 'Map library unavailable';
     return;
-
   }
 
-  map = L.map('map').setView(
-    [39.5,-98.35],
-    4
-  );
+  map = L.map('map').setView([39.5,-98.35],4);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -2045,279 +1584,232 @@ function initMap(){
     }
   ).addTo(map);
 
-  alleyLayer =
-    L.layerGroup().addTo(map);
-
+  alleyLayer = L.layerGroup().addTo(map);
 }
-
 
 async function findNearbyBowling(){
 
   if(!navigator.geolocation){
-
-    $('#gpsStatus').textContent =
-      'Location not supported';
-
+    $('#gpsStatus').textContent='Location not supported';
     return;
-
   }
 
-  const button =
-    $('#findAlleysBtn');
+  const btn=$('#findAlleysBtn');
 
-  button.disabled = true;
+  btn.disabled=true;
 
-  $('#gpsStatus').textContent =
-    'Requesting location…';
-
+  $('#gpsStatus').textContent='Requesting location…';
 
   navigator.geolocation.getCurrentPosition(
 
-    async position => {
+    async pos=>{
 
-      const latitude =
-        position.coords.latitude;
-
-      const longitude =
-        position.coords.longitude;
-
+      const lat=pos.coords.latitude;
+      const lng=pos.coords.longitude;
 
       if(userMarker){
-
         userMarker.remove();
-
       }
 
-
-      userMarker =
-        L.marker([
-          latitude,
-          longitude
-        ])
+      userMarker=L.marker([lat,lng])
         .addTo(map)
-        .bindPopup(
-          'Your approximate location'
-        )
+        .bindPopup('Your approximate location')
         .openPopup();
 
-
-      map.setView(
-        [
-          latitude,
-          longitude
-        ],
-        12
-      );
-
+      map.setView([lat,lng],11);
 
       alleyLayer.clearLayers();
 
+      $('#gpsStatus').textContent='Searching nearby bowling centers…';
 
-      $('#gpsStatus').textContent =
-        'Searching nearby bowling centers…';
-
-
-      const query = `
-[out:json][timeout:20];
-
+      const query=`[out:json][timeout:25];
 (
-node["leisure"="bowling_alley"]
-(around:30000,${latitude},${longitude});
-
-way["leisure"="bowling_alley"]
-(around:30000,${latitude},${longitude});
-
-relation["leisure"="bowling_alley"]
-(around:30000,${latitude},${longitude});
-
-node["sport"="10pin"]
-(around:30000,${latitude},${longitude});
-
-way["sport"="10pin"]
-(around:30000,${latitude},${longitude});
+  nwr["leisure"="bowling_alley"](around:50000,${lat},${lng});
+  nwr["sport"="10pin"](around:50000,${lat},${lng});
+  nwr["sport"="bowling"](around:50000,${lat},${lng});
+  nwr["name"~"bowling|bowl|lanes",i](around:50000,${lat},${lng});
 );
+out center tags;`;
 
-out center tags;
-`;
+      const endpoints=[
+        'https://overpass-api.de/api/interpreter',
+        'https://overpass.kumi.systems/api/interpreter'
+      ];
 
+      let data=null;
 
-      try{
+      for(const endpoint of endpoints){
 
-        const response = await fetch(
-          'https://overpass-api.de/api/interpreter',
-          {
+        try{
+
+          const res=await fetch(endpoint,{
             method:'POST',
-
             headers:{
-              'Content-Type':
-              'application/x-www-form-urlencoded;charset=UTF-8'
+              'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'
             },
+            body:'data='+encodeURIComponent(query)
+          });
 
-            body:
-              'data=' +
-              encodeURIComponent(query)
+          if(!res.ok){
+            throw new Error('endpoint unavailable');
           }
-        );
 
+          data=await res.json();
+          break;
 
-        if(!response.ok){
+        }catch(e){
 
-          throw new Error(
-            'Search unavailable'
-          );
+          data=null;
 
         }
 
+      }
 
-        const data =
-          await response.json();
+      if(!data){
 
+        btn.disabled=false;
 
-        let count = 0;
+        $('#gpsStatus').textContent=
+          'Bowling-center search is temporarily unavailable — your map still works';
 
-
-        data.elements.forEach(element => {
-
-          const latitudeResult =
-            element.lat ??
-            element.center?.lat;
-
-          const longitudeResult =
-            element.lon ??
-            element.center?.lon;
-
-
-          if(
-            latitudeResult == null ||
-            longitudeResult == null
-          ){
-            return;
-          }
-
-
-          const name =
-            element.tags?.name ||
-            'Bowling center';
-
-
-          const address = [
-
-            element.tags?.[
-              'addr:housenumber'
-            ],
-
-            element.tags?.[
-              'addr:street'
-            ],
-
-            element.tags?.[
-              'addr:city'
-            ]
-
-          ]
-          .filter(Boolean)
-          .join(' ');
-
-
-          const website =
-
-            element.tags?.website ||
-
-            element.tags?.[
-              'contact:website'
-            ];
-
-
-          let popup =
-
-            `<strong>
-            ${escapeHTML(name)}
-            </strong>`;
-
-
-          if(address){
-
-            popup +=
-              '<br>' +
-              escapeHTML(address);
-
-          }
-
-
-          if(
-            website &&
-            /^https?:\/\//i.test(website)
-          ){
-
-            popup +=
-
-              `<br>
-              <a
-                href="${escapeAttr(website)}"
-                target="_blank"
-                rel="noopener noreferrer">
-                Website
-              </a>`;
-
-          }
-
-
-          popup +=
-
-            `<br>
-            <a
-              href="https://www.openstreetmap.org/?mlat=${latitudeResult}&mlon=${longitudeResult}#map=17/${latitudeResult}/${longitudeResult}"
-              target="_blank"
-              rel="noopener noreferrer">
-              Open map
-            </a>`;
-
-
-          L.marker([
-            latitudeResult,
-            longitudeResult
-          ])
-          .addTo(alleyLayer)
-          .bindPopup(popup);
-
-
-          count++;
-
-        });
-
-
-        $('#gpsStatus').textContent =
-
-          count
-          ? `${count} map result${count === 1 ? '' : 's'} found within ~30 km`
-          : 'No mapped bowling centers found nearby';
-
-
-      }catch(error){
-
-        $('#gpsStatus').textContent =
-          'Nearby search temporarily unavailable — map still works';
-
-      }finally{
-
-        button.disabled = false;
+        return;
 
       }
 
+      const seen=new Set();
+
+      const places=[];
+
+      data.elements.forEach(el=>{
+
+        const a=el.lat??el.center?.lat;
+        const b=el.lon??el.center?.lon;
+
+        if(a==null||b==null){
+          return;
+        }
+
+        const name=(el.tags?.name||'Bowling center').trim();
+
+        const key=
+          name.toLowerCase()+
+          '|'+
+          a.toFixed(4)+
+          '|'+
+          b.toFixed(4);
+
+        if(seen.has(key)){
+          return;
+        }
+
+        seen.add(key);
+
+        const address=[
+          el.tags?.['addr:housenumber'],
+          el.tags?.['addr:street'],
+          el.tags?.['addr:city'],
+          el.tags?.['addr:state']
+        ]
+        .filter(Boolean)
+        .join(' ');
+
+        const phone=
+          el.tags?.phone||
+          el.tags?.['contact:phone'];
+
+        const website=
+          el.tags?.website||
+          el.tags?.['contact:website'];
+
+        places.push({
+          name,
+          address,
+          phone,
+          website,
+          lat:a,
+          lon:b,
+          distance:haversineKm(lat,lng,a,b)
+        });
+
+      });
+
+      places.sort((x,y)=>x.distance-y.distance);
+
+      const bounds=
+        L.latLngBounds([[lat,lng]]);
+
+      places
+      .slice(0,60)
+      .forEach(place=>{
+
+        let popup=
+          `<strong>${escapeHTML(place.name)}</strong>`;
+
+        if(place.address){
+          popup+=`<br>${escapeHTML(place.address)}`;
+        }
+
+        if(place.phone){
+          popup+=`<br>${escapeHTML(place.phone)}`;
+        }
+
+        if(
+          place.website &&
+          /^https?:\/\//i.test(place.website)
+        ){
+          popup+=
+            `<br><a href="${escapeAttr(place.website)}" target="_blank" rel="noopener noreferrer">Website</a>`;
+        }
+
+        popup+=
+          `<br>${place.distance.toFixed(1)} km away`;
+
+        popup+=
+          `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}" target="_blank" rel="noopener noreferrer">Directions</a>`;
+
+        L.marker([place.lat,place.lon])
+          .addTo(alleyLayer)
+          .bindPopup(popup);
+
+        bounds.extend([place.lat,place.lon]);
+
+      });
+
+      if(places.length){
+
+        map.fitBounds(
+          bounds.pad(.15),
+          {
+            maxZoom:13
+          }
+        );
+
+        $('#gpsStatus').textContent=
+          `${places.length} bowling location${places.length===1?'':'s'} found within about 50 km`;
+
+      }else{
+
+        $('#gpsStatus').textContent=
+          'No bowling centers were found in the map database within about 50 km';
+
+      }
+
+      btn.disabled=false;
+
     },
 
-    () => {
+    ()=>{
 
-      button.disabled = false;
+      btn.disabled=false;
 
-      $('#gpsStatus').textContent =
+      $('#gpsStatus').textContent=
         'Location permission not granted';
 
     },
 
     {
       enableHighAccuracy:false,
-      timeout:10000,
+      timeout:12000,
       maximumAge:300000
     }
 
@@ -2325,484 +1817,353 @@ out center tags;
 
 }
 
+function haversineKm(lat1,lon1,lat2,lon2){
 
-function escapeHTML(string){
+  const r=6371;
 
-  return String(string).replace(
+  const toRad=d=>d*Math.PI/180;
+
+  const dLat=toRad(lat2-lat1);
+  const dLon=toRad(lon2-lon1);
+
+  const a=
+    Math.sin(dLat/2)**2+
+    Math.cos(toRad(lat1))*
+    Math.cos(toRad(lat2))*
+    Math.sin(dLon/2)**2;
+
+  return 2*r*Math.asin(Math.sqrt(a));
+}
+
+function escapeHTML(s){
+  return String(s).replace(
     /[&<>"']/g,
-    character => ({
+    c=>({
       '&':'&amp;',
       '<':'&lt;',
       '>':'&gt;',
       '"':'&quot;',
       "'":'&#39;'
-    }[character])
+    }[c])
   );
-
 }
 
-
-function escapeAttr(string){
-
-  return escapeHTML(string);
-
+function escapeAttr(s){
+  return escapeHTML(s);
 }
 
+/* BOWLING GAME */
 
-/* =========================================================
-   BOWLING GAME
-   ========================================================= */
+const canvas=$('#bowlingCanvas');
+const ctx=canvas.getContext('2d');
 
-const canvas =
-  $('#bowlingCanvas');
+let dpr=1;
+let W=600;
+let H=350;
 
-const context =
-  canvas.getContext('2d');
+let rolling=false;
+let muted=false;
+let audioCtx=null;
 
+let frames=[];
+let currentFrame=0;
+let ballInFrame=0;
 
-let devicePixelRatio = 1;
-
-let canvasWidth = 600;
-
-let canvasHeight = 350;
-
-let rolling = false;
-
-let muted = false;
-
-let audioContext = null;
-
-let frames = [];
-
-let currentFrame = 0;
-
-let ballInFrame = 0;
-
-let standing =
+let standing=
   Array(10).fill(true);
 
-let gameOver = false;
+let gameOver=false;
 
+let animation={
+  active:false,
+  t:0,
+  path:null,
+  hitPins:[]
+};
 
-const pinPositions = [
-
+const pinNorm=[
   {x:0,y:0},
-
   {x:-.09,y:-.07},
   {x:.09,y:-.07},
-
   {x:-.18,y:-.14},
   {x:0,y:-.14},
   {x:.18,y:-.14},
-
   {x:-.27,y:-.21},
   {x:-.09,y:-.21},
   {x:.09,y:-.21},
   {x:.27,y:-.21}
-
 ];
-
 
 function resizeCanvas(){
 
-  const rectangle =
+  const r=
     canvas.getBoundingClientRect();
 
-
-  devicePixelRatio =
+  dpr=
     Math.min(
-      window.devicePixelRatio || 1,
+      window.devicePixelRatio||1,
       2
     );
 
+  canvas.width=
+    Math.round(r.width*dpr);
 
-  canvas.width =
-    Math.round(
-      rectangle.width *
-      devicePixelRatio
-    );
+  canvas.height=
+    Math.round(r.height*dpr);
 
-
-  canvas.height =
-    Math.round(
-      rectangle.height *
-      devicePixelRatio
-    );
-
-
-  context.setTransform(
-    devicePixelRatio,
+  ctx.setTransform(
+    dpr,
     0,
     0,
-    devicePixelRatio,
+    dpr,
     0,
     0
   );
 
+  W=r.width;
+  H=r.height;
 
-  canvasWidth =
-    rectangle.width;
-
-
-  canvasHeight =
-    rectangle.height;
-
-
-  drawLane();
-
+  drawReadyLane();
 }
-
 
 function laneEdges(y){
 
-  const progress =
-    y / canvasHeight;
+  const t=y/H;
 
+  const topL=W*.40;
+  const topR=W*.60;
 
-  const topLeft =
-    canvasWidth * .40;
+  const bottomL=W*.12;
+  const bottomR=W*.88;
 
-  const topRight =
-    canvasWidth * .60;
+  return{
+    l:
+      topL+
+      (bottomL-topL)*t,
 
-  const bottomLeft =
-    canvasWidth * .12;
-
-  const bottomRight =
-    canvasWidth * .88;
-
-
-  return {
-
-    left:
-      topLeft +
-      (bottomLeft - topLeft) *
-      progress,
-
-    right:
-      topRight +
-      (bottomRight - topRight) *
-      progress
-
+    r:
+      topR+
+      (bottomR-topR)*t
   };
-
 }
 
+function project(nx,ny){
 
-function project(normalizedX,normalizedY){
+  const y=
+    H*(.20+ny*.75);
 
-  const y =
-    canvasHeight *
-    (
-      .20 +
-      normalizedY * .75
-    );
-
-
-  const edges =
+  const e=
     laneEdges(y);
 
-
-  return {
-
+  return{
     x:
-      (edges.left + edges.right) / 2 +
-      normalizedX *
-      (edges.right - edges.left) / 2,
+      (e.l+e.r)/2+
+      nx*(e.r-e.l)/2,
 
-    y:y
-
+    y
   };
-
 }
 
+function drawPin(x,y,scale,down=false){
 
-function drawPin(
-  x,
-  y,
-  scale,
-  down = false
-){
+  ctx.save();
 
-  context.save();
+  ctx.translate(x,y);
 
-  context.translate(x,y);
-
-  context.scale(scale,scale);
-
+  ctx.scale(scale,scale);
 
   if(down){
-
-    context.rotate(-1.15);
-
-    context.globalAlpha = .65;
-
+    ctx.rotate(-1.15);
+    ctx.globalAlpha=.65;
   }
 
+  ctx.fillStyle='rgba(0,0,0,.28)';
 
-  context.fillStyle =
-    'rgba(0,0,0,.28)';
+  ctx.beginPath();
 
-
-  context.beginPath();
-
-  context.ellipse(
+  ctx.ellipse(
     1,
     8,
     7,
     2.5,
     0,
     0,
-    Math.PI * 2
+    Math.PI*2
   );
 
-  context.fill();
+  ctx.fill();
 
-
-  const gradient =
-    context.createLinearGradient(
+  const g=
+    ctx.createLinearGradient(
       -5,
       -14,
       6,
       12
     );
 
-
-  gradient.addColorStop(
+  g.addColorStop(
     0,
-    '#ffffff'
+    '#fff'
   );
 
-  gradient.addColorStop(
+  g.addColorStop(
     .55,
     '#f7f7f7'
   );
 
-  gradient.addColorStop(
+  g.addColorStop(
     1,
     '#c9c9c9'
   );
 
+  ctx.fillStyle=g;
+  ctx.strokeStyle='#aaa';
+  ctx.lineWidth=.8;
 
-  context.fillStyle =
-    gradient;
+  ctx.beginPath();
 
-  context.strokeStyle =
-    '#aaaaaa';
+  ctx.moveTo(-3,-14);
 
-  context.lineWidth =
-    .8;
-
-
-  context.beginPath();
-
-  context.moveTo(
-    -3,
-    -14
+  ctx.bezierCurveTo(
+    -6,-10,-5,-5,-3,-2
   );
 
-  context.bezierCurveTo(
-    -6,
-    -10,
-    -5,
-    -5,
-    -3,
-    -2
+  ctx.bezierCurveTo(
+    -8,5,-7,12,0,14
   );
 
-  context.bezierCurveTo(
-    -8,
-    5,
-    -7,
-    12,
-    0,
-    14
+  ctx.bezierCurveTo(
+    7,12,8,5,3,-2
   );
 
-  context.bezierCurveTo(
-    7,
-    12,
-    8,
-    5,
-    3,
-    -2
+  ctx.bezierCurveTo(
+    5,-5,6,-10,3,-14
   );
 
-  context.bezierCurveTo(
-    5,
-    -5,
-    6,
-    -10,
-    3,
-    -14
-  );
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
 
-  context.closePath();
+  ctx.strokeStyle='#e50914';
+  ctx.lineWidth=2;
 
-  context.fill();
+  ctx.beginPath();
 
-  context.stroke();
+  ctx.moveTo(-4,-5);
+  ctx.lineTo(4,-5);
 
+  ctx.moveTo(-4,-2);
+  ctx.lineTo(4,-2);
 
-  context.strokeStyle =
-    '#e50914';
+  ctx.stroke();
 
-  context.lineWidth =
-    2;
-
-
-  context.beginPath();
-
-  context.moveTo(
-    -4,
-    -5
-  );
-
-  context.lineTo(
-    4,
-    -5
-  );
-
-  context.moveTo(
-    -4,
-    -2
-  );
-
-  context.lineTo(
-    4,
-    -2
-  );
-
-  context.stroke();
-
-
-  context.restore();
-
+  ctx.restore();
 }
 
+function drawLane(ballPos){
 
-function drawLane(ballPosition){
-
-  context.clearRect(
+  ctx.clearRect(
     0,
     0,
-    canvasWidth,
-    canvasHeight
+    W,
+    H
   );
 
-
-  const background =
-    context.createLinearGradient(
+  const bg=
+    ctx.createLinearGradient(
       0,
       0,
       0,
-      canvasHeight
+      H
     );
 
-
-  background.addColorStop(
+  bg.addColorStop(
     0,
     '#08090b'
   );
 
-  background.addColorStop(
+  bg.addColorStop(
     1,
     '#1c1d20'
   );
 
+  ctx.fillStyle=bg;
 
-  context.fillStyle =
-    background;
-
-
-  context.fillRect(
+  ctx.fillRect(
     0,
     0,
-    canvasWidth,
-    canvasHeight
+    W,
+    H
   );
 
+  const topY=H*.08;
+  const bottomY=H*.98;
 
-  const topY =
-    canvasHeight * .08;
-
-  const bottomY =
-    canvasHeight * .98;
-
-
-  const top =
+  const top=
     laneEdges(topY);
 
-  const bottom =
+  const bottom=
     laneEdges(bottomY);
 
+  ctx.fillStyle='#121318';
 
-  context.fillStyle =
-    '#121318';
+  ctx.beginPath();
 
-
-  context.beginPath();
-
-  context.moveTo(
-    top.left - canvasWidth * .06,
+  ctx.moveTo(
+    top.l-W*.06,
     topY
   );
 
-  context.lineTo(
-    top.left,
+  ctx.lineTo(
+    top.l,
     topY
   );
 
-  context.lineTo(
-    bottom.left,
+  ctx.lineTo(
+    bottom.l,
     bottomY
   );
 
-  context.lineTo(
-    bottom.left - canvasWidth * .10,
+  ctx.lineTo(
+    bottom.l-W*.10,
     bottomY
   );
 
-  context.closePath();
+  ctx.closePath();
+  ctx.fill();
 
-  context.fill();
+  ctx.beginPath();
 
-
-  context.beginPath();
-
-  context.moveTo(
-    top.right,
+  ctx.moveTo(
+    top.r,
     topY
   );
 
-  context.lineTo(
-    top.right + canvasWidth * .06,
+  ctx.lineTo(
+    top.r+W*.06,
     topY
   );
 
-  context.lineTo(
-    bottom.right + canvasWidth * .10,
+  ctx.lineTo(
+    bottom.r+W*.10,
     bottomY
   );
 
-  context.lineTo(
-    bottom.right,
+  ctx.lineTo(
+    bottom.r,
     bottomY
   );
 
-  context.closePath();
+  ctx.closePath();
+  ctx.fill();
 
-  context.fill();
-
-
-  const wood =
-    context.createLinearGradient(
+  const wood=
+    ctx.createLinearGradient(
       0,
       topY,
       0,
       bottomY
     );
-
 
   wood.addColorStop(
     0,
@@ -2819,2096 +2180,1251 @@ function drawLane(ballPosition){
     '#c58a43'
   );
 
+  ctx.fillStyle=wood;
 
-  context.fillStyle =
-    wood;
+  ctx.beginPath();
 
-
-  context.beginPath();
-
-  context.moveTo(
-    top.left,
+  ctx.moveTo(
+    top.l,
     topY
   );
 
-  context.lineTo(
-    top.right,
+  ctx.lineTo(
+    top.r,
     topY
   );
 
-  context.lineTo(
-    bottom.right,
+  ctx.lineTo(
+    bottom.r,
     bottomY
   );
 
-  context.lineTo(
-    bottom.left,
+  ctx.lineTo(
+    bottom.l,
     bottomY
   );
 
-  context.closePath();
+  ctx.closePath();
+  ctx.fill();
 
-  context.fill();
+  for(let i=1;i<39;i++){
 
+    const f=i/39;
 
-  for(
-    let board = 1;
-    board < 39;
-    board++
-  ){
-
-    const fraction =
-      board / 39;
-
-
-    context.strokeStyle =
-
-      board % 5 === 0
+    ctx.strokeStyle=
+      i%5===0
       ? 'rgba(83,48,17,.25)'
       : 'rgba(83,48,17,.11)';
 
+    ctx.lineWidth=.6;
 
-    context.lineWidth =
-      .6;
+    ctx.beginPath();
 
-
-    context.beginPath();
-
-    context.moveTo(
-
-      top.left +
-      (
-        top.right -
-        top.left
-      ) *
-      fraction,
-
+    ctx.moveTo(
+      top.l+
+      (top.r-top.l)*f,
       topY
-
     );
 
-
-    context.lineTo(
-
-      bottom.left +
-      (
-        bottom.right -
-        bottom.left
-      ) *
-      fraction,
-
+    ctx.lineTo(
+      bottom.l+
+      (bottom.r-bottom.l)*f,
       bottomY
-
     );
 
-
-    context.stroke();
-
+    ctx.stroke();
   }
 
+  ctx.strokeStyle='rgba(255,255,255,.22)';
+  ctx.lineWidth=2;
 
-  context.strokeStyle =
-    'rgba(255,255,255,.22)';
+  ctx.beginPath();
 
-  context.lineWidth =
-    2;
-
-
-  context.beginPath();
-
-  context.moveTo(
-    bottom.left,
-    canvasHeight * .87
+  ctx.moveTo(
+    bottom.l,
+    H*.87
   );
 
-  context.lineTo(
-    bottom.right,
-    canvasHeight * .87
+  ctx.lineTo(
+    bottom.r,
+    H*.87
   );
 
-  context.stroke();
+  ctx.stroke();
 
+  [-.45,-.3,-.15,0,.15,.3,.45]
+  .forEach(nx=>{
 
-  [
-    -.45,
-    -.3,
-    -.15,
-    0,
-    .15,
-    .3,
-    .45
-  ].forEach(normalizedX => {
+    const p=
+      project(nx,.68);
 
-    const point =
-      project(
-        normalizedX,
-        .68
-      );
+    ctx.fillStyle='#6c3b13';
 
+    ctx.beginPath();
 
-    context.fillStyle =
-      '#6c3b13';
-
-
-    context.beginPath();
-
-    context.moveTo(
-      point.x,
-      point.y - 6
+    ctx.moveTo(
+      p.x,
+      p.y-6
     );
 
-    context.lineTo(
-      point.x - 3,
-      point.y + 3
+    ctx.lineTo(
+      p.x-3,
+      p.y+3
     );
 
-    context.lineTo(
-      point.x + 3,
-      point.y + 3
+    ctx.lineTo(
+      p.x+3,
+      p.y+3
     );
 
-    context.closePath();
-
-    context.fill();
-
+    ctx.closePath();
+    ctx.fill();
   });
 
+  ctx.fillStyle='#070707';
 
-  context.fillStyle =
-    '#070707';
-
-
-  context.fillRect(
-
-    top.left -
-    canvasWidth * .025,
-
+  ctx.fillRect(
+    top.l-W*.025,
     0,
-
-    (
-      top.right -
-      top.left
-    ) +
-    canvasWidth * .05,
-
-    canvasHeight * .085
-
+    (top.r-top.l)+W*.05,
+    H*.085
   );
 
-
-  pinPositions
+  pinNorm
   .slice()
   .reverse()
-  .forEach((pin,reversedIndex) => {
+  .forEach((p,iRev)=>{
 
-    const pinIndex =
-      9 - reversedIndex;
+    const i=9-iRev;
 
-
-    if(!standing[pinIndex]){
-
+    if(!standing[i]){
       return;
-
     }
 
-
-    const point =
+    const q=
       project(
-
-        pin.x,
-
-        .055 +
-        pin.y * .12
-
+        p.x,
+        .055+p.y*.12
       );
-
 
     drawPin(
-
-      point.x,
-
-      point.y,
-
-      clamp(
-        canvasWidth / 600,
-        .72,
-        1.1
-      ) * .78
-
+      q.x,
+      q.y,
+      clamp(W/600,.72,1.1)*.78
     );
-
   });
 
+  if(ballPos){
 
-  if(ballPosition){
+    const e=
+      laneEdges(ballPos.y);
 
-    const edges =
-      laneEdges(ballPosition.y);
+    const x=
+      (e.l+e.r)/2+
+      ballPos.x*(e.r-e.l)/2;
 
+    const y=
+      ballPos.y;
 
-    const ballX =
+    const scale=
+      .35+
+      .85*(y/H);
 
-      (
-        edges.left +
-        edges.right
-      ) / 2 +
+    ctx.fillStyle='rgba(0,0,0,.35)';
 
-      ballPosition.x *
-      (
-        edges.right -
-        edges.left
-      ) / 2;
+    ctx.beginPath();
 
-
-    const ballY =
-      ballPosition.y;
-
-
-    const scale =
-
-      .35 +
-
-      .85 *
-      (
-        ballY /
-        canvasHeight
-      );
-
-
-    context.fillStyle =
-      'rgba(0,0,0,.35)';
-
-
-    context.beginPath();
-
-    context.ellipse(
-
-      ballX,
-
-      ballY +
-      10 * scale,
-
-      14 * scale,
-
-      5 * scale,
-
+    ctx.ellipse(
+      x,
+      y+10*scale,
+      14*scale,
+      5*scale,
       0,
       0,
-      Math.PI * 2
-
+      Math.PI*2
     );
 
-    context.fill();
+    ctx.fill();
 
-
-    const ballGradient =
-
-      context.createRadialGradient(
-
-        ballX - 5 * scale,
-
-        ballY - 6 * scale,
-
+    const g=
+      ctx.createRadialGradient(
+        x-5*scale,
+        y-6*scale,
         2,
-
-        ballX,
-
-        ballY,
-
-        16 * scale
-
+        x,
+        y,
+        16*scale
       );
 
-
-    ballGradient.addColorStop(
+    g.addColorStop(
       0,
       '#55b5ff'
     );
 
-    ballGradient.addColorStop(
+    g.addColorStop(
       .35,
       '#0879e8'
     );
 
-    ballGradient.addColorStop(
+    g.addColorStop(
       1,
       '#022c58'
     );
 
+    ctx.fillStyle=g;
 
-    context.fillStyle =
-      ballGradient;
+    ctx.beginPath();
 
-
-    context.beginPath();
-
-    context.arc(
-
-      ballX,
-
-      ballY,
-
-      14 * scale,
-
+    ctx.arc(
+      x,
+      y,
+      14*scale,
       0,
-
-      Math.PI * 2
-
+      Math.PI*2
     );
 
-    context.fill();
+    ctx.fill();
 
+    ctx.fillStyle='#021526';
 
-    context.fillStyle =
-      '#021526';
+    ctx.beginPath();
 
-
-    context.beginPath();
-
-
-    context.arc(
-
-      ballX - 3 * scale,
-
-      ballY - 4 * scale,
-
-      2 * scale,
-
+    ctx.arc(
+      x-3*scale,
+      y-4*scale,
+      2*scale,
       0,
-
-      Math.PI * 2
-
+      Math.PI*2
     );
 
-
-    context.arc(
-
-      ballX + 3 * scale,
-
-      ballY - 4 * scale,
-
-      2 * scale,
-
+    ctx.arc(
+      x+3*scale,
+      y-4*scale,
+      2*scale,
       0,
-
-      Math.PI * 2
-
+      Math.PI*2
     );
 
-
-    context.arc(
-
-      ballX,
-
-      ballY + 2 * scale,
-
-      2.2 * scale,
-
+    ctx.arc(
+      x,
+      y+2*scale,
+      2.2*scale,
       0,
-
-      Math.PI * 2
-
+      Math.PI*2
     );
 
-
-    context.fill();
-
+    ctx.fill();
   }
-
 }
 
+function readyBallPosition(){
+
+  const aim=
+    Number(
+      $('#aimControl')?.value||0
+    );
+
+  return{
+    x:
+      aim/100*.72,
+
+    y:
+      H*.88
+  };
+}
+
+function drawReadyLane(){
+
+  if(!rolling&&!gameOver){
+
+    drawLane(
+      readyBallPosition()
+    );
+
+  }else{
+
+    drawLane();
+
+  }
+}
 
 function resetGame(){
 
-  frames =
+  frames=
     Array.from(
-      {
-        length:10
-      },
-      () => ({
+      {length:10},
+      ()=>({
         rolls:[],
         score:null
       })
     );
 
+  currentFrame=0;
+  ballInFrame=0;
 
-  currentFrame =
-    0;
-
-  ballInFrame =
-    0;
-
-  standing =
+  standing=
     Array(10).fill(true);
 
-  gameOver =
-    false;
+  gameOver=false;
+  rolling=false;
 
-  rolling =
-    false;
+  animation={
+    active:false,
+    t:0,
+    path:null,
+    hitPins:[]
+  };
 
-
-  $('#frameDisplay').textContent =
-    '1';
-
-
-  $('#scoreDisplay').textContent =
-    '0';
-
-
-  $('#rollBtn').disabled =
-    false;
-
+  $('#frameDisplay').textContent='1';
+  $('#scoreDisplay').textContent='0';
+  $('#rollBtn').disabled=false;
 
   renderScorecard();
-
-  drawLane();
+  drawReadyLane();
 
   showMessage(
     'New game',
     900
   );
-
 }
-
 
 function renderScorecard(){
 
-  const grid =
+  const grid=
     $('#scoreGrid');
 
+  grid.innerHTML='';
 
-  grid.innerHTML =
-    '';
+  frames.forEach((f,i)=>{
 
+    const box=
+      document.createElement('div');
 
-  frames.forEach(
-    (frame,index) => {
+    box.className=
+      'frame'+
+      (
+        i===currentFrame&&!gameOver
+        ? ' active'
+        : ''
+      );
 
-      const box =
-        document.createElement('div');
+    const rolls=
+      formatFrameRolls(
+        i,
+        f.rolls
+      );
 
+    box.innerHTML=
+      `<div class="frame-title">${i+1}</div>
+       <div class="frame-rolls">${rolls||'&nbsp;'}</div>
+       <div class="frame-total">${f.score??'&nbsp;'}</div>`;
 
-      box.className =
-
-        'frame' +
-
-        (
-          index === currentFrame &&
-          !gameOver
-          ? ' active'
-          : ''
-        );
-
-
-      const rolls =
-        formatFrameRolls(
-          index,
-          frame.rolls
-        );
-
-
-      box.innerHTML =
-
-        `<div class="frame-title">
-          ${index + 1}
-        </div>
-
-        <div class="frame-rolls">
-          ${rolls || '&nbsp;'}
-        </div>
-
-        <div class="frame-total">
-          ${frame.score ?? '&nbsp;'}
-        </div>`;
-
-
-      grid.appendChild(box);
-
-    }
-  );
-
+    grid.appendChild(box);
+  });
 }
 
+function formatFrameRolls(i,r){
 
-function formatFrameRolls(
-  frameIndex,
-  rolls
-){
-
-  if(!rolls.length){
-
+  if(!r.length){
     return '';
-
   }
 
+  if(i<9){
 
-  if(frameIndex < 9){
-
-    if(rolls[0] === 10){
-
+    if(r[0]===10){
       return 'X';
-
     }
 
-
-    const first =
-      rolls[0] === 0
+    const a=
+      r[0]===0
       ? '-'
-      : rolls[0];
+      : r[0];
 
-
-    const second =
-
-      rolls.length > 1
-
+    const b=
+      r.length>1
       ? (
-          rolls[0] +
-          rolls[1] === 10
-
+          r[0]+r[1]===10
           ? '/'
-
-          : rolls[1] === 0
-
+          : r[1]===0
           ? '-'
-
-          : rolls[1]
+          : r[1]
         )
-
       : '';
 
-
-    return (
-      first +
-      ' ' +
-      second
-    );
-
+    return`${a} ${b}`;
   }
 
+  return r
+  .map((v,j)=>{
 
-  return rolls
-  .map(
-    (value,index) => {
-
-      if(value === 10){
-
-        return 'X';
-
-      }
-
-
-      if(
-
-        index > 0 &&
-
-        value < 10 &&
-
-        rolls[index - 1] < 10 &&
-
-        rolls[index - 1] +
-        value === 10
-
-      ){
-
-        return '/';
-
-      }
-
-
-      return value === 0
-        ? '-'
-        : value;
-
+    if(v===10){
+      return 'X';
     }
-  )
+
+    if(
+      j>0&&
+      v<10&&
+      r[j-1]<10&&
+      r[j-1]+v===10
+    ){
+      return '/';
+    }
+
+    return v===0
+      ? '-'
+      : v;
+  })
   .join(' ');
-
 }
-
 
 function allRolls(){
-
   return frames.flatMap(
-    frame =>
-      frame.rolls
+    f=>f.rolls
   );
-
 }
-
 
 function scoreFrames(){
 
-  const rolls =
+  const rolls=
     allRolls();
 
+  let ri=0;
+  let total=0;
 
-  let rollIndex =
-    0;
+  for(let f=0;f<10;f++){
 
-
-  let total =
-    0;
-
-
-  for(
-    let frameIndex = 0;
-    frameIndex < 10;
-    frameIndex++
-  ){
-
-    if(
-      rollIndex >=
-      rolls.length
-    ){
-
-      frames[
-        frameIndex
-      ].score =
-        null;
-
+    if(ri>=rolls.length){
+      frames[f].score=null;
       continue;
-
     }
 
-
-    if(
-      rolls[
-        rollIndex
-      ] === 10
-    ){
+    if(rolls[ri]===10){
 
       if(
-
-        rolls[
-          rollIndex + 1
-        ] !== undefined &&
-
-        rolls[
-          rollIndex + 2
-        ] !== undefined
-
+        rolls[ri+1]!==undefined&&
+        rolls[ri+2]!==undefined
       ){
 
-        total +=
+        total+=
+          10+
+          rolls[ri+1]+
+          rolls[ri+2];
 
-          10 +
-
-          rolls[
-            rollIndex + 1
-          ] +
-
-          rolls[
-            rollIndex + 2
-          ];
-
-
-        frames[
-          frameIndex
-        ].score =
-          total;
+        frames[f].score=total;
 
       }else{
 
-        frames[
-          frameIndex
-        ].score =
-          null;
-
+        frames[f].score=null;
       }
 
-
-      rollIndex +=
-        1;
+      ri+=1;
 
     }else{
 
-      if(
-        rolls[
-          rollIndex + 1
-        ] === undefined
-      ){
+      if(rolls[ri+1]===undefined){
 
-        frames[
-          frameIndex
-        ].score =
-          null;
-
+        frames[f].score=null;
         break;
-
       }
 
+      const sum=
+        rolls[ri]+
+        rolls[ri+1];
 
-      const sum =
+      if(sum===10){
 
-        rolls[
-          rollIndex
-        ] +
+        if(rolls[ri+2]!==undefined){
 
-        rolls[
-          rollIndex + 1
-        ];
+          total+=
+            10+
+            rolls[ri+2];
 
-
-      if(sum === 10){
-
-        if(
-          rolls[
-            rollIndex + 2
-          ] !== undefined
-        ){
-
-          total +=
-
-            10 +
-
-            rolls[
-              rollIndex + 2
-            ];
-
-
-          frames[
-            frameIndex
-          ].score =
-            total;
+          frames[f].score=total;
 
         }else{
 
-          frames[
-            frameIndex
-          ].score =
-            null;
-
+          frames[f].score=null;
         }
 
       }else{
 
-        total +=
-          sum;
+        total+=sum;
 
-
-        frames[
-          frameIndex
-        ].score =
-          total;
-
+        frames[f].score=total;
       }
 
-
-      rollIndex +=
-        2;
-
+      ri+=2;
     }
-
   }
 
-
-  const knownFrame =
-
+  const known=
     [...frames]
     .reverse()
-    .find(
-      frame =>
-        frame.score !== null
-    );
+    .find(f=>f.score!==null);
 
-
-  $('#scoreDisplay').textContent =
-
-    knownFrame
-    ? knownFrame.score
+  $('#scoreDisplay').textContent=
+    known
+    ? known.score
     : 0;
 
-
   renderScorecard();
-
 }
-
 
 function recordRoll(pins){
 
-  const frame =
-    frames[
-      currentFrame
-    ];
+  const f=
+    frames[currentFrame];
 
+  f.rolls.push(pins);
 
-  frame.rolls.push(
-    pins
-  );
-
-
-  if(currentFrame < 9){
+  if(currentFrame<9){
 
     if(
-
-      frame.rolls[0] === 10 ||
-
-      frame.rolls.length === 2
-
+      f.rolls[0]===10||
+      f.rolls.length===2
     ){
 
       currentFrame++;
-
-      ballInFrame =
-        0;
-
+      ballInFrame=0;
       standing.fill(true);
 
     }else{
 
-      ballInFrame =
-        1;
-
+      ballInFrame=1;
     }
 
   }else{
 
-    const rolls =
-      frame.rolls;
+    const r=f.rolls;
 
+    if(r.length===1){
 
-    if(rolls.length === 1){
-
-      if(
-        rolls[0] === 10
-      ){
-
+      if(r[0]===10){
         standing.fill(true);
-
       }
 
-    }else if(
-      rolls.length === 2
-    ){
+    }else if(r.length===2){
 
-      if(
-        rolls[0] === 10
-      ){
+      if(r[0]===10){
 
-        if(
-          rolls[1] === 10
-        ){
-
+        if(r[1]===10){
           standing.fill(true);
-
         }
 
-      }else if(
-
-        rolls[0] +
-        rolls[1] === 10
-
-      ){
+      }else if(r[0]+r[1]===10){
 
         standing.fill(true);
 
       }else{
 
         finishGame();
-
       }
 
-    }else if(
-      rolls.length >= 3
-    ){
+    }else if(r.length>=3){
 
       finishGame();
-
     }
-
   }
-
 
   scoreFrames();
 
-
-  $('#frameDisplay').textContent =
-
+  $('#frameDisplay').textContent=
     gameOver
     ? '10'
-    : currentFrame + 1;
-
+    : currentFrame+1;
 }
-
 
 function finishGame(){
 
-  gameOver =
-    true;
+  gameOver=true;
 
+  $('#rollBtn').disabled=true;
 
-  $('#rollBtn').disabled =
-    true;
+  setTimeout(()=>{
 
+    scoreFrames();
 
-  setTimeout(
-    () => {
+    const final=
+      frames[9].score??
+      Number($('#scoreDisplay').textContent)||
+      0;
 
-      scoreFrames();
+    let games=
+      storeGet('bs_games',0)+1;
 
-
-      const finalScore =
-
-        frames[9].score ??
-
-        Number(
-          $('#scoreDisplay').textContent
-        ) ??
-
-        0;
-
-
-      const gamesPlayed =
-
-        storeGet(
-          'bs_games',
-          0
-        ) + 1;
-
-
-      const highScore =
-
-        Math.max(
-
-          storeGet(
-            'bs_high',
-            0
-          ),
-
-          finalScore
-
-        );
-
-
-      storeSet(
-        'bs_games',
-        gamesPlayed
+    let high=
+      Math.max(
+        storeGet('bs_high',0),
+        final
       );
 
+    storeSet(
+      'bs_games',
+      games
+    );
 
-      storeSet(
-        'bs_high',
-        highScore
-      );
+    storeSet(
+      'bs_high',
+      high
+    );
 
+    showMessage(
+      `Game complete — ${final}`,
+      3000
+    );
 
-      showMessage(
-        `Game complete — ${finalScore}`,
-        3000
-      );
-
-    },
-    400
-  );
-
+  },400);
 }
 
+function simulateHit(aim,hook,power){
 
-function simulateHit(
-  aim,
-  hook,
-  power
-){
+  const start=
+    aim/100*.72;
 
-  const start =
-    aim / 100 * .72;
+  const curve=
+    hook/100*.48;
 
-
-  const curve =
-    hook / 100 * .48;
-
-
-  const end =
-
+  const end=
     clamp(
-
-      start +
-      curve,
-
+      start+curve,
       -1.05,
-
       1.05
-
     );
 
+  const path=t=>{
 
-  const path =
-    progress => {
+    const eased=
+      t*t*(3-2*t);
 
-      const eased =
+    return(
+      start*(1-eased)+
+      end*eased+
+      curve*
+      Math.sin(Math.PI*t)*
+      .17
+    );
+  };
 
-        progress *
-        progress *
-        (
-          3 -
-          2 *
-          progress
-        );
-
-
-      return (
-
-        start *
-        (
-          1 -
-          eased
-        )
-
-        +
-
-        end *
-        eased
-
-        +
-
-        curve *
-        Math.sin(
-          Math.PI *
-          progress
-        ) *
-        .17
-
-      );
-
-    };
-
-
-  const remainingPins =
-
+  const remaining=
     standing
+    .map((v,i)=>v?i:-1)
+    .filter(i=>i>=0);
 
-    .map(
-      (isStanding,index) =>
-        isStanding
-        ? index
-        : -1
-    )
+  if(Math.abs(end)>.92){
 
-    .filter(
-      index =>
-        index >= 0
-    );
-
-
-  if(
-    Math.abs(end) >
-    .92
-  ){
-
-    return {
+    return{
       pins:[],
-      path:path,
+      path,
       gutter:true
     };
-
   }
 
-
-  const pocket =
-
+  const pocket=
     Math.abs(
-
-      end -
-
+      end-
       (
-        hook >= 0
+        hook>=0
         ? .11
         : -.11
       )
-
     );
-
 
   let target;
 
-
   if(
-    pocket < .075 &&
-    power > 68
+    pocket<.075&&
+    power>68
   ){
 
-    target =
-      10;
+    target=10;
 
-  }else if(
-    pocket < .16
-  ){
+  }else if(pocket<.16){
 
-    target =
-
-      7 +
-
+    target=
+      7+
       Math.floor(
-        Math.random() * 3
+        Math.random()*3
       );
 
-  }else if(
-    pocket < .29
-  ){
+  }else if(pocket<.29){
 
-    target =
-
-      4 +
-
+    target=
+      4+
       Math.floor(
-        Math.random() * 4
+        Math.random()*4
       );
 
-  }else if(
-    pocket < .46
-  ){
+  }else if(pocket<.46){
 
-    target =
-
-      2 +
-
+    target=
+      2+
       Math.floor(
-        Math.random() * 4
+        Math.random()*4
       );
 
   }else{
 
-    target =
-
+    target=
       Math.floor(
-        Math.random() * 3
+        Math.random()*3
       );
-
   }
 
-
-  target =
-
+  target=
     Math.min(
-
       target,
-
-      remainingPins.length
-
+      remaining.length
     );
 
-
-  const pinX =
-
-    pinPositions.map(
-      pin =>
-        pin.x
+  const pinX=
+    pinNorm.map(
+      p=>p.x
     );
 
-
-  remainingPins.sort(
-    (first,second) =>
-
+  remaining.sort(
+    (a,b)=>
       Math.abs(
-        pinX[first] -
-        end * .30
+        pinX[a]-
+        end*.30
       )
-
       -
-
       Math.abs(
-        pinX[second] -
-        end * .30
+        pinX[b]-
+        end*.30
       )
   );
 
-
-  let hitPins =
-
-    remainingPins.slice(
+  let hit=
+    remaining.slice(
       0,
       target
     );
 
-
-  if(target === 10){
-
-    hitPins =
-      remainingPins.slice();
-
+  if(target===10){
+    hit=remaining.slice();
   }
 
-
-  return {
-
-    pins:hitPins,
-    path:path,
+  return{
+    pins:hit,
+    path,
     gutter:false
-
   };
-
 }
-
 
 function rollBall(){
 
   if(
-    rolling ||
+    rolling||
     gameOver
   ){
-
     return;
-
   }
 
+  rolling=true;
 
-  rolling =
-    true;
+  $('#rollBtn').disabled=true;
 
+  playSound('roll');
 
-  $('#rollBtn').disabled =
-    true;
-
-
-  playSound(
-    'roll'
-  );
-
-
-  const aim =
+  const aim=
     Number(
       $('#aimControl').value
     );
 
-
-  const hook =
+  const hook=
     Number(
       $('#hookControl').value
     );
 
-
-  const power =
+  const power=
     Number(
       $('#powerControl').value
     );
 
-
-  const result =
-
+  const result=
     simulateHit(
       aim,
       hook,
       power
     );
 
-
-  const startTime =
+  const start=
     performance.now();
 
-
-  const duration =
-
+  const duration=
     clamp(
-
-      1500 -
-      (
-        power -
-        45
-      ) * 10,
-
+      1500-
+      (power-45)*10,
       850,
-
       1500
-
     );
 
+  function step(now){
 
-  function animate(currentTime){
-
-    const progress =
-
+    const t=
       clamp(
-
-        (
-          currentTime -
-          startTime
-        ) /
-        duration,
-
+        (now-start)/duration,
         0,
-
         1
-
       );
 
-
-    const y =
-
-      canvasHeight *
-      (
-        .88 -
-        .78 *
-        progress
-      );
-
+    const y=
+      H*(.88-(.78*t));
 
     drawLane({
       x:
-        result.path(
-          progress
-        ),
-      y:y
+        result.path(t),
+
+      y
     });
 
+    if(t<1){
 
-    if(progress < 1){
-
-      requestAnimationFrame(
-        animate
-      );
+      requestAnimationFrame(step);
 
     }else{
 
-      result.pins.forEach(
-        pinIndex => {
-
-          standing[
-            pinIndex
-          ] =
-            false;
-
-        }
-      );
-
+      result.pins.forEach(i=>{
+        standing[i]=false;
+      });
 
       drawLane();
 
-
-      const pinsKnockedDown =
+      const pins=
         result.pins.length;
 
-
       if(
-        result.gutter ||
-        pinsKnockedDown === 0
+        result.gutter||
+        pins===0
       ){
 
         showMessage(
-
           result.gutter
           ? 'GUTTER BALL'
           : 'MISS',
-
           1200
-
         );
 
+        playSound('miss');
 
-        playSound(
-          'miss'
-        );
-
-      }else if(
-        pinsKnockedDown === 10
-      ){
+      }else if(pins===10){
 
         showMessage(
           'STRIKE!',
           1400
         );
 
-
-        playSound(
-          'hit'
-        );
+        playSound('hit');
 
       }else{
 
         showMessage(
-
-          `${pinsKnockedDown} PIN${pinsKnockedDown === 1 ? '' : 'S'}`,
-
+          `${pins} PIN${pins===1?'':'S'}`,
           1000
-
         );
 
-
-        playSound(
-          'hit'
-        );
-
+        playSound('hit');
       }
 
+      recordRoll(pins);
 
-      recordRoll(
-        pinsKnockedDown
-      );
+      setTimeout(()=>{
 
+        rolling=false;
 
-      setTimeout(
-        () => {
+        if(!gameOver){
+          $('#rollBtn').disabled=false;
+        }
 
-          rolling =
-            false;
+        drawReadyLane();
 
-
-          if(!gameOver){
-
-            $('#rollBtn').disabled =
-              false;
-
-          }
-
-
-          drawLane();
-
-        },
-        650
-      );
-
+      },650);
     }
-
   }
 
-
-  requestAnimationFrame(
-    animate
-  );
-
+  requestAnimationFrame(step);
 }
 
+function showMessage(msg,ms=1000){
 
-function showMessage(
-  message,
-  milliseconds = 1000
-){
-
-  const element =
+  const e=
     $('#gameMessage');
 
+  e.textContent=msg;
 
-  element.textContent =
-    message;
-
-
-  element.classList.add(
-    'show'
-  );
-
+  e.classList.add('show');
 
   setTimeout(
-    () => {
-
-      element.classList.remove(
-        'show'
-      );
-
-    },
-    milliseconds
+    ()=>e.classList.remove('show'),
+    ms
   );
-
 }
-
 
 function playSound(type){
 
   if(muted){
-
     return;
-
   }
-
 
   try{
 
-    if(!audioContext){
+    if(!audioCtx){
 
-      audioContext =
-
+      audioCtx=
         new(
-          window.AudioContext ||
+          window.AudioContext||
           window.webkitAudioContext
         )();
-
     }
 
-
-    if(
-      audioContext.state ===
-      'suspended'
-    ){
-
-      audioContext.resume();
-
+    if(audioCtx.state==='suspended'){
+      audioCtx.resume();
     }
 
+    const o=
+      audioCtx.createOscillator();
 
-    const oscillator =
-      audioContext.createOscillator();
+    const g=
+      audioCtx.createGain();
 
+    o.connect(g);
 
-    const gain =
-      audioContext.createGain();
-
-
-    oscillator.connect(
-      gain
+    g.connect(
+      audioCtx.destination
     );
 
-
-    gain.connect(
-      audioContext.destination
-    );
-
-
-    oscillator.type =
-
-      type === 'roll'
+    o.type=
+      type==='roll'
       ? 'triangle'
       : 'square';
 
-
-    oscillator.frequency.setValueAtTime(
-
-      type === 'roll'
+    o.frequency.setValueAtTime(
+      type==='roll'
       ? 95
-
-      : type === 'miss'
+      : type==='miss'
       ? 70
-
       : 260,
-
-      audioContext.currentTime
-
+      audioCtx.currentTime
     );
 
-
-    oscillator.frequency.exponentialRampToValueAtTime(
-
-      type === 'roll'
+    o.frequency.exponentialRampToValueAtTime(
+      type==='roll'
       ? 42
       : 85,
-
-      audioContext.currentTime +
-      .35
-
+      audioCtx.currentTime+.35
     );
 
-
-    gain.gain.setValueAtTime(
-
-      type === 'roll'
+    g.gain.setValueAtTime(
+      type==='roll'
       ? .08
       : .16,
-
-      audioContext.currentTime
-
+      audioCtx.currentTime
     );
 
-
-    gain.gain.exponentialRampToValueAtTime(
-
+    g.gain.exponentialRampToValueAtTime(
       .001,
-
-      audioContext.currentTime +
-      .38
-
+      audioCtx.currentTime+.38
     );
 
+    o.start();
 
-    oscillator.start();
-
-
-    oscillator.stop(
-
-      audioContext.currentTime +
-      .4
-
+    o.stop(
+      audioCtx.currentTime+.4
     );
-
 
   }catch{}
-
 }
 
-
-/* =========================================================
-   LOCAL COMMUNITY FEATURES
-   ========================================================= */
+/* LOCAL COMMUNITY FEATURES */
 
 function initLocalCommunity(){
 
-  const connections =
-
+  const connections=
     storeGet(
       'bs_connections',
       []
     );
 
-
   $$('.connect-btn')
-  .forEach(
-    button => {
+  .forEach(btn=>{
 
-      if(
-        connections.includes(
-          button.dataset.name
-        )
-      ){
+    if(
+      connections.includes(
+        btn.dataset.name
+      )
+    ){
 
-        button.textContent =
-          'Connected';
-
-
-        button.disabled =
-          true;
-
-      }
-
-
-      button.addEventListener(
-        'click',
-        () => {
-
-          const savedConnections =
-
-            storeGet(
-              'bs_connections',
-              []
-            );
-
-
-          if(
-            !savedConnections.includes(
-              button.dataset.name
-            )
-          ){
-
-            savedConnections.push(
-              button.dataset.name
-            );
-
-          }
-
-
-          storeSet(
-
-            'bs_connections',
-
-            savedConnections
-
-          );
-
-
-          button.textContent =
-            'Connected';
-
-
-          button.disabled =
-            true;
-
-
-          toast(
-
-            `${button.dataset.name} saved to your local connections`
-
-          );
-
-        }
-      );
-
+      btn.textContent='Connected';
+      btn.disabled=true;
     }
-  );
 
+    btn.addEventListener(
+      'click',
+      ()=>{
+
+        const arr=
+          storeGet(
+            'bs_connections',
+            []
+          );
+
+        if(
+          !arr.includes(
+            btn.dataset.name
+          )
+        ){
+          arr.push(
+            btn.dataset.name
+          );
+        }
+
+        storeSet(
+          'bs_connections',
+          arr
+        );
+
+        btn.textContent='Connected';
+        btn.disabled=true;
+
+        toast(
+          `${btn.dataset.name} saved to your local connections`
+        );
+      }
+    );
+  });
 
   $$('.like-btn')
-  .forEach(
-    button => {
+  .forEach(btn=>{
 
-      const postId =
-        button.dataset.post;
+    const id=
+      btn.dataset.post;
 
+    const base=
+      Number(
+        btn
+        .querySelector('.like-count')
+        .textContent
+      );
 
-      const baseLikes =
+    const liked=
+      storeGet(
+        'bs_like_'+id,
+        false
+      );
 
-        Number(
+    btn
+    .querySelector('.like-count')
+    .textContent=
+      base+
+      (liked?1:0);
 
-          button
-          .querySelector(
-            '.like-count'
-          )
-          .textContent
+    if(liked){
+      btn.style.color='var(--primary)';
+    }
 
-        );
+    btn.addEventListener(
+      'click',
+      ()=>{
 
-
-      const liked =
-
-        storeGet(
-
-          'bs_like_' +
-          postId,
-
-          false
-
-        );
-
-
-      button
-      .querySelector(
-        '.like-count'
-      )
-      .textContent =
-
-        baseLikes +
-
-        (
-          liked
-          ? 1
-          : 0
-        );
-
-
-      if(liked){
-
-        button.style.color =
-          'var(--primary)';
-
-      }
-
-
-      button.addEventListener(
-        'click',
-        () => {
-
-          const wasLiked =
-
-            storeGet(
-
-              'bs_like_' +
-              postId,
-
-              false
-
-            );
-
-
-          storeSet(
-
-            'bs_like_' +
-            postId,
-
-            !wasLiked
-
+        const was=
+          storeGet(
+            'bs_like_'+id,
+            false
           );
 
+        storeSet(
+          'bs_like_'+id,
+          !was
+        );
 
-          button
-          .querySelector(
-            '.like-count'
-          )
-          .textContent =
+        btn
+        .querySelector('.like-count')
+        .textContent=
+          base+
+          (!was?1:0);
 
-            baseLikes +
+        btn.style.color=
+          !was
+          ? 'var(--primary)'
+          : '';
+      }
+    );
+  });
 
-            (
-              !wasLiked
-              ? 1
-              : 0
-            );
-
-
-          button.style.color =
-
-            !wasLiked
-
-            ? 'var(--primary)'
-
-            : '';
-
-        }
-      );
-
-    }
-  );
-
-
-  [
-    1,
-    2
-  ].forEach(
+  [1,2].forEach(
     renderComments
   );
-
 }
 
+function renderComments(id){
 
-function renderComments(postId){
+  const box=
+    $('#comments'+id);
 
-  const box =
-    $('#comments' + postId);
-
-
-  const comments =
-
+  const items=
     storeGet(
-
-      'bs_comments_' +
-      postId,
-
+      'bs_comments_'+id,
       []
-
     );
 
+  box.innerHTML='';
 
-  box.innerHTML =
-    '';
+  items.forEach(txt=>{
 
+    const p=
+      document.createElement('p');
 
-  comments.forEach(
-    comment => {
+    const b=
+      document.createElement('strong');
 
-      const paragraph =
-        document.createElement('p');
+    b.textContent='You: ';
 
+    p.appendChild(b);
 
-      const label =
-        document.createElement('strong');
+    p.appendChild(
+      document.createTextNode(txt)
+    );
 
-
-      label.textContent =
-        'You: ';
-
-
-      paragraph.appendChild(
-        label
-      );
-
-
-      paragraph.appendChild(
-
-        document.createTextNode(
-          comment
-        )
-
-      );
-
-
-      box.appendChild(
-        paragraph
-      );
-
-    }
-  );
-
+    box.appendChild(p);
+  });
 }
 
+function addComment(id){
 
-function addComment(postId){
+  const inp=
+    $('#comment'+id);
 
-  const input =
-    $('#comment' + postId);
+  const txt=
+    inp.value.trim();
 
-
-  const text =
-    input.value.trim();
-
-
-  if(!text){
-
+  if(!txt){
     return;
-
   }
 
-
-  const comments =
-
+  const arr=
     storeGet(
-
-      'bs_comments_' +
-      postId,
-
+      'bs_comments_'+id,
       []
-
     );
 
-
-  comments.push(
-
-    text.slice(
+  arr.push(
+    txt.slice(
       0,
       300
     )
-
   );
-
 
   storeSet(
-
-    'bs_comments_' +
-    postId,
-
-    comments.slice(
-      -20
-    )
-
+    'bs_comments_'+id,
+    arr.slice(-20)
   );
 
+  inp.value='';
 
-  input.value =
-    '';
-
-
-  renderComments(
-    postId
-  );
-
+  renderComments(id);
 }
 
-
-let currentMessageName =
-  '';
-
+let currentMessageName='';
 
 function openMessage(name){
 
-  currentMessageName =
-    name;
+  currentMessageName=name;
 
+  $('#messageTitle').textContent=
+    'Message '+name;
 
-  $('#messageTitle').textContent =
-    'Message ' + name;
-
-
-  $('#teamMessage').value =
-    '';
-
+  $('#teamMessage').value='';
 
   $('#messageModal')
-  .classList.add(
-    'open'
-  );
-
+  .classList.add('open');
 }
-
 
 function initPhotoUpload(){
 
   $('#photoUpload')
   .addEventListener(
     'change',
-    event => {
+    e=>{
 
-      const file =
-        event.target.files?.[0];
+      const f=
+        e.target.files?.[0];
 
-
-      if(!file){
-
+      if(!f){
         return;
-
       }
 
-
       if(
-        !file.type.startsWith(
-          'image/'
-        )
+        !f.type.startsWith('image/')
       ){
 
-        toast(
+        return toast(
           'Please choose an image file'
         );
-
-        return;
-
       }
-
 
       if(
-        file.size >
-        3 * 1024 * 1024
+        f.size>
+        3*1024*1024
       ){
 
-        toast(
+        return toast(
           'Please choose an image under 3 MB'
         );
-
-        return;
-
       }
 
-
-      const reader =
+      const reader=
         new FileReader();
 
+      reader.onload=()=>{
 
-      reader.onload =
-        () => {
+        $('#profileImg1').src=
+          reader.result;
 
-          $('#profileImg1').src =
-            reader.result;
+        try{
 
-
-          try{
-
-            localStorage.setItem(
-
-              'bs_profile_photo',
-
-              reader.result
-
-            );
-
-          }catch{}
-
-
-          toast(
-            'Photo saved on this browser'
+          localStorage.setItem(
+            'bs_profile_photo',
+            reader.result
           );
 
-        };
+        }catch{}
 
+        toast(
+          'Photo saved on this browser'
+        );
+      };
 
-      reader.readAsDataURL(
-        file
-      );
-
+      reader.readAsDataURL(f);
     }
   );
 
-
-  const saved =
+  const saved=
     localStorage.getItem(
       'bs_profile_photo'
     );
 
-
   if(saved){
-
-    $('#profileImg1').src =
-      saved;
-
+    $('#profileImg1').src=saved;
   }
-
 }
 
-
-/* =========================================================
-   CONTACT
-   ========================================================= */
+/* CONTACT */
 
 function contactText(){
 
-  return `BowlStrike.com Message
+  return`BowlStrike.com Message
 
 Name: ${$('#contactName').value.trim()}
-
 Email: ${$('#contactEmail').value.trim()}
-
 Subject: ${$('#contactSubject').value.trim()}
 
 ${$('#contactMessage').value.trim()}`;
-
 }
-
 
 async function copyContact(){
 
-  const message =
+  const msg=
     contactText();
-
 
   if(
     !$('#contactMessage')
@@ -4916,50 +3432,37 @@ async function copyContact(){
     .trim()
   ){
 
-    $('#contactStatus').textContent =
+    $('#contactStatus').textContent=
       'Please enter a message first.';
 
     return;
-
   }
-
 
   try{
 
-    await navigator.clipboard.writeText(
-      message
-    );
+    await navigator.clipboard.writeText(msg);
 
-
-    $('#contactStatus').textContent =
+    $('#contactStatus').textContent=
       'Message copied. Paste it into your email service.';
 
-
-    $('#contactStatus').style.color =
+    $('#contactStatus').style.color=
       'var(--success)';
-
 
   }catch{
 
-    $('#contactStatus').textContent =
+    $('#contactStatus').textContent=
       'Copy was blocked by the browser. Select and copy the message manually.';
 
-
-    $('#contactStatus').style.color =
+    $('#contactStatus').style.color=
       'var(--danger)';
-
   }
-
 }
 
-
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
+/* INIT */
 
 document.addEventListener(
   'DOMContentLoaded',
-  () => {
+  ()=>{
 
     initMap();
 
@@ -4971,44 +3474,35 @@ document.addEventListener(
 
     initPhotoUpload();
 
-
     $('#findAlleysBtn')
     .addEventListener(
       'click',
       findNearbyBowling
     );
 
-
     $('#resetMapBtn')
     .addEventListener(
       'click',
-      () => {
+      ()=>{
 
         alleyLayer?.clearLayers();
-
 
         if(userMarker){
 
           userMarker.remove();
 
-          userMarker =
-            null;
-
+          userMarker=null;
         }
-
 
         map?.setView(
           [39.5,-98.35],
           4
         );
 
-
-        $('#gpsStatus').textContent =
+        $('#gpsStatus').textContent=
           'Map reset';
-
       }
     );
-
 
     $('#rollBtn')
     .addEventListener(
@@ -5016,210 +3510,142 @@ document.addEventListener(
       rollBall
     );
 
-
     $('#resetGameBtn')
     .addEventListener(
       'click',
       resetGame
     );
 
-
     $('#soundBtn')
     .addEventListener(
       'click',
-      () => {
+      ()=>{
 
-        muted =
-          !muted;
+        muted=!muted;
 
-
-        $('#soundBtn').innerHTML =
-
+        $('#soundBtn').innerHTML=
           muted
-
           ? '<i class="fa-solid fa-volume-xmark"></i> Muted'
-
           : '<i class="fa-solid fa-volume-high"></i> Sound';
-
       }
     );
 
+    const updateLabels=()=>{
 
-    const updateLabels =
-      () => {
+      const aim=
+        Number(
+          $('#aimControl').value
+        );
 
-        const aim =
-          Number(
-            $('#aimControl').value
-          );
+      $('#aimValue').textContent=
+        aim===0
+        ? 'Center'
+        : aim<0
+        ? 'Left'
+        : 'Right';
 
+      const h=
+        Number(
+          $('#hookControl').value
+        );
 
-        $('#aimValue').textContent =
+      $('#hookValue').textContent=
+        h===0
+        ? 'Straight'
+        : h<0
+        ? 'Left hook'
+        : 'Right hook';
 
-          aim === 0
-          ? 'Center'
+      $('#powerValue').textContent=
+        $('#powerControl').value+'%';
 
-          : aim < 0
-          ? 'Left'
-
-          : 'Right';
-
-
-        const hook =
-          Number(
-            $('#hookControl').value
-          );
-
-
-        $('#hookValue').textContent =
-
-          hook === 0
-          ? 'Straight'
-
-          : hook < 0
-          ? 'Left hook'
-
-          : 'Right hook';
-
-
-        $('#powerValue').textContent =
-
-          $('#powerControl').value +
-          '%';
-
-
-        drawLane();
-
-      };
-
+      drawReadyLane();
+    };
 
     [
       'aimControl',
       'hookControl',
       'powerControl'
     ]
-    .forEach(
-      id => {
-
-        $('#' + id)
-        .addEventListener(
-          'input',
-          updateLabels
-        );
-
-      }
+    .forEach(id=>
+      $('#'+id)
+      .addEventListener(
+        'input',
+        updateLabels
+      )
     );
-
 
     updateLabels();
 
-
     $$('.comment-btn')
     .forEach(
-      button => {
-
-        button.addEventListener(
+      b=>
+        b.addEventListener(
           'click',
-          () => {
-
-            addComment(
-              button.dataset.post
-            );
-
-          }
-        );
-
-      }
+          ()=>addComment(
+            b.dataset.post
+          )
+        )
     );
-
 
     $$('.chat-btn')
     .forEach(
-      button => {
-
-        button.addEventListener(
+      b=>
+        b.addEventListener(
           'click',
-          () => {
-
-            openMessage(
-              button.dataset.name
-            );
-
-          }
-        );
-
-      }
+          ()=>openMessage(
+            b.dataset.name
+          )
+        )
     );
-
 
     $('#saveTeamMessage')
     .addEventListener(
       'click',
-      () => {
+      ()=>{
 
-        const text =
+        const txt=
           $('#teamMessage')
           .value
           .trim();
 
-
-        if(!text){
-
+        if(!txt){
           return;
-
         }
 
-
-        const messages =
-
+        const arr=
           storeGet(
             'bs_messages',
             []
           );
 
-
-        messages.push({
-
+        arr.push({
           to:
             currentMessageName,
 
           text:
-            text.slice(
+            txt.slice(
               0,
               500
             ),
 
           time:
-            new Date()
-            .toISOString()
-
+            new Date().toISOString()
         });
 
-
         storeSet(
-
           'bs_messages',
-
-          messages.slice(
-            -30
-          )
-
+          arr.slice(-30)
         );
-
 
         $('#messageModal')
-        .classList.remove(
-          'open'
-        );
-
+        .classList.remove('open');
 
         toast(
           'Message saved locally'
         );
-
       }
     );
-
 
     $('#copyMessageBtn')
     .addEventListener(
@@ -5227,11 +3653,10 @@ document.addEventListener(
       copyContact
     );
 
-
     $('#clearMessageBtn')
     .addEventListener(
       'click',
-      () => {
+      ()=>{
 
         [
           'contactName',
@@ -5240,111 +3665,68 @@ document.addEventListener(
           'contactMessage'
         ]
         .forEach(
-          id => {
-
-            $('#' + id).value =
-              '';
-
-          }
+          id=>
+            $('#'+id).value=''
         );
 
-
-        $('#contactStatus').textContent =
-          '';
-
+        $('#contactStatus').textContent='';
       }
     );
-
 
     $('#adminLink')
     .addEventListener(
       'click',
-      () => {
+      ()=>{
 
-        $('#statGames').textContent =
-
+        $('#statGames').textContent=
           storeGet(
             'bs_games',
             0
           );
 
-
-        $('#statHigh').textContent =
-
+        $('#statHigh').textContent=
           storeGet(
             'bs_high',
             0
           );
 
-
-        $('#statConnections').textContent =
-
+        $('#statConnections').textContent=
           storeGet(
             'bs_connections',
             []
           ).length;
 
-
         $('#adminModal')
-        .classList.add(
-          'open'
-        );
-
+        .classList.add('open');
       }
     );
-
 
     $$('[data-close]')
     .forEach(
-      element => {
-
-        element.addEventListener(
+      x=>
+        x.addEventListener(
           'click',
-          () => {
-
-            $(
-              '#' +
-              element.dataset.close
-            )
-            .classList.remove(
-              'open'
-            );
-
-          }
-        );
-
-      }
+          ()=>
+            $('#'+x.dataset.close)
+            .classList.remove('open')
+        )
     );
-
 
     $$('.modal')
     .forEach(
-      modal => {
-
-        modal.addEventListener(
+      m=>
+        m.addEventListener(
           'click',
-          event => {
+          e=>{
 
-            if(
-              event.target ===
-              modal
-            ){
-
-              modal.classList.remove(
-                'open'
-              );
-
+            if(e.target===m){
+              m.classList.remove('open');
             }
-
           }
-        );
-
-      }
+        )
     );
-
   }
 );
-
 
 window.addEventListener(
   'resize',
