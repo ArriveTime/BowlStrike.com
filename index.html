@@ -401,9 +401,7 @@ Bowling News
 
 <div class="card news">
 
-<h3>
-Professional Bowlers Association
-</h3>
+<h3>Professional Bowlers Association</h3>
 
 <p>
 Professional bowling news, tournaments and tour information.
@@ -411,7 +409,7 @@ Professional bowling news, tournaments and tour information.
 
 <br>
 
-<a href="https://www.pba.com/news" target="_blank">
+<a href="https://www.pba.com/news" target="_blank" rel="noopener">
 Visit PBA News
 </a>
 
@@ -419,9 +417,7 @@ Visit PBA News
 
 <div class="card news">
 
-<h3>
-USBC Bowling News
-</h3>
+<h3>USBC Bowling News</h3>
 
 <p>
 Bowling championships, rules, events and industry information.
@@ -429,7 +425,7 @@ Bowling championships, rules, events and industry information.
 
 <br>
 
-<a href="https://bowl.com/news" target="_blank">
+<a href="https://bowl.com/news" target="_blank" rel="noopener">
 Visit Bowl.com
 </a>
 
@@ -437,9 +433,7 @@ Visit Bowl.com
 
 <div class="card news">
 
-<h3>
-BowlingDigital
-</h3>
+<h3>BowlingDigital</h3>
 
 <p>
 International bowling news and tournament coverage.
@@ -447,7 +441,7 @@ International bowling news and tournament coverage.
 
 <br>
 
-<a href="https://www.bowlingdigital.com/" target="_blank">
+<a href="https://www.bowlingdigital.com/" target="_blank" rel="noopener">
 Visit BowlingDigital
 </a>
 
@@ -527,13 +521,7 @@ STRIKE!
 <span id="aimText">Center</span>
 </label>
 
-<input
-id="aim"
-type="range"
-min="-100"
-max="100"
-value="0"
->
+<input id="aim" type="range" min="-100" max="100" value="0">
 
 </div>
 
@@ -544,13 +532,7 @@ value="0"
 <span id="hookText">Straight</span>
 </label>
 
-<input
-id="hook"
-type="range"
-min="-100"
-max="100"
-value="0"
->
+<input id="hook" type="range" min="-100" max="100" value="0">
 
 </div>
 
@@ -561,13 +543,7 @@ value="0"
 <span id="powerText">82%</span>
 </label>
 
-<input
-id="power"
-type="range"
-min="45"
-max="100"
-value="82"
->
+<input id="power" type="range" min="45" max="100" value="82">
 
 </div>
 
@@ -659,9 +635,7 @@ Bowling Pro Shop Resources
 
 <div class="card shop">
 
-<h3>
-BowlingBall.com
-</h3>
+<h3>BowlingBall.com</h3>
 
 <p>
 Bowling balls, bags, shoes and accessories.
@@ -669,10 +643,7 @@ Bowling balls, bags, shoes and accessories.
 
 <br>
 
-<a
-href="https://www.bowlingball.com"
-target="_blank"
->
+<a href="https://www.bowlingball.com" target="_blank" rel="noopener">
 Visit Store
 </a>
 
@@ -680,9 +651,7 @@ Visit Store
 
 <div class="card shop">
 
-<h3>
-Bowling.com
-</h3>
+<h3>Bowling.com</h3>
 
 <p>
 Bowling equipment, apparel, shoes and accessories.
@@ -690,10 +659,7 @@ Bowling equipment, apparel, shoes and accessories.
 
 <br>
 
-<a
-href="https://www.bowling.com"
-target="_blank"
->
+<a href="https://www.bowling.com" target="_blank" rel="noopener">
 Visit Store
 </a>
 
@@ -701,9 +667,7 @@ Visit Store
 
 <div class="card shop">
 
-<h3>
-BowlersMart
-</h3>
+<h3>BowlersMart</h3>
 
 <p>
 Bowling equipment and pro-shop products.
@@ -711,10 +675,7 @@ Bowling equipment and pro-shop products.
 
 <br>
 
-<a
-href="https://www.bowlersmart.com"
-target="_blank"
->
+<a href="https://www.bowlersmart.com" target="_blank" rel="noopener">
 Visit Store
 </a>
 
@@ -722,9 +683,7 @@ Visit Store
 
 <div class="card shop">
 
-<h3>
-Buddies Pro Shop
-</h3>
+<h3>Buddies Pro Shop</h3>
 
 <p>
 Bowling balls, accessories and equipment.
@@ -732,10 +691,7 @@ Bowling balls, accessories and equipment.
 
 <br>
 
-<a
-href="https://www.buddiesproshop.com"
-target="_blank"
->
+<a href="https://www.buddiesproshop.com" target="_blank" rel="noopener">
 Visit Store
 </a>
 
@@ -751,9 +707,7 @@ Visit Store
 
 <div class="footer-inner">
 
-<strong>
-BowlStrike.com
-</strong>
+<strong>BowlStrike.com</strong>
 
 <br><br>
 
@@ -771,9 +725,9 @@ BowlStrike.com is an independent bowling information and entertainment website. 
 
 <script>
 
-/* ========================================
+/* =========================================================
    MAP
-======================================== */
+========================================================= */
 
 let map;
 let userMarker;
@@ -803,8 +757,7 @@ attribution:"© OpenStreetMap contributors"
 }
 ).addTo(map);
 
-bowlingMarkers=
-L.layerGroup().addTo(map);
+bowlingMarkers=L.layerGroup().addTo(map);
 
 setTimeout(function(){
 map.invalidateSize();
@@ -816,26 +769,22 @@ function distanceMiles(lat1,lon1,lat2,lon2){
 
 const R=3958.8;
 
-const toRad=
-value=>value*Math.PI/180;
+const toRad=function(value){
+return value*Math.PI/180;
+};
 
-const dLat=
-toRad(lat2-lat1);
-
-const dLon=
-toRad(lon2-lon1);
+const dLat=toRad(lat2-lat1);
+const dLon=toRad(lon2-lon1);
 
 const a=
-Math.sin(dLat/2)*
-Math.sin(dLat/2)+
+Math.sin(dLat/2)*Math.sin(dLat/2)+
 Math.cos(toRad(lat1))*
 Math.cos(toRad(lat2))*
 Math.sin(dLon/2)*
 Math.sin(dLon/2);
 
 const c=
-2*
-Math.atan2(
+2*Math.atan2(
 Math.sqrt(a),
 Math.sqrt(1-a)
 );
@@ -857,8 +806,7 @@ return String(value||"")
 
 async function searchBowling(lat,lng){
 
-const status=
-document.getElementById("mapStatus");
+const status=document.getElementById("mapStatus");
 
 status.textContent=
 "Searching for bowling centers...";
@@ -896,18 +844,14 @@ for(const server of servers){
 
 try{
 
-const response=
-await fetch(
+const response=await fetch(
 server,
 {
 method:"POST",
 headers:{
-"Content-Type":
-"application/x-www-form-urlencoded;charset=UTF-8"
+"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"
 },
-body:
-"data="+
-encodeURIComponent(query)
+body:"data="+encodeURIComponent(query)
 }
 );
 
@@ -915,9 +859,7 @@ if(!response.ok){
 throw new Error("Search server unavailable");
 }
 
-data=
-await response.json();
-
+data=await response.json();
 break;
 
 }catch(error){
@@ -938,9 +880,7 @@ return;
 }
 
 const locations=[];
-
-const seen=
-new Set();
+const seen=new Set();
 
 data.elements.forEach(function(item){
 
@@ -959,8 +899,7 @@ typeof placeLng!=="number"
 return;
 }
 
-const tags=
-item.tags||{};
+const tags=item.tags||{};
 
 const name=
 tags.name||
@@ -996,12 +935,7 @@ phone:
 tags.phone||
 tags["contact:phone"]||
 "",
-website:
-tags.website||
-tags["contact:website"]||
-"",
-street:
-[
+street:[
 tags["addr:housenumber"],
 tags["addr:street"],
 tags["addr:city"],
@@ -1017,8 +951,7 @@ locations.sort(function(a,b){
 return a.miles-b.miles;
 });
 
-const bounds=
-L.latLngBounds(
+const bounds=L.latLngBounds(
 [[lat,lng]]
 );
 
@@ -1166,9 +1099,9 @@ maximumAge:300000
 
 }
 
-/* ========================================
+/* =========================================================
    BOWLING GAME
-======================================== */
+========================================================= */
 
 const canvas=
 document.getElementById("lane");
@@ -1181,6 +1114,7 @@ let canvasHeight=0;
 let pixelRatio=1;
 
 let rolling=false;
+let gameFinished=false;
 
 let frame=1;
 
@@ -1197,17 +1131,40 @@ Array(10).fill(true);
 
 let score=0;
 
+/*
+STANDARD TEN-PIN RACK
+
+Viewed down the lane from the bowler:
+
+          1
+        2   3
+      4   5   6
+    7   8   9   10
+
+The single head pin is closest to the bowler.
+The four-pin row is farthest away.
+*/
+
 const pinPositions=[
-{x:0,y:0},
-{x:-.11,y:.075},
-{x:.11,y:.075},
-{x:-.22,y:.15},
-{x:0,y:.15},
-{x:.22,y:.15},
-{x:-.33,y:.225},
-{x:-.11,y:.225},
-{x:.11,y:.225},
-{x:.33,y:.225}
+
+/* HEAD PIN — FRONT */
+{x:0,y:.225},
+
+/* SECOND ROW */
+{x:-.12,y:.15},
+{x:.12,y:.15},
+
+/* THIRD ROW */
+{x:-.24,y:.075},
+{x:0,y:.075},
+{x:.24,y:.075},
+
+/* BACK ROW */
+{x:-.36,y:0},
+{x:-.12,y:0},
+{x:.12,y:0},
+{x:.36,y:0}
+
 ];
 
 function resizeLane(){
@@ -1240,11 +1197,8 @@ pixelRatio,
 0
 );
 
-canvasWidth=
-rect.width;
-
-canvasHeight=
-rect.height;
+canvasWidth=rect.width;
+canvasHeight=rect.height;
 
 drawReadyLane();
 
@@ -1291,8 +1245,6 @@ canvasWidth,
 canvasHeight
 );
 
-/* Background */
-
 const background=
 ctx.createLinearGradient(
 0,
@@ -1311,8 +1263,7 @@ background.addColorStop(
 "#242424"
 );
 
-ctx.fillStyle=
-background;
+ctx.fillStyle=background;
 
 ctx.fillRect(
 0,
@@ -1320,8 +1271,6 @@ ctx.fillRect(
 canvasWidth,
 canvasHeight
 );
-
-/* Lane */
 
 const topY=
 canvasHeight*.07;
@@ -1358,8 +1307,7 @@ wood.addColorStop(
 "#bd7c34"
 );
 
-ctx.fillStyle=
-wood;
+ctx.fillStyle=wood;
 
 ctx.beginPath();
 
@@ -1391,10 +1339,9 @@ ctx.closePath();
 
 ctx.fill();
 
-/* Gutters */
+/* LEFT GUTTER */
 
-ctx.fillStyle=
-"#111318";
+ctx.fillStyle="#111318";
 
 ctx.beginPath();
 
@@ -1428,6 +1375,8 @@ ctx.closePath();
 
 ctx.fill();
 
+/* RIGHT GUTTER */
+
 ctx.beginPath();
 
 ctx.moveTo(
@@ -1460,12 +1409,11 @@ ctx.closePath();
 
 ctx.fill();
 
-/* Boards */
+/* LANE BOARDS */
 
 for(let i=1;i<39;i++){
 
-const fraction=
-i/39;
+const fraction=i/39;
 
 const topX=
 canvasWidth/2-
@@ -1502,7 +1450,7 @@ ctx.stroke();
 
 }
 
-/* Foul line */
+/* FOUL LINE */
 
 const foulY=
 canvasHeight*.84;
@@ -1510,9 +1458,7 @@ canvasHeight*.84;
 const foulWidth=
 laneWidthAt(foulY);
 
-ctx.strokeStyle=
-"#4d2608";
-
+ctx.strokeStyle="#4d2608";
 ctx.lineWidth=4;
 
 ctx.beginPath();
@@ -1531,7 +1477,7 @@ foulY
 
 ctx.stroke();
 
-/* Arrows */
+/* TARGET ARROWS */
 
 const arrowY=
 canvasHeight*.61;
@@ -1553,8 +1499,7 @@ value,
 arrowY
 );
 
-ctx.fillStyle=
-"#6c3811";
+ctx.fillStyle="#6c3811";
 
 ctx.beginPath();
 
@@ -1581,7 +1526,9 @@ ctx.fill();
 
 }
 
-/* PINS */
+/* =========================================================
+   DRAW BOWLING PIN
+========================================================= */
 
 function drawPin(x,y,scale){
 
@@ -1596,6 +1543,8 @@ ctx.scale(
 scale,
 scale
 );
+
+/* SHADOW */
 
 ctx.fillStyle=
 "rgba(0,0,0,.25)";
@@ -1613,6 +1562,8 @@ Math.PI*2
 );
 
 ctx.fill();
+
+/* PIN BODY */
 
 const gradient=
 ctx.createLinearGradient(
@@ -1637,12 +1588,8 @@ gradient.addColorStop(
 "#bbbbbb"
 );
 
-ctx.fillStyle=
-gradient;
-
-ctx.strokeStyle=
-"#999";
-
+ctx.fillStyle=gradient;
+ctx.strokeStyle="#999";
 ctx.lineWidth=1;
 
 ctx.beginPath();
@@ -1691,14 +1638,11 @@ ctx.bezierCurveTo(
 ctx.closePath();
 
 ctx.fill();
-
 ctx.stroke();
 
-/* red neck stripes */
+/* RED PIN STRIPES */
 
-ctx.strokeStyle=
-"#e50914";
-
+ctx.strokeStyle="#e50914";
 ctx.lineWidth=2.4;
 
 ctx.beginPath();
@@ -1729,22 +1673,43 @@ ctx.restore();
 
 }
 
+/* =========================================================
+   DRAW STANDARD TRIANGULAR PIN RACK
+========================================================= */
+
 function drawPins(){
 
-standingPins.forEach(
-function(standing,index){
+/*
+Draw the back row first and the head pin last
+so the perspective looks natural.
+*/
 
-if(!standing){
+const drawOrder=[
+6,7,8,9,
+3,4,5,
+1,2,
+0
+];
+
+drawOrder.forEach(
+function(index){
+
+if(!standingPins[index]){
 return;
 }
 
 const pin=
 pinPositions[index];
 
+/*
+Smaller Y = farther away.
+Larger Y = closer to the bowler.
+*/
+
 const rackY=
-canvasHeight*.13+
+canvasHeight*.115+
 pin.y*
-canvasHeight*.22;
+canvasHeight*.36;
 
 const p=
 lanePoint(
@@ -1752,23 +1717,33 @@ pin.x,
 rackY
 );
 
-const scale=
+/*
+Front pins are slightly larger than back pins.
+*/
+
+const perspective=
+.72+
+pin.y*.85;
+
+const baseScale=
 Math.max(
-.55,
+.58,
 canvasWidth/700
 );
 
 drawPin(
 p.x,
 p.y,
-scale
+baseScale*perspective
 );
 
 });
 
 }
 
-/* BALL */
+/* =========================================================
+   BOWLING BALL
+========================================================= */
 
 function drawBall(horizontal,y){
 
@@ -1783,6 +1758,8 @@ const size=
 (y/canvasHeight)*13;
 
 ctx.save();
+
+/* BALL SHADOW */
 
 ctx.fillStyle=
 "rgba(0,0,0,.3)";
@@ -1800,6 +1777,8 @@ Math.PI*2
 );
 
 ctx.fill();
+
+/* BALL */
 
 const gradient=
 ctx.createRadialGradient(
@@ -1826,8 +1805,7 @@ gradient.addColorStop(
 "#01274c"
 );
 
-ctx.fillStyle=
-gradient;
+ctx.fillStyle=gradient;
 
 ctx.beginPath();
 
@@ -1841,10 +1819,9 @@ Math.PI*2
 
 ctx.fill();
 
-/* Finger holes */
+/* FINGER HOLES */
 
-ctx.fillStyle=
-"#001526";
+ctx.fillStyle="#001526";
 
 ctx.beginPath();
 
@@ -1892,7 +1869,10 @@ drawLaneBase();
 
 drawPins();
 
-/* This ball is ALWAYS visible before the throw */
+/*
+Ball remains visible before every shot.
+Moving Aim also moves the starting ball.
+*/
 
 if(!rolling){
 
@@ -1905,7 +1885,9 @@ canvasHeight*.91
 
 }
 
-/* SCORECARD */
+/* =========================================================
+   SCORECARD
+========================================================= */
 
 function buildScorecard(){
 
@@ -1919,8 +1901,7 @@ for(let i=0;i<10;i++){
 const frameBox=
 document.createElement("div");
 
-frameBox.className=
-"frame";
+frameBox.className="frame";
 
 frameBox.innerHTML=
 '<div class="frame-number">'+
@@ -1958,9 +1939,7 @@ text="X";
 
 }else{
 
-if(
-rolls.length>0
-){
+if(rolls.length>0){
 
 text+=
 rolls[0]===0
@@ -1971,9 +1950,7 @@ rolls[0];
 
 }
 
-if(
-rolls.length>1
-){
+if(rolls.length>1){
 
 text+=" ";
 
@@ -2006,7 +1983,7 @@ rolls.map(
 function(value,index){
 
 if(value===10){
-return"X";
+return "X";
 }
 
 if(
@@ -2014,7 +1991,7 @@ index>0&&
 rolls[index-1]!==10&&
 rolls[index-1]+value===10
 ){
-return"/";
+return "/";
 }
 
 return value===0
@@ -2036,7 +2013,9 @@ document.getElementById(
 
 }
 
-/* STANDARD SCORING */
+/* =========================================================
+   STANDARD TEN-PIN SCORING
+========================================================= */
 
 function calculateScore(){
 
@@ -2057,9 +2036,11 @@ rolls.push(value);
 let rollIndex=0;
 let runningScore=0;
 
-for(let frameIndex=0;
+for(
+let frameIndex=0;
 frameIndex<10;
-frameIndex++){
+frameIndex++
+){
 
 const scoreBox=
 document.getElementById(
@@ -2074,7 +2055,7 @@ rollIndex>=rolls.length
 continue;
 }
 
-/* strike */
+/* STRIKE */
 
 if(
 rolls[rollIndex]===10
@@ -2099,7 +2080,7 @@ rollIndex+=1;
 
 }
 
-/* normal frame or spare */
+/* SPARE OR OPEN FRAME */
 
 else{
 
@@ -2144,8 +2125,7 @@ rollIndex+=2;
 
 }
 
-score=
-runningScore;
+score=runningScore;
 
 document.getElementById(
 "totalScore"
@@ -2154,7 +2134,9 @@ score;
 
 }
 
-/* GAME PHYSICS */
+/* =========================================================
+   GAME PHYSICS
+========================================================= */
 
 function choosePins(
 aim,
@@ -2301,9 +2283,16 @@ finish:finish
 
 }
 
+/* =========================================================
+   BALL ANIMATION
+========================================================= */
+
 function animateBall(){
 
-if(rolling){
+if(
+rolling||
+gameFinished
+){
 return;
 }
 
@@ -2315,23 +2304,17 @@ document.getElementById(
 
 const aim=
 Number(
-document.getElementById(
-"aim"
-).value
+document.getElementById("aim").value
 )/100*.72;
 
 const hook=
 Number(
-document.getElementById(
-"hook"
-).value
+document.getElementById("hook").value
 )/100;
 
 const power=
 Number(
-document.getElementById(
-"power"
-).value
+document.getElementById("power").value
 );
 
 const result=
@@ -2356,8 +2339,7 @@ function animation(now){
 const progress=
 Math.min(
 1,
-(now-startTime)/
-duration
+(now-startTime)/duration
 );
 
 const eased=
@@ -2442,6 +2424,14 @@ showGameMessage(
 "STRIKE!"
 );
 
+}else if(
+pinsDown===0
+){
+
+showGameMessage(
+"MISS"
+);
+
 }else{
 
 showGameMessage(
@@ -2461,9 +2451,13 @@ function(){
 
 rolling=false;
 
+if(!gameFinished){
+
 document.getElementById(
 "rollBall"
 ).disabled=false;
+
+}
 
 drawReadyLane();
 
@@ -2472,6 +2466,10 @@ drawReadyLane();
 );
 
 }
+
+/* =========================================================
+   SAVE ROLL / FRAME LOGIC
+========================================================= */
 
 function saveRoll(pins){
 
@@ -2483,7 +2481,7 @@ frameRolls[index];
 
 current.push(pins);
 
-/* Frames 1 through 9 */
+/* FRAMES 1 THROUGH 9 */
 
 if(frame<10){
 
@@ -2501,7 +2499,7 @@ Array(10).fill(true);
 
 }
 
-/* Tenth frame */
+/* TENTH FRAME */
 
 else{
 
@@ -2547,7 +2545,9 @@ endGame();
 
 }
 
-else if(current.length>=3){
+else if(
+current.length>=3
+){
 
 endGame();
 
@@ -2571,6 +2571,8 @@ frame,
 
 function endGame(){
 
+gameFinished=true;
+
 document.getElementById(
 "rollBall"
 ).disabled=true;
@@ -2580,6 +2582,10 @@ showGameMessage(
 );
 
 }
+
+/* =========================================================
+   RESET GAME
+========================================================= */
 
 function resetBowlingGame(){
 
@@ -2599,6 +2605,7 @@ Array(10).fill(true);
 score=0;
 
 rolling=false;
+gameFinished=false;
 
 document.getElementById(
 "frameNumber"
@@ -2629,8 +2636,7 @@ document.getElementById(
 "message"
 );
 
-element.textContent=
-text;
+element.textContent=text;
 
 element.classList.add(
 "show"
@@ -2649,9 +2655,9 @@ element.classList.remove(
 
 }
 
-/* ========================================
-   BUTTONS
-======================================== */
+/* =========================================================
+   INITIALIZE WEBSITE
+========================================================= */
 
 document.addEventListener(
 "DOMContentLoaded",
@@ -2663,12 +2669,16 @@ buildScorecard();
 
 resizeLane();
 
+/* MAP BUTTON */
+
 document.getElementById(
 "findButton"
 ).addEventListener(
 "click",
 findBowling
 );
+
+/* RESET MAP */
 
 document.getElementById(
 "resetMap"
@@ -2677,7 +2687,9 @@ document.getElementById(
 function(){
 
 if(bowlingMarkers){
+
 bowlingMarkers.clearLayers();
+
 }
 
 if(userMarker){
@@ -2705,6 +2717,8 @@ document.getElementById(
 }
 );
 
+/* ROLL BALL */
+
 document.getElementById(
 "rollBall"
 ).addEventListener(
@@ -2712,12 +2726,16 @@ document.getElementById(
 animateBall
 );
 
+/* RESET GAME */
+
 document.getElementById(
 "resetGame"
 ).addEventListener(
 "click",
 resetBowlingGame
 );
+
+/* AIM */
 
 document.getElementById(
 "aim"
@@ -2746,6 +2764,8 @@ drawReadyLane();
 }
 );
 
+/* HOOK */
+
 document.getElementById(
 "hook"
 ).addEventListener(
@@ -2771,6 +2791,8 @@ value<0
 }
 );
 
+/* POWER */
+
 document.getElementById(
 "power"
 ).addEventListener(
@@ -2789,6 +2811,10 @@ this.value+
 }
 );
 
+/* =========================================================
+   RESPONSIVE RESIZE
+========================================================= */
+
 window.addEventListener(
 "resize",
 function(){
@@ -2799,7 +2825,9 @@ if(map){
 
 setTimeout(
 function(){
+
 map.invalidateSize();
+
 },
 100
 );
